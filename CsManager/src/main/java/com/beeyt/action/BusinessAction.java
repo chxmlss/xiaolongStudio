@@ -273,6 +273,26 @@ public class BusinessAction {
 		}
 		return "redirect:/business/getGroupsInfo.do";
 	}
+	
+	/**
+	 * 删除用户分组
+	 * 
+	 * @param username
+	 * @return
+	 */
+	@RequestMapping(value = "/userDelGroup", produces = "text/html;charset=UTF-8")
+	public String userDelGroup(@RequestParam(value = "username", required = true) String username) {
+		try {
+			queryService.userDelGroup(username);
+		} catch (Exception e) {
+			if("grouped".equals(e.getMessage())){
+				return "grouped";
+			}
+			e.printStackTrace();
+			return "failed";
+		}
+		return "redirect:/business/getGroupsInfo.do";
+	}
 
 	/**
 	 * 修改用户信息 即使没有修改的元素，前台要把原有信息带过来
