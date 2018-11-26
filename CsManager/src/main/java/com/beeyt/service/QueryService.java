@@ -44,8 +44,14 @@ public class QueryService implements IQueryService {
 		if("queryUserForGroup".equals(forGroup)) {
 			sql = "select a.* from s_user a where a.id not in (select user_id from s_group_user ) and 1=1 ";
 			if (name != null && !"".equals(name)) {
-				sql += "and a.name = '" + name + "' ";
+				sql += "and a.name like '%" + name + "%' ";
 			}
+			if (group != null && !"".equals(group)) {
+				sql += "and b.group_name like '%" + group + "%' ";
+			}
+			int begin = (page - 1) * limit;
+			System.out.println(begin);
+			sql += " limit " + begin + "," + limit + "";
 		}else {
 			sql = "select a.*,b.group_name from s_user a LEFT JOIN s_group_user b on a.id=b.user_id where 1=1 ";
 			if (name != null && !"".equals(name)) {
