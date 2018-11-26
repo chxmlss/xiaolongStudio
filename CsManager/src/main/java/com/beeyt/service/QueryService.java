@@ -3,9 +3,7 @@ package com.beeyt.service;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class QueryService implements IQueryService {
@@ -109,10 +107,17 @@ public class QueryService implements IQueryService {
 
 	}
 
-	public void addGroup(String groupname, String username, String name) {
-		String sql = "insert into s_group(group_name,username,name) values('" + groupname + "','" + username + "','"
-				+ name + "')";
-		jdbcTemplate.update(sql);
+	public void addGroup(String groupname, String username) throws Exception{
+		String sql="select * from s_user where username='"+username+"'";
+		List<Map<String,Object>> list =jdbcTemplate.queryForList(sql);
+		if(list!=null&&list.size()!=0){
+			String name=(String) list.get(0).get("name");
+			String sql1 = "insert into s_group(group_name,username,name) values('" + groupname + "','" + username + "','"
+					+ name + "')";
+			jdbcTemplate.update(sql1);
+		}else{
+			throw new Exception("无此用户！");
+		}
 	}
 
 	public void delGroup(String groupid) {

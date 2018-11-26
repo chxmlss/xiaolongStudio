@@ -15,7 +15,7 @@ public interface IQueryService {
 
 	public void delUser(String username);
 
-	public void addGroup(String groupname, String username,String name);
+	public void addGroup(String groupname, String username) throws Exception; 
 
 	public void delGroup(String groupid);
 

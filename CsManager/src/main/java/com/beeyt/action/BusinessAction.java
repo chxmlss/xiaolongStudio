@@ -157,11 +157,10 @@ public class BusinessAction {
 	 * @return
 	 */
 	@RequestMapping(value = "/addGroup", produces = "text/html;charset=UTF-8")
-	@ResponseBody
 	public String addGroup(@RequestParam(value = "groupname", required = true) String groupname,
-			@RequestParam(value = "username", required = true) String username,@RequestParam(value = "name", required = true) String name) {
+			@RequestParam(value = "username", required = true) String username) {
 		try {
-			queryService.addGroup(groupname, username,name);
+			queryService.addGroup(groupname, username);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "failed";
