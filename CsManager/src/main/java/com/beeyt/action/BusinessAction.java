@@ -259,6 +259,7 @@ public class BusinessAction {
 	 * @return
 	 */
 	@RequestMapping(value = "/userToGroup", produces = "text/html;charset=UTF-8")
+	@ResponseBody
 	public String userToGroup(@RequestParam(value = "username", required = true) String username,
 			@RequestParam(value = "groupid", required = true) String groupid) {
 		try {
@@ -270,7 +271,7 @@ public class BusinessAction {
 			e.printStackTrace();
 			return "failed";
 		}
-		return "redirect:/business/getGroupsInfo.do";
+		return "succed";
 	}
 	
 	/**
