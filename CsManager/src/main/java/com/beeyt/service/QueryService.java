@@ -165,14 +165,14 @@ public class QueryService implements IQueryService {
 		String sql2 = "update s_user set filepath='" + filepath.replaceAll("\\\\", "\\\\\\\\") + "' where username='"
 				+ username + "'";
 		jdbcTemplate.update(sql2);
-//		if (oldPath != null && !"".equals(oldPath)) {
-//			// 删除文件
-//			File file = new File(oldPath);
-//			// 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
-//			if (file.exists() && file.isFile()) {
-//				file.delete();
-//			}
-//		}
+		if (oldPath != null && !"".equals(oldPath)) {
+			// 删除文件
+			File file = new File(oldPath);
+			// 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+			if (file.exists() && file.isFile()) {
+				file.delete();
+			}
+		}
 	}
 
 	@Override
