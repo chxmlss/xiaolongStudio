@@ -3,9 +3,7 @@ package com.beeyt.service;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class QueryService implements IQueryService {
@@ -41,7 +39,7 @@ public class QueryService implements IQueryService {
 
 	public List<Map<String, Object>> queryUsers(String name, String group, Integer limit, Integer page,String forGroup) {
 		String sql = "";
-		if("queryUserForGroup".equals(forGroup)) {
+		if ("queryUserForGroup".equals(forGroup)) {
 			sql = "select a.* from s_user a where a.id not in (select user_id from s_group_user ) and 1=1 ";
 			if (name != null && !"".equals(name)) {
 				sql += "and a.name like '%" + name + "%' ";
@@ -49,10 +47,13 @@ public class QueryService implements IQueryService {
 			if (group != null && !"".equals(group)) {
 				sql += "and b.group_name like '%" + group + "%' ";
 			}
+
 			int begin = (page - 1) * limit;
 			System.out.println(begin);
 			sql += " limit " + begin + "," + limit + "";
 		}else {
+
+
 			sql = "select a.*,b.group_name from s_user a LEFT JOIN s_group_user b on a.id=b.user_id where 1=1 ";
 			if (name != null && !"".equals(name)) {
 				sql += "and a.name like '%" + name + "%' ";
@@ -61,10 +62,10 @@ public class QueryService implements IQueryService {
 				sql += "and b.group_name like '%" + group + "%' ";
 			}
 			int begin = (page - 1) * limit;
-			System.out.println(begin);
+
 			sql += " limit " + begin + "," + limit + "";
 		}
-		
+
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 		return list;
 	}
@@ -114,9 +115,17 @@ public class QueryService implements IQueryService {
 
 	}
 
-	public void addGroup(String groupname, String username,String name ) {
-		String sql = "insert into s_group(group_name,username,name) values('" + groupname + "','" + username + "','"+name+"')";
-		jdbcTemplate.update(sql);
+	public void addGroup(String groupname, String username) throws Exception{
+		String sql="select * from s_user where username='"+username+"'";
+		List<Map<String,Object>> list =jdbcTemplate.queryForList(sql);
+		if(list!=null&&list.size()!=0){
+			String name=(String) list.get(0).get("name");
+			String sql1 = "insert into s_group(group_name,username,name) values('" + groupname + "','" + username + "','"
+					+ name + "')";
+			jdbcTemplate.update(sql1);
+		}else{
+			throw new Exception("无此用户！");
+		}
 	}
 
 	public void delGroup(String groupid) {
@@ -128,33 +137,32 @@ public class QueryService implements IQueryService {
 		jdbcTemplate.batchUpdate(sql, sql1, sql2);
 	}
 
-	public List<Map<String, Object>> querGroups(String groupname,Integer limit, Integer page) {
+	public List<Map<String, Object>> querGroups(String groupname, Integer limit, Integer page) {
 		String sql = "select a.*, (SELECT count(1)	FROM s_group_user WHERE group_id = a.group_id) as group_num from s_group a  where 1=1 ";
 		if (groupname != null && !"".equals(groupname)) {
 			sql += "and group_name like '%" + groupname + "%' ";
 		}
 		int begin = (page - 1) * limit;
-		System.out.println(begin);
 		sql += " limit " + begin + "," + limit + "";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 		return list;
 	}
 
 	public void userToGroup(String username, String groupid) throws Exception {
-		String sql="select count(*) from s_group where username='"+username+"'";
-		int i =jdbcTemplate.queryForObject(sql, Integer.class);
-		if(i!=0){
+		String sql = "select count(*) from s_group where username='" + username + "'";
+		int i = jdbcTemplate.queryForObject(sql, Integer.class);
+		if (i != 0) {
 			throw new Exception("grouped");
 		}
-		String sql3 = "select id  from s_user where username='"+username+"'";
+		
+		String sql3 = "select id  from s_user where username='" + username + "'";
 		List list = jdbcTemplate.queryForList(sql3);
 		Map map = (Map) list.get(0);
 		String userid = String.valueOf(map.get("id"));
-		
-		String sql4 = "select group_id,group_name from s_group where group_id ='"+groupid+"'";
+
+		String sql4 = "select group_id,group_name from s_group where group_id ='" + groupid + "'";
 		List list2 = jdbcTemplate.queryForList(sql4);
 		Map map2 = (Map) list2.get(0);
-		String group_id = String.valueOf(map2.get("group_id"));
 		String groupname = (String) map2.get("group_name");
 		String sql1 = "delete from s_group_user where user_id='" + userid + "'";
 		String sql2 = "insert into s_group_user(group_id,group_name,user_id,user_name) values(" + groupid + ",'"
@@ -164,21 +172,28 @@ public class QueryService implements IQueryService {
 	}
 
 	@Override
-	public void filePathToUser(String username, String filepath) {
+	public void filePathToUser(String username, String filepath, String realPath) {
 		String sql1 = "select * from s_user where username='" + username + "'";
 		Map<String, Object> map = jdbcTemplate.queryForMap(sql1);
-		String oldPath = (String) map.get("filepath");
+		String oldPath = realPath + (String) map.get("filepath");
 		String sql2 = "update s_user set filepath='" + filepath.replaceAll("\\\\", "\\\\\\\\") + "' where username='"
 				+ username + "'";
 		jdbcTemplate.update(sql2);
-//		if (oldPath != null && !"".equals(oldPath)) {
-//			// 删除文件
-//			File file = new File(oldPath);
-//			// 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
-//			if (file.exists() && file.isFile()) {
-//				file.delete();
-//			}
-//		}
+		if (oldPath != null && !"".equals(oldPath)) {
+			String oldHtml = oldPath.substring(oldPath.lastIndexOf("/") + 1, oldPath.lastIndexOf(".")) + ".html";
+			// 删除文件
+			File file = new File(oldPath);
+			// 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+			if (file.exists() && file.isFile()) {
+				file.delete();
+			}
+			// 删除html文件
+			File file1 = new File(oldHtml);
+			// 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+			if (file1.exists() && file1.isFile()) {
+				file1.delete();
+			}
+		}
 	}
 
 	@Override
@@ -198,7 +213,7 @@ public class QueryService implements IQueryService {
 		}
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
-    
+
 	public Integer queryGroupsSum(String groupname) {
 		String sql = "select count(*) from s_group a where 1=1 ";
 		if (groupname != null && !"".equals(groupname)) {
@@ -206,16 +221,17 @@ public class QueryService implements IQueryService {
 		}
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
+
 	@Override
 	public List checkUsername(String username) {
-		String sql = "select * from s_user where 1=1 and username='"+username+"'";
+		String sql = "select * from s_user where 1=1 and username='" + username + "'";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 		return list;
 	}
 
 	@Override
 	public String initShowImage(String username) {
-		String sql = "select filepath from s_user where 1=1 and username='"+username+"'";
+		String sql = "select filepath from s_user where 1=1 and username='" + username + "'";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 		Map map = (Map) list.get(0);
 		String filepath = String.valueOf(map.get("filepath"));
@@ -224,20 +240,23 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public String findGroupCapByUsername(String username) {
-		String sql = "select sgp.username from s_user sur inner join s_group_user sgu on sur.id = sgu.user_id " + 
-				"inner join s_group sgp on sgu.group_id = sgp.group_id where sur.username = '"+username+"'";
+		String sql = "select sgp.username from s_user sur inner join s_group_user sgu on sur.id = sgu.user_id "
+				+ "inner join s_group sgp on sgu.group_id = sgp.group_id where sur.username = '" + username + "'";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
-		if(list.size()>0) {
+		if (list.size() > 0) {
 			Map map = (Map) list.get(0);
 			String filepath = String.valueOf(map.get("username"));
 			return filepath;
-		}else {
+		} else {
 			return null;
 		}
-		
+
 	}
-
 	
-
+	public void userDelGroup(String username) throws Exception {
+		String sql1 = "delete from s_group_user where user_name='" + username + "'";
+		String sql2 = "update s_user set isgroup=0 where username=" + username + "";
+		jdbcTemplate.batchUpdate(sql1, sql2);
+	}
 
 }

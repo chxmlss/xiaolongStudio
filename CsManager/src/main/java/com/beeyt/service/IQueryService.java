@@ -15,7 +15,7 @@ public interface IQueryService {
 
 	public void delUser(String username);
 
-	public void addGroup(String groupname, String username,String name);
+	public void addGroup(String groupname, String username) throws Exception; 
 
 	public void delGroup(String groupid);
 
@@ -23,7 +23,7 @@ public interface IQueryService {
 
 	public void userToGroup(String username, String groupid) throws Exception;
 	
-	public void filePathToUser(String username,String filepath);
+	public void filePathToUser(String username,String filepath,String realPath);
 
 	public void changeUserInfo(String userid, String name, String sex, String tel, String password, String remarks);
 
@@ -36,6 +36,8 @@ public interface IQueryService {
 	public String initShowImage(String username);
 	
 	public String findGroupCapByUsername(String username);
+
+	public void userDelGroup(String username) throws Exception;
 	
 	
 }

