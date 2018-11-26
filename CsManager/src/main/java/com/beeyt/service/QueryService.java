@@ -54,7 +54,6 @@ public class QueryService implements IQueryService {
 				sql += "and b.group_name like '%" + group + "%' ";
 			}
 			int begin = (page - 1) * limit;
-			System.out.println(begin);
 			sql += " limit " + begin + "," + limit + "";
 		}
 
@@ -135,7 +134,6 @@ public class QueryService implements IQueryService {
 			sql += "and group_name like '%" + groupname + "%' ";
 		}
 		int begin = (page - 1) * limit;
-		System.out.println(begin);
 		sql += " limit " + begin + "," + limit + "";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 		return list;

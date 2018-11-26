@@ -41,7 +41,6 @@ public class LoginAction {
 			session.setAttribute("loginMsg", "您的用户名/密码不正确，请联系管理员！");
 			return "login";
 		}
-		
 	}
 	
 	@RequestMapping("/toLogin")
