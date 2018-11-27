@@ -270,7 +270,7 @@
                                                          {{/if}}
                                                    </td>
                                                    <td class="project-actions" style="text-align:center;">
-                                                        <a class="btn btn-white btn-sm" onclick="delGroupFunc('{{value.group_name}}')"><i class="fa fa-folder"></i> 删除 </a>
+                                                        <a class="btn btn-white btn-sm" onclick="delGroupFunc('{{value.username}}','{{value.group_name}}')"><i class="fa fa-folder"></i> 删除 </a>
                                                    </td>
                                                </tr>       
                                         {{/each}}
@@ -303,7 +303,7 @@
 	        						data:{"group":groupName},
 	        						async:false,
 	        						success:function(data){
-	        							console.log(data);
+	        							console.log("group="+data);
 	        							personData = data;
 	        						}
 	        					});
@@ -359,7 +359,7 @@
                 }
             });
         }
-        function delGroupFunc(groupid){
+        function delGroupFunc(username,groupname){
         	$.confirm({
                 title: '确认',
                 content: '确认删除该组成员吗?',
@@ -374,11 +374,12 @@
                 				url:"../business/userDelGroup.do",
                 				type:"post",
                 				dataType:"json",
-                				data:{"groupid":groupid},
+                				data:{"username":username,"groupname":groupname},
                 				async:false,
                 				success:function(data){
-                					var html = template('personContent', data);
-                				    $('.project-list').html(html);
+                					var html = template('personContent2', data);
+                				    $('#grouptousers').html(html);
+                				    Load();
                 				}
                 			});
                         }
@@ -463,6 +464,7 @@
 				async:false,
 				success:function(data){
 					alert("分组成功");
+					Load();
 				}
 			});
         }
