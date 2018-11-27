@@ -174,7 +174,7 @@
 				success:function(data){
 					console.log(data);
 					var groupName = data.groupname;
-					if(groupName == null){
+					if(groupName == null || groupName == 'admin'){
 						$("#groupName").hide();
 					}else{
 						$("#groupName").html(groupName+'组');

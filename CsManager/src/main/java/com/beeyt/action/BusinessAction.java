@@ -6,9 +6,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.beeyt.service.IQueryService;
 import com.google.gson.Gson;
@@ -75,9 +77,7 @@ public class BusinessAction {
 		end = end==null?showPagNum:end;
 		limit = limit==null?pageSize:limit;
 		page = page==null?1:page;	
-		
 		List<Map<String, Object>> list = queryService.queryUsers(name, group, limit, page,forGroup);
-		
 		Integer totalRecord = queryService.queryUsersSum(name, group);
 		Map resMap = new HashMap();
 		resMap.put("users", list);
@@ -130,6 +130,7 @@ public class BusinessAction {
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "remarks", required = false) String remarks) {
+		sex = "0".equals(sex)?"男":"女";
 		return queryService.addUser(name, sex, tel, username, password, remarks);
 	}
 
@@ -244,7 +245,7 @@ public class BusinessAction {
     	List list = queryService.checkUsername(username);
     	Map resMap=new HashMap();
     	
-    	if(list!=null) {
+    	if(list.size()>0) {
     		resMap.put("msg", "此账号已经存在！");
     	}else {
     		resMap.put("msg", "可以注册");
@@ -259,7 +260,6 @@ public class BusinessAction {
 	 * @return
 	 */
 	@RequestMapping(value = "/userToGroup", produces = "text/html;charset=UTF-8")
-	@ResponseBody
 	public String userToGroup(@RequestParam(value = "username", required = true) String username,
 			@RequestParam(value = "groupid", required = true) String groupid) {
 		try {
@@ -271,7 +271,7 @@ public class BusinessAction {
 			e.printStackTrace();
 			return "failed";
 		}
-		return "succed";
+		return "redirect:/business/getGroupsInfo.do";
 	}
 	
 	/**
@@ -281,9 +281,11 @@ public class BusinessAction {
 	 * @return
 	 */
 	@RequestMapping(value = "/userDelGroup", produces = "text/html;charset=UTF-8")
-	public String userDelGroup(@RequestParam(value = "username", required = true) String username) {
+	@ResponseBody
+	public String userDelGroup(@RequestParam(value = "username", required = true) String username,@RequestParam(value = "groupname", required = true) String groupname,RedirectAttributes attribute) {
 		try {
 			queryService.userDelGroup(username);
+			attribute.addFlashAttribute("group", groupname);
 		} catch (Exception e) {
 			if("grouped".equals(e.getMessage())){
 				return "grouped";
@@ -291,7 +293,7 @@ public class BusinessAction {
 			e.printStackTrace();
 			return "failed";
 		}
-		return "redirect:/business/getGroupsInfo.do";
+		return "successed";
 	}
 
 	/**
@@ -323,9 +325,9 @@ public class BusinessAction {
 	@RequestMapping("/initShowImage")
 	@ResponseBody
 	public String initShowImage(@RequestParam(value = "username", required = true) String username) {
-		String filepath = queryService.initShowImage(username);
-		Map resMap=new HashMap();
-		resMap.put("filepath", filepath);
+		List<Map<String, Object>> list = queryService.initShowImage(username);
+		Map<String, Object> resMap=new HashMap();
+		resMap.put("idAndPath", list);
 		String json = gson.toJson(resMap);
 		return json;
 	}

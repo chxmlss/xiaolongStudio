@@ -115,8 +115,8 @@ public class FileAction {
 					resultData.setPath(path);
 					resultData.setRealName(trueFileName);
 					queryService.filePathToUser(username,absolutePath,realPath);
-					
-					String showImgPath = realPath+"showImg\\"+trueFileName.substring(0,trueFileName.indexOf("."))+".html";
+					String userid = queryService.findIdByUsername(username);
+					String showImgPath = realPath+"showImg\\"+userid+".html";
 					//String showImgTest = realPath+"showImg\\test.html";
 //					File imgHtmlFile = new File(showImgPath);
 //					FileInputStream iStream = new FileInputStream(imgHtmlFile);
