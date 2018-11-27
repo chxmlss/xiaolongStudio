@@ -60,12 +60,7 @@
 								                                    <input name="groupname" class="form-control" type="text"/>
 								                                </div>
 								                            </div>
-								                            <div class="form-group">
-								                                <label class="col-sm-3 control-label">组长姓名：</label>
-								                                <div class="col-sm-8">
-								                                    <input  name="username" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error" />
-								                                </div>
-								                            </div>
+								                           
 								                            <div class="form-group">
 								                                <label class="col-sm-3 control-label">组长账户名：</label>
 								                                <div class="col-sm-8">
@@ -126,17 +121,7 @@
                                         {{/each}}
                                     </tbody>  
                                 </table>
-                                <div class="text-center">
-                               <button class="btn btn-white" type="button" onclick="preLeft();">
-                                  <i class="fa fa-chevron-left"></i>
-                               </button>
-                               {{each pages.pageIntal as page i}}
-                                    <button class="btn btn-white pageContent" id="{{page}}" onclick="curPage('{{page}}')">{{page}}</button>
-                               {{/each}} 
-                               <button class="btn btn-white" type="button" onclick="preRight('{{pages.totalPage}}');">
-                                  <i class="fa fa-chevron-right" ></i>
-                               </button>
-                            </div> 
+                               
                             </script>
                             <script type="text/javascript">
 	                            var personData;
@@ -285,17 +270,30 @@
                                                          {{/if}}
                                                    </td>
                                                    <td class="project-actions" style="text-align:center;">
-                                                        <a class="btn btn-white btn-sm" onclick="delFunc('{{value.group_name}}')"><i class="fa fa-folder"></i> 删除 </a>
+                                                        <a class="btn btn-white btn-sm" onclick="delGroupFunc('{{value.username}}','{{value.group_name}}')"><i class="fa fa-folder"></i> 删除 </a>
                                                    </td>
                                                </tr>       
                                         {{/each}}
                                     </tbody>  
                                 </table>
+                                  <div class="text-center">
+                               <button class="btn btn-white" type="button" onclick="preLeft();">
+                                  <i class="fa fa-chevron-left"></i>
+                               </button>
+                               {{each pages.pageIntal as page i}}
+                                    <button class="btn btn-white pageUserGroup" id="{{page}}" onclick="curPage('{{page}}')">{{page}}</button>
+                               {{/each}} 
+                               <button class="btn btn-white" type="button" onclick="preRight('{{pages.totalPage}}');">
+                                  <i class="fa fa-chevron-right" ></i>
+                               </button>
+                            </div> 
                             </script>
                             <script type="text/javascript">
                             var multGroupId;
+                            var gpName;
                             function searchGroupToUser(groupName,groupId) {
                             	multGroupId = groupId;	
+                            	gpName = groupName;
                            	 $('.hidden_grouptouser').show(); 
                              var personData;
 	        					$.ajax({
@@ -305,7 +303,7 @@
 	        						data:{"group":groupName},
 	        						async:false,
 	        						success:function(data){
-	        							console.log(data);
+	        							console.log("group="+data);
 	        							personData = data;
 	        						}
 	        					});
@@ -361,28 +359,59 @@
                 }
             });
         }
-       
+        function delGroupFunc(username,groupname){
+        	$.confirm({
+                title: '确认',
+                content: '确认删除该组成员吗?',
+                type: 'green',
+                icon: 'glyphicon glyphicon-question-sign',
+                buttons: {
+                    ok: {
+                        text: '确认',
+                        btnClass: 'btn-primary',
+                        action: function() {
+                        	$.ajax({
+                				url:"../business/userDelGroup.do",
+                				type:"post",
+                				dataType:"json",
+                				data:{"username":username,"groupname":groupname},
+                				async:false,
+                				success:function(data){
+                					var html = template('personContent2', data);
+                				    $('#grouptousers').html(html);
+                				    Load();
+                				}
+                			});
+                        }
+                    },
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'btn-primary'
+                    }
+                }
+            });
+        }
         function curPage(page){
-        	var firstPage = $(".btn.btn-white.pageContent").first().attr("id");
-        	var lastPage = $(".btn.btn-white.pageContent").last().attr("id");
+        	var firstPage = $(".btn.btn-white.pageUserGroup").first().attr("id");
+        	var lastPage = $(".btn.btn-white.pageUserGroup").last().attr("id");
         	var start = Number(firstPage);
         	var end = Number(lastPage);
         	$.ajax({
-				url:"../business/getGroupsInfo.do",
+				url:"../business/getUsersInfo.do",
 				type:"post",
 				dataType:"json",
-				data:{"page":page,"start":start,"end":end},
+				data:{"page":page,"start":start,"end":end,"group":gpName},
 				async:false,
 				success:function(data){
-					var html = template('personContent', data);
-				    $('.project-list').html(html);
+					var html = template('personContent2', data);
+				    $('#grouptousers').html(html);
 				    $("#"+page).addClass("active");
 				}
 			});
         }
         function preLeft(){
-        	var firstPage = $(".btn.btn-white.pageContent").first().attr("id");
-        	var lastPage = $(".btn.btn-white.pageContent").last().attr("id");
+        	var firstPage = $(".btn.btn-white.pageUserGroup").first().attr("id");
+        	var lastPage = $(".btn.btn-white.pageUserGroup").last().attr("id");
         	if(firstPage == 1){
         		return false;
         	}
@@ -390,22 +419,22 @@
         	var start = Number(firstPage)-1;
         	var end = Number(lastPage)-1;
         	$.ajax({
-				url:"../business/getGroupsInfo.do",
+				url:"../business/getUsersInfo.do",
 				type:"post",
 				dataType:"json",
-				data:{"page":page,"start":start,"end":end},
+				data:{"page":page,"start":start,"end":end,"group":gpName},
 				async:false,
 				success:function(data){
-					var html = template('personContent', data);
-				    $('.project-list').html(html);
-				    $(".btn.btn-white.pageContent").first().addClass("active");
+					var html = template('personContent2', data);
+				    $('#grouptousers').html(html);
+				    $(".btn.btn-white.pageUserGroup").first().addClass("active");
 				}
 			});
         }
         
         function preRight(totalPage){
-        	var firstPage = $(".btn.btn-white.pageContent").first().attr("id");
-        	var lastPage = $(".btn.btn-white.pageContent").last().attr("id");
+        	var firstPage = $(".btn.btn-white.pageUserGroup").first().attr("id");
+        	var lastPage = $(".btn.btn-white.pageUserGroup").last().attr("id");
         	if(lastPage == totalPage){
         		return false;
         	}
@@ -413,20 +442,20 @@
         	var start = Number(firstPage)+1;
         	var end = Number(lastPage)+1;
         	$.ajax({
-				url:"../business/getGroupsInfo.do",
+				url:"../business/getUsersInfo.do",
 				type:"post",
 				dataType:"json",
-				data:{"page":page,"start":start,"end":end},
+				data:{"page":page,"start":start,"end":end,"group":gpName},
 				async:false,
 				success:function(data){
-					var html = template('personContent', data);
-				    $('.project-list').html(html);
-				    $(".btn.btn-white.pageContent").first().addClass("active");
+					var html = template('personContent2', data);
+				    $('#grouptousers').html(html);
+				    $(".btn.btn-white.pageUserGroup").first().addClass("active");
 				}
 			});
         }
         function userToGroup(username){
-        	alert(multGroupId);
+        	//alert(multGroupId);
         	$.ajax({
 				url:"../business/userToGroup.do",
 				type:"post",
@@ -435,6 +464,7 @@
 				async:false,
 				success:function(data){
 					alert("分组成功");
+					Load();
 				}
 			});
         }

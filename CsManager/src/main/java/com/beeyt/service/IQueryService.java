@@ -33,11 +33,14 @@ public interface IQueryService {
 	
 	public List checkUsername(String username);
 	
-	public String initShowImage(String username);
+	public List<Map<String, Object>> initShowImage(String username);
 	
 	public String findGroupCapByUsername(String username);
 
 	public void userDelGroup(String username) throws Exception;
 	
+	public String findIdByUsername(String username);
+	
+	public String findGroupNameByUsername(String username);
 	
 }

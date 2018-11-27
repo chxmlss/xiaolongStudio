@@ -37,15 +37,22 @@ public class QueryService implements IQueryService {
 		}
 	}
 
-	public List<Map<String, Object>> queryUsers(String name, String group, Integer limit, Integer page,
-			String forGroup) {
+	public List<Map<String, Object>> queryUsers(String name, String group, Integer limit, Integer page,String forGroup) {
 		String sql = "";
 		if ("queryUserForGroup".equals(forGroup)) {
 			sql = "select a.* from s_user a where a.id not in (select user_id from s_group_user ) and 1=1 ";
 			if (name != null && !"".equals(name)) {
-				sql += "and a.name = '" + name + "' ";
+				sql += "and a.name like '%" + name + "%' ";
 			}
-		} else {
+			if (group != null && !"".equals(group)) {
+				sql += "and b.group_name like '%" + group + "%' ";
+			}
+
+			int begin = (page - 1) * limit;
+			sql += " limit " + begin + "," + limit + "";
+		}else {
+
+
 			sql = "select a.*,b.group_name from s_user a LEFT JOIN s_group_user b on a.id=b.user_id where 1=1 ";
 			if (name != null && !"".equals(name)) {
 				sql += "and a.name like '%" + name + "%' ";
@@ -54,6 +61,7 @@ public class QueryService implements IQueryService {
 				sql += "and b.group_name like '%" + group + "%' ";
 			}
 			int begin = (page - 1) * limit;
+
 			sql += " limit " + begin + "," + limit + "";
 		}
 
@@ -221,12 +229,11 @@ public class QueryService implements IQueryService {
 	}
 
 	@Override
-	public String initShowImage(String username) {
-		String sql = "select filepath from s_user where 1=1 and username='" + username + "'";
+	public List<Map<String, Object>> initShowImage(String username) {
+		String sql = "select id,filepath from s_user where 1=1 and username='" + username + "'";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
-		Map map = (Map) list.get(0);
-		String filepath = String.valueOf(map.get("filepath"));
-		return filepath;
+		
+		return list;
 	}
 
 	@Override
@@ -246,8 +253,26 @@ public class QueryService implements IQueryService {
 	
 	public void userDelGroup(String username) throws Exception {
 		String sql1 = "delete from s_group_user where user_name='" + username + "'";
-		String sql2 = "update s_user set isgroup=0 where username=" + username + "";
+		String sql2 = "update s_user set isgroup=0 where username='" + username + "'";
 		jdbcTemplate.batchUpdate(sql1, sql2);
+	}
+
+	@Override
+	public String findIdByUsername(String username) {
+		String sql = "select id from s_user where username='"+username+"'";
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+		Map map = (Map) list.get(0);
+		String userid = String.valueOf(map.get("id"));
+		return userid;
+	}
+
+	@Override
+	public String findGroupNameByUsername(String username) {
+		String sql = "select group_name from s_group_user where user_name='"+username+"'";
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+		Map map = (Map) list.get(0);
+		String groupName = String.valueOf(map.get("group_name"));
+		return groupName;
 	}
 
 }

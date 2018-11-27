@@ -69,6 +69,7 @@ padding-top:0 !important;
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/static/jquery.qrcode.min.js"></script>
 	<script>
 	    var filePath;
+	    var userid;
 		$(function(){
 			 $.ajax({
 			    	url:"../business/initShowImage.do",
@@ -77,13 +78,14 @@ padding-top:0 !important;
 					data:{"username":"<%=username%>"},
 					async:false,
 					success:function(data){
-						$('#img').attr('src', "../"+data.filepath);
-						filepath = data.filepath;
+						$('#img').attr('src', "../"+data.idAndPath.filepath);
+						filepath = data.idAndPath.filepath;
+						userid = data.idAndPath.id;
 					}
 			    });
 			$('#code').on('show.bs.modal',
 		        function() {
-		        var str = "http://iusm.jinmuou.com:8080/CsManager/showImg"+filepath.substring(filepath.lastIndexOf('/'),filepath.indexOf('.'))+".html";
+		        var str = "http://iusm.jinmuou.com:8080/CsManager/showImg/"+userid+".html";
 				//alert("链接地址i："+str)
 				 var qrcode= $('#code-can').qrcode(str).hide(); 
 				 var canvas=qrcode.find('canvas').get(0);
