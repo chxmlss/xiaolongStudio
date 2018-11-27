@@ -179,7 +179,7 @@ public class QueryService implements IQueryService {
 				+ username + "'";
 		jdbcTemplate.update(sql2);
 		if (oldPath != null && !"".equals(oldPath)) {
-			String oldHtml = oldPath.substring(oldPath.lastIndexOf("/") + 1, oldPath.lastIndexOf(".")) + ".html";
+			String oldHtml = realPath+"showImg\\"+oldPath.substring(oldPath.lastIndexOf("/") + 1, oldPath.lastIndexOf(".")) + ".html";
 			// 删除文件
 			File file = new File(oldPath);
 			// 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
@@ -230,7 +230,7 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public List<Map<String, Object>> initShowImage(String username) {
-		String sql = "select id,filepath from s_user where 1=1 and username='" + username + "'";
+		String sql = "select id,filepath from s_user where username='" + username + "'";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 		
 		return list;

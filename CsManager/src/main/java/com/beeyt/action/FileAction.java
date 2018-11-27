@@ -73,7 +73,8 @@ public class FileAction {
 					String realPath = request.getSession().getServletContext().getRealPath("/");
 					//String realPath = "c:\\";
 					// 自定义的文件名称
-					String trueFileName = String.valueOf(System.currentTimeMillis()) + "."+type;
+					String newfileName = String.valueOf(System.currentTimeMillis());
+					String trueFileName = newfileName + "."+type;
 					Date date = new Date();  
 					String dataDir = new SimpleDateFormat("yyyyMMdd").format(date); 
 					String perpath = realPath+"upload\\"+dataDir;
@@ -115,8 +116,14 @@ public class FileAction {
 					resultData.setPath(path);
 					resultData.setRealName(trueFileName);
 					queryService.filePathToUser(username,absolutePath,realPath);
-					String userid = queryService.findIdByUsername(username);
-					String showImgPath = realPath+"showImg\\"+userid+".html";
+//					String userid = queryService.findIdByUsername(username);
+					String showImgPath = realPath+"showImg\\"+newfileName+".html";
+					File html = new File(showImgPath);
+					//创建文件
+					if (!html.exists()) {
+						html.createNewFile();
+					}
+					
 					//String showImgTest = realPath+"showImg\\test.html";
 //					File imgHtmlFile = new File(showImgPath);
 //					FileInputStream iStream = new FileInputStream(imgHtmlFile);
