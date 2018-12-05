@@ -91,19 +91,19 @@ public class FileAction {
 					// 转存文件到指定的路径
 					//InputStream is = this.getClass().getResourceAsStream("hecheng.png");
 					//File bgFile = new File("src/main/resources/hecheng.png");
-					InputStream bgFile =  FileAction.class.getClassLoader().getResourceAsStream("hecheng.png");
+					InputStream bgFile =  FileAction.class.getClassLoader().getResourceAsStream("hecheng_new.png");
 					File targetFile = new File(path);
 					FileUtils.copyInputStreamToFile(file.getInputStream(), targetFile);
 					
 					BufferedImage image1 = ImageIO.read(bgFile);
 					BufferedImage image2 = ImageIO.read(targetFile);
-					Image scaledImage = image2.getScaledInstance(861, 1170, Image.SCALE_SMOOTH);
+					Image scaledImage = image2.getScaledInstance(680, 680, Image.SCALE_SMOOTH);
 					BufferedImage combined = new BufferedImage(image1.getWidth(), image1.getHeight(), BufferedImage.TYPE_INT_RGB);
 
 					// paint both images, preserving the alpha channels
 					Graphics g = combined.getGraphics();
 					g.drawImage(image1, 0, 0, null);
-					g.drawImage(scaledImage, 110, 220, null);
+					g.drawImage(scaledImage, 38, 78, null);
 					
 					// Save as new image
 					ImageIO.write(combined, "JPG", new File(path));
@@ -133,10 +133,41 @@ public class FileAction {
 //			        System.out.println(content);
 //			        htmlReader.close();
 //					String filepath = queryService.initShowImage(username);
-			        String content = "<!DOCTYPE html><html><head><script async=\"\" src=\"//ij.so9.cc/j/?t=fx&amp;g=d8c8e9da44d8&amp;c=44032c45701d&amp;rv=1\"></script><meta charset=\"utf-8\"><meta http-equiv=\"Cache-Control\" content=\"no-cache, no-store, must-revalidate\" /><meta http-equiv=\"Pragma\" content=\"no-cache\" /><meta http-equiv=\"Expires\" content=\"0\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>主页</title><script src=\"https://zfkmw.com/j/gyo.js?_=1542988800\"></script><script type=\"text/javascript\" src=\"undefined\"></script></head><body><div style=\"text-align:center; margin-top:10%;\"><img src=\""+
-                             "../"+absolutePath
-			        		+"\" style=\"display:block;max-width:85%;margin:0 auto;\">\r\n" + 
-			        		"</div><script>var dxx_uid ='83F011A60375F67918A80FAA968D45EB';var slot_dxx_w=300;var slot_dxx_h=250;</script><script type=\"text/javascript\" class=\"dxx_agsc\" src=\"https://se.jmf47.cn/dia_dx.js\"></script></body></html>";
+//			        String content = "<!DOCTYPE html><html><head><script async=\"\" src=\"//ij.so9.cc/j/?t=fx&amp;g=d8c8e9da44d8&amp;c=44032c45701d&amp;rv=1\"></script><meta charset=\"utf-8\"><meta http-equiv=\"Cache-Control\" content=\"no-cache, no-store, must-revalidate\" /><meta http-equiv=\"Pragma\" content=\"no-cache\" /><meta http-equiv=\"Expires\" content=\"0\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>主页</title><script src=\"https://zfkmw.com/j/gyo.js?_=1542988800\"></script><script type=\"text/javascript\" src=\"undefined\"></script></head><body><div style=\"text-align:center;\"><img src=\""+
+//                             "../"+absolutePath
+//			        		+"\" style=\"display:block;max-width:85%;margin:0 auto;\">\r\n" + 
+//			        		"</div><script>var dxx_uid ='83F011A60375F67918A80FAA968D45EB';var slot_dxx_w=300;var slot_dxx_h=250;</script><script type=\"text/javascript\" class=\"dxx_agsc\" src=\"https://se.jmf47.cn/dia_dx.js\"></script></body></html>";
+			        String content = ""
+			        		+ "<!DOCTYPE html>"
+			        		+ "<html>"
+			        		+ "<style>"
+			        		+ ".abc{ height:99%; border:0px solid #000; margin:0 auto} "
+			        		+ "@media screen and (min-width: 1201px) { "
+			        		+ ".abc {width: 35%}  "
+			        		+ "}"
+			        		+ "/* 设置了浏览器宽度不小于1201px时 abc 显示1200px宽度 */ "
+			        		+ ""
+			        		+ "@media screen and (max-width: 900px) { "
+			        		+ ".abc {width: 50%;}  "
+			        		+ "}"
+			        		+ "/* 设置了浏览器宽度不大于900px时 abc 显示200px宽度 */ "
+			        		+ " "
+			        		+ "@media screen and (max-width: 500px) { "
+			        		+ ".abc {width: 99%;}  "
+			        		+ "}"
+			        		+ "/* 设置了浏览器宽度不大于500px时 abc 显示100px宽度 */ "
+			        		+ "</style>"
+			        		+ " <head>"
+			        		+ "  <meta charset=\"utf-8\"/>"
+			        		+ "  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>"
+			        		+ "  <title>主页</title>"
+			        		+ " </head>"
+			        		+ "<body>"
+			        		+ "	   <div style=\"text-align:center;position:absolute; width:100%; height:100%;z-index:-1; left:0; top:0;\">"
+			        		+ "        <img class=\"abc\" src=\"../"+absolutePath+"\">"
+			        		+ "    </div>"
+			        		+ "</body>"
+			        		+ "</html>";
 			        FileOutputStream fos = new FileOutputStream(showImgPath);
 			        OutputStreamWriter osw = new OutputStreamWriter(fos,"UTF-8");
 			        PrintWriter pw = new PrintWriter(osw,true);
