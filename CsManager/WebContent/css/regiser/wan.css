@@ -1,0 +1,136 @@
+.top{
+	height: 10rem;
+	background: #666666;
+}
+.top .top-c{
+	width: 6rem;
+	height: 8rem;
+}
+.top .top-c .img{
+	width: 6rem;
+	height: 6rem;
+	border-radius: 100%;
+	border:3px #eee solid;
+	border-color: rgba(255,255,255,.5);
+}
+.top .top-c .img img{
+	width: 100%;
+}
+.top .top-c h3{
+	height: 2rem;
+	line-height: 2rem;
+	color: rgba(255,255,255,.8);
+	font-size: .9rem;
+	width: 100%;
+	text-align: center;
+}
+
+.wan-c {
+	width: 96%;
+	margin: 0 auto 3rem auto;
+}
+.wan-c h3{
+	height: 2rem;
+	line-height: 2.8rem;
+	font-size: .95rem;
+	padding-bottom: .5rem;
+}
+.wan-c .f-box{
+	width: 98%;
+	margin: 0 auto;
+	border-radius: 5px;
+	background: #fff;
+	padding: 0 .2rem 1rem 0;
+}
+.wan-c .f-box .f-con{
+	padding: .2rem 0;
+	width: 96%;
+	margin: 0 auto;
+	height: 2rem;
+	border-bottom: 1px #eee solid;
+}
+.wan-c .f-box .f-con label{
+	width: 5rem;
+	line-height: 2rem;
+	text-align: left;
+	font-size: .85rem;
+}
+.wan-c .f-box .f-con input{
+	border: 0;
+	outline: none;
+	line-height: 2rem;
+	text-align: right;
+	padding: 0 .8rem;
+	font-size: .85rem;
+}
+.wan-c .f-box .f-con span{
+	width: 5rem;
+	line-height: 1.8rem;
+	text-align: center;
+	background: #FFb200;
+	color: #fff;
+	font-size: .75rem;
+	border-radius: 5px;
+}
+.wan-c .f-box .f-con:last-child input{
+	text-align: left !important;
+	
+}
+
+.c-c{
+	width: 98%;
+	border-radius: 5px;
+	margin-top: 1rem;
+	background: #fff;
+	padding: 0 1rem;
+	font-size: 1rem;
+	padding: .5rem;
+}
+.c-c input{
+	width: 2rem;
+	height: 2rem;
+	margin-right: .5rem;
+}
+.c-c b{
+	margin: 0 .2rem;
+	color: #ff8200;
+	font-weight: 600;
+}
+
+.warn{
+	width: 98%;
+	margin: 0 auto;
+	padding-bottom: 5rem;
+}
+.warn h3{
+	height: 2rem;
+	line-height: 2.8rem;
+	font-size: .95rem;
+	padding-bottom: 0 !important;
+}
+.warn .warn-c{
+	width: 100%;
+	background: #fff;
+	padding: .8rem;
+	border-radius: 5px;
+}
+.p-btn{
+	position: fixed;
+	bottom: 0;
+	z-index: 999;
+	background: #fff;
+	color: #fff;
+	height: 3rem;
+	line-height: 2rem;
+	padding: .2rem 0;
+	font-size: .9rem;
+	width: 100%;
+}
+.p-btn span{
+	width: 60%;
+	line-height: 2.5rem;
+	background: #ffb200;
+	color: #fff;
+	text-align: center;
+	border-radius: 5px;
+}

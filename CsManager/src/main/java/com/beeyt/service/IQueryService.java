@@ -47,4 +47,5 @@ public interface IQueryService {
 
 	public void saveRegister(String name, String idcard, String telephone, String bank, String userid);
 	
+	public boolean checkTelephone(String telephone);
 }

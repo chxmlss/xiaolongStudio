@@ -37,8 +37,17 @@ public class RegisterAction {
 	@ResponseBody
 	public String getVerifyCode(@RequestParam(value = "telephone", required = true) String telephone) {
 		String verifyCode="";
+		JSONObject json = new JSONObject();
+		boolean flag = queryService.checkTelephone(telephone);
 		try {
-			verifyCode = SendSMS.SendSms(telephone);
+			if(!flag) {
+				verifyCode = SendSMS.SendSms(telephone);
+				json.put("status", 1);
+			}else {
+				json.put("msg", "该手机号存在");
+				json.put("status", 0);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -46,7 +55,7 @@ public class RegisterAction {
 		}
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
-		JSONObject json = new JSONObject();
+		
 		json.put("mobile", telephone);
 		json.put("verifyCode", verifyCode);
 		json.put("createTime", System.currentTimeMillis());

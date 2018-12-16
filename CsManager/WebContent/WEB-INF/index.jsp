@@ -81,10 +81,15 @@
 	                    </c:when>
 	                    <c:otherwise>
 	                        <li>
-		                        <a href="<%=request.getContextPath()%>/views/upload.jsp">
+		                        <a class="J_menuItem" href="<%=request.getContextPath()%>/views/upload.jsp">
 		                            <i class="fa fa-desktop"></i> 
 		                            <span class="nav-label">图片上传</span>
-		                            <span class="fa arrow"></span>
+		                        </a>
+	                        </li>
+	                         <li>
+		                        <a class="J_menuItem" href="<%=request.getContextPath()%>/views/geturl.jsp">
+		                            <i class="fa fa-edit"></i> 
+		                            <span class="nav-label">二维码下载</span>
 		                        </a>
 	                        </li>
 	                    </c:otherwise>

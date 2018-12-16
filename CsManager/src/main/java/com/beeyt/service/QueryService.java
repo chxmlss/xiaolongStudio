@@ -280,4 +280,14 @@ public class QueryService implements IQueryService {
 		jdbcTemplate.update(sql, new Object[] { name, idcard, telephone, bank, userid });
 	}
 
+	public boolean checkTelephone(String telephone) {
+		String sql = "select register_telephone from s_register where register_telephone="+telephone;
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+		Map map = (Map) list.get(0);
+		if(map.size()>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }
