@@ -268,4 +268,10 @@ public class QueryService implements IQueryService {
 		return groupName;
 	}
 
+	@Override
+	public List<Map<String, Object>> getBank() {
+		String sql="select * from s_bank";
+		return jdbcTemplate.queryForList(sql);
+	}
+
 }

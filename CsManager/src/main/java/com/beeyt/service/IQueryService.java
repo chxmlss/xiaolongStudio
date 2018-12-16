@@ -42,5 +42,7 @@ public interface IQueryService {
 	public String findIdByUsername(String username);
 	
 	public String findGroupNameByUsername(String username);
+
+	public List<Map<String, Object>> getBank();
 	
 }

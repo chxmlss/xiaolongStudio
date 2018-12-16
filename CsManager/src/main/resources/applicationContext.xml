@@ -49,6 +49,10 @@
 		<property name="queryService" ref="queryService" />
 	</bean>
 	
+	<bean id="userRegister" class="com.beeyt.action.RegisterAction">
+		<property name="queryService" ref="queryService" />
+	</bean>
+	
 	<!-- <bean id="namedParameterJdbcTemplate"
 		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
 		<constructor-arg ref="dataSource" />
