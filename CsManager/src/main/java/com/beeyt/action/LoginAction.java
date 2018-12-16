@@ -21,32 +21,42 @@ import com.beeyt.service.IQueryService;
 public class LoginAction {
 	@Autowired
 	public IQueryService queryService;
-	
-	@RequestMapping(value="scLogin",produces = "text/html;charset=UTF-8")
+
+	@RequestMapping(value = "scLogin", produces = "text/html;charset=UTF-8")
 	public String toLogin(@RequestParam(value = "username", required = true) String username,
-			@RequestParam(value = "password", required = true) String password,Model model) {
+			@RequestParam(value = "password", required = true) String password, Model model) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		HttpSession session = request.getSession();
-		String s_username=(String) session.getAttribute(username);
-		if(username.equals(s_username)){
+		String s_username = (String) session.getAttribute(username);
+		if (username.equals(s_username)) {
 			return "index";
 		}
-		List<Map<String, Object>> list =queryService.validateUser(username, password);
-		if(list!=null&list.size()>0){
+		List<Map<String, Object>> list = queryService.validateUser(username, password);
+		if (list != null & list.size() > 0) {
 			session.setAttribute("userid", list.get(0).get("id"));
 			session.setAttribute("username", username);
 			return "index";
-		}else{
+		} else {
 			session.setAttribute("loginMsg", "您的用户名/密码不正确，请联系管理员！");
 			return "login";
 		}
 	}
-	
+
+	@RequestMapping(value = "userRegiser", produces = "text/html;charset=UTF-8")
+	public String toLogin(@RequestParam(value = "userid", required = true) String userid) {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
+		HttpSession session = request.getSession();
+		session.setAttribute("userid", userid);
+		return "userRegiser";
+	}
+
 	@RequestMapping("/toLogin")
-    public String toLgoin() {
-    	return "login";
-    }
+	public String toLgoin() {
+		return "login";
+	}
+
 	public IQueryService getQueryService() {
 		return queryService;
 	}
