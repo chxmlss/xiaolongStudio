@@ -37,7 +37,8 @@ public class QueryService implements IQueryService {
 		}
 	}
 
-	public List<Map<String, Object>> queryUsers(String name, String group, Integer limit, Integer page,String forGroup) {
+	public List<Map<String, Object>> queryUsers(String name, String group, Integer limit, Integer page,
+			String forGroup) {
 		String sql = "";
 		if ("queryUserForGroup".equals(forGroup)) {
 			sql = "select a.* from s_user a where a.id not in (select user_id from s_group_user ) and 1=1 ";
@@ -50,8 +51,7 @@ public class QueryService implements IQueryService {
 
 			int begin = (page - 1) * limit;
 			sql += " limit " + begin + "," + limit + "";
-		}else {
-
+		} else {
 
 			sql = "select a.*,b.group_name from s_user a LEFT JOIN s_group_user b on a.id=b.user_id where 1=1 ";
 			if (name != null && !"".equals(name)) {
@@ -114,15 +114,15 @@ public class QueryService implements IQueryService {
 
 	}
 
-	public void addGroup(String groupname, String username) throws Exception{
-		String sql="select * from s_user where username='"+username+"'";
-		List<Map<String,Object>> list =jdbcTemplate.queryForList(sql);
-		if(list!=null&&list.size()!=0){
-			String name=(String) list.get(0).get("name");
-			String sql1 = "insert into s_group(group_name,username,name) values('" + groupname + "','" + username + "','"
-					+ name + "')";
+	public void addGroup(String groupname, String username) throws Exception {
+		String sql = "select * from s_user where username='" + username + "'";
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+		if (list != null && list.size() != 0) {
+			String name = (String) list.get(0).get("name");
+			String sql1 = "insert into s_group(group_name,username,name) values('" + groupname + "','" + username
+					+ "','" + name + "')";
 			jdbcTemplate.update(sql1);
-		}else{
+		} else {
 			throw new Exception("无此用户！");
 		}
 	}
@@ -153,7 +153,7 @@ public class QueryService implements IQueryService {
 		if (i != 0) {
 			throw new Exception("grouped");
 		}
-		
+
 		String sql3 = "select id  from s_user where username='" + username + "'";
 		List list = jdbcTemplate.queryForList(sql3);
 		Map map = (Map) list.get(0);
@@ -225,7 +225,7 @@ public class QueryService implements IQueryService {
 	public List<Map<String, Object>> initShowImage(String username) {
 		String sql = "select id,filepath from s_user where 1=1 and username='" + username + "'";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
-		
+
 		return list;
 	}
 
@@ -243,7 +243,7 @@ public class QueryService implements IQueryService {
 		}
 
 	}
-	
+
 	public void userDelGroup(String username) throws Exception {
 		String sql1 = "delete from s_group_user where user_name='" + username + "'";
 		String sql2 = "update s_user set isgroup=0 where username='" + username + "'";
@@ -252,7 +252,7 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public String findIdByUsername(String username) {
-		String sql = "select id from s_user where username='"+username+"'";
+		String sql = "select id from s_user where username='" + username + "'";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 		Map map = (Map) list.get(0);
 		String userid = String.valueOf(map.get("id"));
@@ -261,7 +261,7 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public String findGroupNameByUsername(String username) {
-		String sql = "select group_name from s_group_user where user_name='"+username+"'";
+		String sql = "select group_name from s_group_user where user_name='" + username + "'";
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 		Map map = (Map) list.get(0);
 		String groupName = String.valueOf(map.get("group_name"));
@@ -270,8 +270,14 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public List<Map<String, Object>> getBank() {
-		String sql="select * from s_bank";
+		String sql = "select * from s_bank";
 		return jdbcTemplate.queryForList(sql);
+	}
+
+	@Override
+	public void saveRegister(String name, String idcard, String telephone, String bank, String userid) {
+		String sql = "insert into s_register(register_name,register_idcard,register_telephone,user_id,bank_id,createDate) values(?,?,?,?,?,sysdate())";
+		jdbcTemplate.update(sql, new Object[] { name, idcard, telephone, bank, userid });
 	}
 
 }

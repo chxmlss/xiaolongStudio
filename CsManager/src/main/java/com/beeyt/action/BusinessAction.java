@@ -138,7 +138,6 @@ public class BusinessAction {
 	 * @return
 	 */
 	@RequestMapping(value = "/addUser", produces = "text/html;charset=UTF-8")
-	@ResponseBody
 	public String addUser(@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "sex", required = false) String sex,
 			@RequestParam(value = "tel", required = false) String tel,

@@ -44,5 +44,7 @@ public interface IQueryService {
 	public String findGroupNameByUsername(String username);
 
 	public List<Map<String, Object>> getBank();
+
+	public void saveRegister(String name, String idcard, String telephone, String bank, String userid);
 	
 }
