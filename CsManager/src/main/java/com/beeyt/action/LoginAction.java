@@ -51,10 +51,18 @@ public class LoginAction {
 		session.setAttribute("userid", userid);
 		return "userRegister";
 	}
-	
+
 	@RequestMapping(value = "showBank", produces = "text/html;charset=UTF-8")
 	public String showBank() {
-		return "showbank";
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
+		String userid = (String) request.getSession().getAttribute("userid");
+		System.out.println(userid);
+		if (userid != null && !"".equals(userid)) {
+			return "showBank";
+		} else {
+			return "failed";
+		}
 	}
 
 	@RequestMapping("/toLogin")
