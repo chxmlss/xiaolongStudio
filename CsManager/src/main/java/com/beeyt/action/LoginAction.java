@@ -44,12 +44,17 @@ public class LoginAction {
 	}
 
 	@RequestMapping(value = "userRegiser", produces = "text/html;charset=UTF-8")
-	public String toLogin(@RequestParam(value = "userid", required = true) String userid) {
+	public String userRegiser(@RequestParam(value = "userid", required = true) String userid) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		HttpSession session = request.getSession();
 		session.setAttribute("userid", userid);
 		return "userRegiser";
+	}
+	
+	@RequestMapping(value = "showBank", produces = "text/html;charset=UTF-8")
+	public String showBank() {
+		return "showBank";
 	}
 
 	@RequestMapping("/toLogin")

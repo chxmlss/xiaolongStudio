@@ -275,18 +275,27 @@ public class QueryService implements IQueryService {
 	}
 
 	@Override
-	public void saveRegister(String name, String idcard, String telephone, String bank, String userid) {
-		String sql = "insert into s_register(register_name,register_idcard,register_telephone,user_id,bank_id,createDate) values(?,?,?,?,?,sysdate())";
-		jdbcTemplate.update(sql, new Object[] { name, idcard, telephone,userid, bank });
+	public int saveRegister(String name, String idcard, String telephone, String userid) throws Exception {
+		String sql = "insert into s_register(register_name,register_idcard,register_telephone,user_id,createDate) values(?,?,?,?,sysdate())";
+		jdbcTemplate.update(sql, new Object[] { name, idcard, telephone, userid });
+		String sql2 = "select register_id from s_register where register_name=? and register_idcard=?";
+		int registerId = jdbcTemplate.queryForObject(sql2, Integer.class, new Object[] { name, idcard });
+		return registerId;
 	}
 
 	public boolean checkTelephone(String telephone) {
-		String sql = "select register_telephone from s_register where register_telephone="+telephone;
+		String sql = "select register_telephone from s_register where register_telephone=" + telephone;
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
-		if(list.size()>0) {
+		if (list.size() > 0) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public void updateRegister(int registerId, String bank) throws Exception {
+		String sql = "update s_register set bank_id=? where register_id=?";
+		jdbcTemplate.update(sql, new Object[] { bank, registerId });
 	}
 }

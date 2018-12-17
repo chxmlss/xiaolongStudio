@@ -70,7 +70,6 @@ public class RegisterAction {
 	public String saveRegister(@RequestParam(value = "real_name", required = true) String name,
 			@RequestParam(value = "idNo", required = true) String idcard,
 			@RequestParam(value = "mobile", required = false) String telephone,
-			@RequestParam(value = "bank", required = false) String bank,
 			@RequestParam(value = "code", required = true) String verifyCode) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
@@ -90,7 +89,27 @@ public class RegisterAction {
 			return "验证码已过期!";
 		}
 		try {
-			queryService.saveRegister(name,idcard,telephone,bank,userid);
+			int registerId=queryService.saveRegister(name,idcard,telephone,userid);
+			jsonMsg.put("status", 1);
+			request.getSession().setAttribute("registerId", registerId);
+			return jsonMsg.toJSONString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsonMsg.put("status", 0);
+			jsonMsg.put("msg", "网络繁忙");
+			return jsonMsg.toJSONString();
+		}
+	}
+	
+	@RequestMapping(value = "/updateRegister", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String updateRegister(@RequestParam(value = "bank", required = true) String bank) {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
+		JSONObject jsonMsg = new JSONObject();
+		int registerId = (Integer)request.getSession().getAttribute("registerId");
+		try {
+			queryService.updateRegister(registerId,bank);
 			jsonMsg.put("status", 1);
 			return jsonMsg.toJSONString();
 		} catch (Exception e) {

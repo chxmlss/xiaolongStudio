@@ -45,7 +45,9 @@ public interface IQueryService {
 
 	public List<Map<String, Object>> getBank();
 
-	public void saveRegister(String name, String idcard, String telephone, String bank, String userid);
+	public int saveRegister(String name, String idcard, String telephone, String userid) throws Exception;
 	
 	public boolean checkTelephone(String telephone);
+
+	public void updateRegister(int registerId, String bank) throws Exception;
 }
