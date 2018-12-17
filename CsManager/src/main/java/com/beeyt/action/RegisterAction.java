@@ -72,26 +72,26 @@ public class RegisterAction {
 	public String saveRegister(@RequestParam(value = "real_name", required = true) String name,
 			@RequestParam(value = "idNo", required = true) String idcard,
 			@RequestParam(value = "mobile", required = false) String telephone,
-			@RequestParam(value = "code", required = true) String verifyCode, HttpServletRequest request, Model model) {
+			@RequestParam(value = "code", required = false) String verifyCode, HttpServletRequest request, Model model) {
 		JSONObject json = (JSONObject) request.getSession().getAttribute("verifyCode");
 		String userid = (String) request.getSession().getAttribute("userid");
 		
-		if (json == null) {
-			model.addAttribute("msg", "验证码错误!");
-			return "userRegister";
-		}
-		if (!json.getString("mobile").equals(telephone)) {
-			model.addAttribute("msg", "手机号错误!");
-			return "userRegister";
-		}
-		if (!json.getString("verifyCode").equals(verifyCode)) {
-			model.addAttribute("msg", "验证码错误!");
-			return "userRegister";
-		}
-		if ((System.currentTimeMillis() - json.getLong("createTime")) > 1000 * 60 * 5) {// 5分钟
-			model.addAttribute("msg", "验证码已过期!");
-			return "userRegister";
-		}
+//		if (json == null) {
+//			model.addAttribute("msg", "验证码错误!");
+//			return "userRegister";
+//		}
+//		if (!json.getString("mobile").equals(telephone)) {
+//			model.addAttribute("msg", "手机号错误!");
+//			return "userRegister";
+//		}
+//		if (!json.getString("verifyCode").equals(verifyCode)) {
+//			model.addAttribute("msg", "验证码错误!");
+//			return "userRegister";
+//		}
+//		if ((System.currentTimeMillis() - json.getLong("createTime")) > 1000 * 60 * 5) {// 5分钟
+//			model.addAttribute("msg", "验证码已过期!");
+//			return "userRegister";
+//		}
 		try {
 			int registerId = queryService.saveRegister(name, idcard, telephone, userid);
 			model.addAttribute("status", 1);
