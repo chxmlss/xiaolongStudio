@@ -35,7 +35,7 @@ public class RegisterAction {
 	
 	@RequestMapping(value = "/getRegister", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String getRegisterByUser(@RequestParam(value = "userid", required = true) String userid) {
+	public String getRegisterByUser(@RequestParam(value = "userid", required = false) String userid) {
 		List<Map<String, Object>> list = queryService.getRegisterByUser(userid);
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put("register", list);

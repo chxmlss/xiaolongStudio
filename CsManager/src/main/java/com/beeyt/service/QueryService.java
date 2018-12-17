@@ -301,13 +301,19 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public List<Map<String, Object>> getRegisterByUser(String userid) {
-		String sql = "select * from s_register where user_id = ? order by createDate desc";
+		String sql="";
+		if(userid==null||"".equals(userid)) {
+			sql="select * from s_register order by createDate desc";
+		}else {
+			sql = "select * from s_register where user_id = "+userid+" order by createDate desc";
+		}
+
 		return jdbcTemplate.queryForList(sql);
 	}
 
 	@Override
 	public List<Map<String, Object>> getRegisterBank() {
-		String sql= "select t.bank_id,(select bank_name from s_bank where bank_id=t.bank_id) as bank_name ,count(1) as bank_count from s_register t group by t.bank_id";
+		String sql = "select t.bank_id,(select bank_name from s_bank where bank_id=t.bank_id) as bank_name ,count(1) as bank_count from s_register t group by t.bank_id";
 		return jdbcTemplate.queryForList(sql);
 	}
 }
