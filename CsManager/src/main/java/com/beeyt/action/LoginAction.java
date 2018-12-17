@@ -52,11 +52,6 @@ public class LoginAction {
 		return "userRegister";
 	}
 	
-	@RequestMapping(value = "showBank", produces = "text/html;charset=UTF-8")
-	public String showBank() {
-		return "showbank";
-	}
-
 	@RequestMapping("/toLogin")
 	public String toLgoin() {
 		return "login";
