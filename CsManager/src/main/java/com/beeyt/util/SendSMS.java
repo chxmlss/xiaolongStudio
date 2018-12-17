@@ -10,8 +10,8 @@ import com.zhenzi.sms.ZhenziSmsClient;
 public class SendSMS{
 	//短信平台相关参数
 	private static String apiUrl = "http://sms_developer.zhenzikj.com";
-	private static String appId = "100312";
-	private static String appSecret = "8ab6acee-87b1-4bb6-9023-8bb114c0e9a9";
+	private static String appId = "100317";
+	private static String appSecret = "43e11150-489f-4a72-b780-53a60d5c19d0";
 	/**
 	 * 短信平台使用的是榛子云短信(smsow.zhenzikj.com)
 	 */

@@ -51,6 +51,8 @@ public class RegisterAction {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
+			json.put("msg", "输入手机号有误");
+			json.put("status", 3);
 			return "fail";
 		}
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
@@ -60,20 +62,21 @@ public class RegisterAction {
 		json.put("verifyCode", verifyCode);
 		json.put("createTime", System.currentTimeMillis());
 		request.getSession().setAttribute("verifyCode", json);
-		return "success";
+		return json.toJSONString();
 	}
 	
 	@RequestMapping(value = "/saveRegister", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String saveRegister(@RequestParam(value = "name", required = true) String name,
-			@RequestParam(value = "idcard", required = true) String idcard,
-			@RequestParam(value = "telephone", required = true) String telephone,
-			@RequestParam(value = "bank", required = true) String bank,
-			@RequestParam(value = "verifyCode", required = true) String verifyCode) {
+	public String saveRegister(@RequestParam(value = "real_name", required = true) String name,
+			@RequestParam(value = "idNo", required = true) String idcard,
+			@RequestParam(value = "mobile", required = false) String telephone,
+			@RequestParam(value = "bank", required = false) String bank,
+			@RequestParam(value = "code", required = true) String verifyCode) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		JSONObject json = (JSONObject)request.getSession().getAttribute("verifyCode");
 		String userid=(String) request.getSession().getAttribute("userid");
+		JSONObject jsonMsg = new JSONObject();
 		if(json == null){
 			return "验证码错误!";
 		}
@@ -88,10 +91,13 @@ public class RegisterAction {
 		}
 		try {
 			queryService.saveRegister(name,idcard,telephone,bank,userid);
-			return "success";
+			jsonMsg.put("status", 1);
+			return jsonMsg.toJSONString();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return e.getMessage();
+			jsonMsg.put("status", 0);
+			jsonMsg.put("msg", "网络繁忙");
+			return jsonMsg.toJSONString();
 		}
 	}
 

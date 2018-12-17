@@ -277,14 +277,13 @@ public class QueryService implements IQueryService {
 	@Override
 	public void saveRegister(String name, String idcard, String telephone, String bank, String userid) {
 		String sql = "insert into s_register(register_name,register_idcard,register_telephone,user_id,bank_id,createDate) values(?,?,?,?,?,sysdate())";
-		jdbcTemplate.update(sql, new Object[] { name, idcard, telephone, bank, userid });
+		jdbcTemplate.update(sql, new Object[] { name, idcard, telephone,userid, bank });
 	}
 
 	public boolean checkTelephone(String telephone) {
 		String sql = "select register_telephone from s_register where register_telephone="+telephone;
 		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
-		Map map = (Map) list.get(0);
-		if(map.size()>0) {
+		if(list.size()>0) {
 			return true;
 		}else {
 			return false;

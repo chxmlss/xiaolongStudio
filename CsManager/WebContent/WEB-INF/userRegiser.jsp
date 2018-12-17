@@ -94,10 +94,10 @@
 			});
   		});
   		$('.p-btn').on('click','span',function(){
-  			if (!$("#check").is(':checked')){
-  				layer.msg('请认真阅读并同意条款');
-  				return;
-  			}
+  			//if (!$("#check").is(':checked')){
+  				//layer.msg('请认真阅读并同意条款');
+  				//return;
+  			//}
   			var mobile = $('#phone').val();
 			var name = $('#name').val();
 			var idcard = $('#idNo').val();
@@ -118,13 +118,14 @@
   			$.ajax({
 	          type: "POST",
 	          dataType: "json",
-	          url: '/index/index/doReg.html',
+	          url: '../register/saveRegister.do',
 	          data: $('#f').serialize(),
 	          success: function (res) {
-		             if (res.other.status ==1){
-		             	location.href = '/index/index/golink.html'
+		             if (res.status ==1){
+		            	location.replace('../register/showBank.do');
+		             	location.href = '<%=request.getContextPath()%>/views/showbank.jsp';
 		             } else {
-						layer.msg(res.other.msg);
+						layer.msg(res.msg);
 					 }
 	          },
 	          error: function(data) {
