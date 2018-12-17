@@ -43,7 +43,7 @@ public class LoginAction {
 		}
 	}
 
-	@RequestMapping(value = "userRegiser", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "userRegister", produces = "text/html;charset=UTF-8")
 	public String userRegiser(@RequestParam(value = "userid", required = true) String userid) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
