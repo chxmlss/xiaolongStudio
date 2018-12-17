@@ -32,6 +32,24 @@ public class RegisterAction {
 		resMap.put("bank", list);
 		return gson.toJson(resMap);
 	}
+	
+	@RequestMapping(value = "/getRegister", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getRegisterByUser(@RequestParam(value = "userid", required = false) String userid) {
+		List<Map<String, Object>> list = queryService.getRegisterByUser(userid);
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("register", list);
+		return gson.toJson(resMap);
+	}
+	
+	@RequestMapping(value = "/getRegisterBank", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getRegisterBank() {
+		List<Map<String, Object>> list = queryService.getRegisterBank();
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("registerBank", list);
+		return gson.toJson(resMap);
+	}
 
 	@RequestMapping(value = "/getVerifyCode", produces = "text/html;charset=UTF-8")
 	@ResponseBody

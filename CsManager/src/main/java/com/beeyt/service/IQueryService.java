@@ -50,4 +50,8 @@ public interface IQueryService {
 	public boolean checkTelephone(String telephone);
 
 	public void updateRegister(int registerId, String bank) throws Exception;
+
+	public List<Map<String, Object>> getRegisterByUser(String userid);
+
+	public List<Map<String, Object>> getRegisterBank();
 }
