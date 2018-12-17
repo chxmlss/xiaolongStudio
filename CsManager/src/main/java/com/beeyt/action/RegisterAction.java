@@ -71,9 +71,9 @@ public class RegisterAction {
 	@RequestMapping(value = "/saveRegister", produces = "text/html;charset=UTF-8")
 	public String saveRegister(@RequestParam(value = "real_name", required = true) String name,
 			@RequestParam(value = "idNo", required = true) String idcard,
-			@RequestParam(value = "mobile", required = false) String telephone,
+			@RequestParam(value = "mobile", required = true) String telephone,
 			@RequestParam(value = "code", required = false) String verifyCode, HttpServletRequest request, Model model) {
-		JSONObject json = (JSONObject) request.getSession().getAttribute("verifyCode");
+//		JSONObject json = (JSONObject) request.getSession().getAttribute("verifyCode");
 		String userid = (String) request.getSession().getAttribute("userid");
 		
 //		if (json == null) {
