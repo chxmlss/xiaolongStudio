@@ -54,7 +54,7 @@ public class LoginAction {
 	
 	@RequestMapping(value = "showBank", produces = "text/html;charset=UTF-8")
 	public String showBank() {
-		return "showBank";
+		return "showbank";
 	}
 
 	@RequestMapping("/toLogin")
