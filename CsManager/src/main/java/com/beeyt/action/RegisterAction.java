@@ -76,18 +76,18 @@ public class RegisterAction {
 		JSONObject json = (JSONObject)request.getSession().getAttribute("verifyCode");
 		String userid=(String) request.getSession().getAttribute("userid");
 		JSONObject jsonMsg = new JSONObject();
-		if(json == null){
-			return "验证码错误!";
-		}
-		if(!json.getString("mobile").equals(telephone)){
-			return "手机号错误!";
-		}
-		if(!json.getString("verifyCode").equals(verifyCode)){
-			return "验证码错误!";
-		}
-		if((System.currentTimeMillis() - json.getLong("createTime")) > 1000 * 60 * 5){//5分钟
-			return "验证码已过期!";
-		}
+//		if(json == null){
+//			return "验证码错误!";
+//		}
+//		if(!json.getString("mobile").equals(telephone)){
+//			return "手机号错误!";
+//		}
+//		if(!json.getString("verifyCode").equals(verifyCode)){
+//			return "验证码错误!";
+//		}
+//		if((System.currentTimeMillis() - json.getLong("createTime")) > 1000 * 60 * 5){//5分钟
+//			return "验证码已过期!";
+//		}
 		try {
 			int registerId=queryService.saveRegister(name,idcard,telephone,userid);
 			jsonMsg.put("status", 1);

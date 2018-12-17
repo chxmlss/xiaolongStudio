@@ -29,10 +29,12 @@
 							<label>手机号</label>
 							<input type="text" class="flex-1 box" id="phone" name="mobile" placeholder="请输入手机号码" />
 						</div>
+						<!--
 						<div class="f-con flex flex-pack-start flex-align-center">
 							<input type="text" class="flex-1 box" id="code" name="code" placeholder="请输入验证码" />
 							<span id="sendCode" onclick="send()" send="0">获取验证码</span>
 						</div>
+						-->
 					</div>
 				</form>
 				<!-- <div class="c-c flex flex-pack-start flex-align-center box">
@@ -122,8 +124,8 @@
 	          data: $('#f').serialize(),
 	          success: function (res) {
 		             if (res.status ==1){
-		            	location.replace('../register/showBank.do');
-		             	location.href = '<%=request.getContextPath()%>/views/showbank.jsp';
+		            	location.replace('../login/showBank.do');
+		             	
 		             } else {
 						layer.msg(res.msg);
 					 }

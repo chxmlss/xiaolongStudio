@@ -49,12 +49,12 @@ public class LoginAction {
 				.getRequest();
 		HttpSession session = request.getSession();
 		session.setAttribute("userid", userid);
-		return "userRegiser";
+		return "userRegister";
 	}
 	
 	@RequestMapping(value = "showBank", produces = "text/html;charset=UTF-8")
 	public String showBank() {
-		return "showBank";
+		return "showbank";
 	}
 
 	@RequestMapping("/toLogin")
