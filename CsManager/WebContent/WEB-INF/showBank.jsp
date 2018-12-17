@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
+<%
+    List<Map<String, Object>> list = (List<Map<String, Object>>)request.getAttribute("list");
+%>
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -36,10 +40,10 @@
 			<div class="banner">
 				<div class="swiper-container" id="swiper1">
 			    <div class="swiper-wrapper">
-			      	<div class="swiper-slide link"  data-src="banner_3">
+			      	<div class="swiper-slide"  data-src="banner_3">
 						<div class="swiper-lazy-preloader swiper-lazy-preloader-black"></div>
 			      </div>
-			      			    </div>
+			    </div>
 			    <!-- Add Pagination -->
 			    <div class="swiper-pagination swiper-pagination-white"></div>
 			  </div>
@@ -252,7 +256,16 @@
 				<div class="title flex flex-align-center flex-pack-justify">快速办卡
 				<!-- <div class="more">更多</div> -->
 				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_20'>
+				<%
+				    if(list!=null){
+				    	for(Map<String, Object> map :list){
+				    		Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator();
+				    		while (entries.hasNext()) {
+				    			Map.Entry<String, Object> entry = entries.next(); 
+				    			entry.getKey();
+				    			entry.getValue();
+	    		%>
+	    			<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_20'>
 					<div class="logo">
 						<img src="../bank_ico/cmb.png"/>
 					</div>
@@ -267,7 +280,27 @@
 					     <i class="fa fa-check"></i>
                      </div>
 				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_3'>
+	    		<%			
+				    		}
+				    	}
+				    }
+				%>
+				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_20'>
+					<div class="logo">
+						<img src="../bank_ico/cmb.png"/>
+					</div>
+					<div class="bank-name">
+						招商银行					
+					</div>
+					<!--<p></p> -->
+					<div class="desc">
+						高额					
+					</div>
+					 <div class="btn btn-info btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
+					     <i class="fa fa-check"></i>
+                     </div>
+				</div>
+				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_3'>
 					<div class="logo">
 						<img src="../bank_ico/ceb.png"/>
 					</div>
@@ -282,7 +315,7 @@
 					     <i class="fa fa-check"></i>
                      </div>
 				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_4'>
+				<div class="card flex flex-align-center flex-pack-center flex-warp "  data-src='bank_4'>
 					<div class="logo">
 						<img src="../bank_ico/spdb.png"/>
 					</div>
@@ -297,7 +330,7 @@
 					     <i class="fa fa-check"></i>
                      </div>
 				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_5'>
+				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_5'>
 					<div class="logo">
 						<img src="../bank_ico/bcm.png"/>
 					</div>
@@ -312,7 +345,7 @@
 					     <i class="fa fa-check"></i>
                      </div>
 				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_9'>
+				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_9'>
 					<div class="logo">
 						<img src="../bank_ico/cncb.png"/>
 					</div>
@@ -327,7 +360,7 @@
 					     <i class="fa fa-check"></i>
                      </div>
 				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_41'>
+				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_41'>
 					<div class="logo">
 						<img src="../bank_ico/360.png"/>
 					</div>
@@ -342,7 +375,7 @@
 					     <i class="fa fa-check"></i>
                      </div>
 				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_38'>
+				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_38'>
 					<div class="logo">
 						<img src="../bank_ico/diandian.png"/>
 					</div>
@@ -357,7 +390,7 @@
 					     <i class="fa fa-check"></i>
                      </div>
 				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_39'>
+				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_39'>
 					<div class="logo">
 						<img src="../bank_ico/youyidai.png"/>
 					</div>
@@ -372,7 +405,7 @@
 					     <i class="fa fa-check"></i>
                      </div>
 				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_40'>
+				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_40'>
 					<div class="logo">
 						<img src="../bank_ico/kuaidai.jpg"/>
 					</div>
@@ -483,15 +516,24 @@
 	      },
 	    });
 	    var swiper2 = new Swiper('#swiper-container2', {
-								direction: 'vertical',
-								loop: true,
-								autoplay: {
-									delay: 2000
-								},
-							});
+			direction: 'vertical',
+			loop: true,
+			autoplay: {
+				delay: 2000
+			},
+		});
 	    
 	    $(".close").on('click',function(){
 	    	$(".wan").animate({height:"0",opacity:"0"},200);
+	    });
+	    $('.asc').on('click',function(event){
+	    	if($(event.currentTarget).hasClass("btn-info")){
+	    		$(event.currentTarget).removeClass("btn-info");
+	    		$(event.currentTarget).addClass("btn-default");
+	    	}else{
+	    		$(event.currentTarget).removeClass("btn-default");
+	    		$(event.currentTarget).addClass("btn-info");
+	    	}
 	    });
 	  </script>
 	</body>

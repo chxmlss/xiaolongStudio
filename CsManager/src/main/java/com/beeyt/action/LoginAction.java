@@ -59,6 +59,8 @@ public class LoginAction {
 		String userid = (String) request.getSession().getAttribute("userid");
 		System.out.println(userid);
 		if (userid != null && !"".equals(userid)) {
+			List<Map<String, Object>> list = queryService.getBank();
+			request.getSession().setAttribute("list", list);
 			return "showBank";
 		} else {
 			return "failed";

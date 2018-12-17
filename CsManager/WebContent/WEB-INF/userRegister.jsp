@@ -123,10 +123,12 @@
 	          url: '../register/saveRegister.do',
 	          data: $('#f').serialize(),
 	          success: function (res) {
-		             console.log("userRegister:success");
+		          if(res.status == 1){
+		        	  location.replace("../login/showBank.do");
+		          }   
 	          },
 	          error: function(data) {
-		         console.log("userRegister:error");
+		        console.log("userRegister:error");
 	            layer.msg("网络错误");
 	           }
  
