@@ -270,7 +270,7 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public List<Map<String, Object>> getBank() {
-		String sql = "select * from s_bank";
+		String sql = "select * from s_bank where bank_icon is not null order by bank_order limit 9";
 		return jdbcTemplate.queryForList(sql);
 	}
 
