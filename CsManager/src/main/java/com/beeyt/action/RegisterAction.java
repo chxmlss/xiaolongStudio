@@ -24,14 +24,14 @@ public class RegisterAction {
 	public IQueryService queryService;
 	Gson gson = new GsonBuilder().serializeNulls().create();
 
-	@RequestMapping(value = "/getBank", produces = "text/html;charset=UTF-8")
-	@ResponseBody
-	public String getBank() {
-		List<Map<String, Object>> list = queryService.getBank();
-		Map<String, Object> resMap = new HashMap<String, Object>();
-		resMap.put("bank", list);
-		return gson.toJson(resMap);
-	}
+//	@RequestMapping(value = "/getBank", produces = "text/html;charset=UTF-8")
+//	@ResponseBody
+//	public String getBank() {
+//		List<Map<String, Object>> list = queryService.getBank();
+//		Map<String, Object> resMap = new HashMap<String, Object>();
+//		resMap.put("bank", list);
+//		return gson.toJson(resMap);
+//	}
 	
 	@RequestMapping(value = "/getRegister", produces = "text/html;charset=UTF-8")
 	@ResponseBody
@@ -56,6 +56,7 @@ public class RegisterAction {
 	public String getVerifyCode(@RequestParam(value = "telephone", required = true) String telephone) {
 		String verifyCode="";
 		JSONObject json = new JSONObject();
+		//TODO:待定 是否屏蔽验证手机号、手机号可以重复使用
 		boolean flag = queryService.checkTelephone(telephone);
 		try {
 			if(!flag) {

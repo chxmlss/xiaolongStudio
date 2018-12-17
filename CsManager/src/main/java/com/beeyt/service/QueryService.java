@@ -295,8 +295,11 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public void updateRegister(int registerId, String bank) throws Exception {
-		String sql = "update s_register set bank_id=? where register_id=?";
-		jdbcTemplate.update(sql, new Object[] { bank, registerId });
+		String sql="insert into s_register_bank(register_id,bank_id) values (?,?)";
+		String[] banks=bank.split(",");
+		for (int i = 0; i < banks.length; i++) {
+			jdbcTemplate.update(sql, new Object[] { registerId ,banks[i]});
+		}
 	}
 
 	@Override
