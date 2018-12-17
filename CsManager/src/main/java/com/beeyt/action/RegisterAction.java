@@ -69,9 +69,9 @@ public class RegisterAction {
 	}
 
 	@RequestMapping(value = "/saveRegister", produces = "text/html;charset=UTF-8")
-	public String saveRegister(@RequestParam(value = "real_name", required = true) String name,
-			@RequestParam(value = "idNo", required = true) String idcard,
-			@RequestParam(value = "mobile", required = true) String telephone,
+	public String saveRegister(@RequestParam(value = "real_name", required = false) String name,
+			@RequestParam(value = "idNo", required = false) String idcard,
+			@RequestParam(value = "mobile", required = false) String telephone,
 			@RequestParam(value = "code", required = false) String verifyCode, HttpServletRequest request, Model model) {
 //		JSONObject json = (JSONObject) request.getSession().getAttribute("verifyCode");
 		String userid = (String) request.getSession().getAttribute("userid");
@@ -93,9 +93,9 @@ public class RegisterAction {
 //			return "userRegister";
 //		}
 		try {
-			int registerId = queryService.saveRegister(name, idcard, telephone, userid);
-			model.addAttribute("status", 1);
-			request.getSession().setAttribute("registerId", registerId);
+//			int registerId = queryService.saveRegister(name, idcard, telephone, userid);
+//			model.addAttribute("status", 1);
+//			request.getSession().setAttribute("registerId", registerId);
 			return "showBank";
 		} catch (Exception e) {
 			e.printStackTrace();

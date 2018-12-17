@@ -126,6 +126,7 @@
 		             console.log("userRegister:success");
 	          },
 	          error: function(data) {
+		         console.log("userRegister:error");
 	            layer.msg("网络错误");
 	           }
  
@@ -181,6 +182,7 @@
 					url: '../register/getVerifyCode.do',
 					dataType: 'json',
 					method: 'post',
+					async:false,
 					data: {'telephone': mobile},
 					success: function(data) {
 						if(data.status == 1) {

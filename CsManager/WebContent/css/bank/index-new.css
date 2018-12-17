@@ -47,7 +47,8 @@ html {
   background: #fff;
   padding: 0 3% 1rem 3%;
   margin-bottom: 8px;
-  height: 1.2rem;
+/*   height: 1.2rem;  */
+  height:2rem;  
   overflow: hidden;
 }
 .kuaixun .kuaixun-left {
@@ -102,6 +103,18 @@ html {
   position: absolute;
   top: -10px;
   left: 50%;
+  width: 40px;
+  text-align: center;
+  border: 3px #fff solid;
+  color: #000;
+  background-color: #fce10a;
+  border-radius: 8px;
+}
+.asc{
+  font-size: .8rem;
+  position: absolute;
+  top: 30px;
+  left: 55%;
   width: 40px;
   text-align: center;
   border: 3px #fff solid;
