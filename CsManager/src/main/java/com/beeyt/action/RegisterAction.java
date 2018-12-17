@@ -43,25 +43,25 @@ public class RegisterAction {
 			if(!flag) {
 				verifyCode = SendSMS.SendSms(telephone);
 				json.put("status", 1);
+				HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+						.getRequest();
+				
+				json.put("mobile", telephone);
+				json.put("verifyCode", verifyCode);
+				json.put("createTime", System.currentTimeMillis());
+				request.getSession().setAttribute("verifyCode", json);
 			}else {
 				json.put("msg", "该手机号存在");
 				json.put("status", 0);
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 			json.put("msg", "输入手机号有误");
+			json.put("error", e.getMessage());
 			json.put("status", 3);
-			return "fail";
 		}
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
-				.getRequest();
 		
-		json.put("mobile", telephone);
-		json.put("verifyCode", verifyCode);
-		json.put("createTime", System.currentTimeMillis());
-		request.getSession().setAttribute("verifyCode", json);
 		return json.toJSONString();
 	}
 	

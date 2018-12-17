@@ -34,10 +34,10 @@ public class BusinessAction {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		HttpSession session = request.getSession();
-		String userid= session.getAttribute("userid")!=null?session.getAttribute("userid").toString():"";
+		String userid=session.getAttribute("userid").toString();
 		//request.setAttribute("url", "http://iusm.jinmuou.com:8080/CsManager/login/userRegiser.do?userid="+userid);
 		Map resMap=new HashMap();
-		resMap.put("url", "http://iusm.jinmuou.com:8080/CsManager/login/userRegiser.do?userid="+userid);
+		resMap.put("url", "http:// iusm.jinmuou.com:8080/CsManager/login/userRegiser.do?userid="+userid);
 		String json = gson.toJson(resMap);
 		return json;
 	}
