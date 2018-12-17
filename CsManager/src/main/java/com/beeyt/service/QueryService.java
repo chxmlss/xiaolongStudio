@@ -278,7 +278,7 @@ public class QueryService implements IQueryService {
 	public int saveRegister(String name, String idcard, String telephone, String userid) throws Exception {
 		String sql = "insert into s_register(register_name,register_idcard,register_telephone,user_id,createDate) values(?,?,?,?,sysdate())";
 		jdbcTemplate.update(sql, new Object[] { name, idcard, telephone, userid });
-		String sql2 = "select register_id from s_register where register_name=? and register_idcard=?";
+		String sql2 = "select register_id from s_register where register_name=? and register_idcard=? order by register desc limit 1";
 		int registerId = jdbcTemplate.queryForObject(sql2, Integer.class, new Object[] { name, idcard });
 		return registerId;
 	}
