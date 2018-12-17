@@ -4,11 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,21 +36,21 @@ public class RegisterAction {
 	@RequestMapping(value = "/getVerifyCode", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String getVerifyCode(@RequestParam(value = "telephone", required = true) String telephone) {
-		String verifyCode = "";
+		String verifyCode="";
 		JSONObject json = new JSONObject();
 		boolean flag = queryService.checkTelephone(telephone);
 		try {
-			if (!flag) {
+			if(!flag) {
 				verifyCode = SendSMS.SendSms(telephone);
 				json.put("status", 1);
 				HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 						.getRequest();
-
+				
 				json.put("mobile", telephone);
 				json.put("verifyCode", verifyCode);
 				json.put("createTime", System.currentTimeMillis());
 				request.getSession().setAttribute("verifyCode", json);
-			} else {
+			}else {
 				json.put("msg", "该手机号存在");
 				json.put("status", 0);
 			}
@@ -64,56 +61,57 @@ public class RegisterAction {
 			json.put("error", e.getMessage());
 			json.put("status", 3);
 		}
-
+		
 		return json.toJSONString();
 	}
-
+	
 	@RequestMapping(value = "/saveRegister", produces = "text/html;charset=UTF-8")
+	@ResponseBody
 	public String saveRegister(@RequestParam(value = "real_name", required = true) String name,
 			@RequestParam(value = "idNo", required = true) String idcard,
-			@RequestParam(value = "mobile", required = true) String telephone,
-			@RequestParam(value = "code", required = false) String verifyCode, HttpServletRequest request, Model model) {
-//		JSONObject json = (JSONObject) request.getSession().getAttribute("verifyCode");
-		String userid = (String) request.getSession().getAttribute("userid");
-		
-//		if (json == null) {
-//			model.addAttribute("msg", "验证码错误!");
-//			return "userRegister";
+			@RequestParam(value = "mobile", required = false) String telephone,
+			@RequestParam(value = "code", required = false) String verifyCode) {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
+//		JSONObject json = (JSONObject)request.getSession().getAttribute("verifyCode");
+		String userid=(String) request.getSession().getAttribute("userid");
+		JSONObject jsonMsg = new JSONObject();
+//		if(json == null){
+//			jsonMsg.put("status", 0);
+//			jsonMsg.put("msg", "验证码错误!");
 //		}
-//		if (!json.getString("mobile").equals(telephone)) {
-//			model.addAttribute("msg", "手机号错误!");
-//			return "userRegister";
+//		if(!json.getString("mobile").equals(telephone)){
+//			jsonMsg.put("status", 0);
+//			jsonMsg.put("msg", "手机号错误!");
 //		}
-//		if (!json.getString("verifyCode").equals(verifyCode)) {
-//			model.addAttribute("msg", "验证码错误!");
-//			return "userRegister";
+//		if(!json.getString("verifyCode").equals(verifyCode)){
+//			return "验证码错误!";
 //		}
-//		if ((System.currentTimeMillis() - json.getLong("createTime")) > 1000 * 60 * 5) {// 5分钟
-//			model.addAttribute("msg", "验证码已过期!");
-//			return "userRegister";
+//		if((System.currentTimeMillis() - json.getLong("createTime")) > 1000 * 60 * 5){//5分钟
+//			return "验证码已过期!";
 //		}
 		try {
-			int registerId = queryService.saveRegister(name, idcard, telephone, userid);
-			model.addAttribute("status", 1);
+			int registerId=queryService.saveRegister(name,idcard,telephone,userid);
+			jsonMsg.put("status", 1);
 			request.getSession().setAttribute("registerId", registerId);
-			return "showBank";
+			return jsonMsg.toJSONString();
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("status", 0);
-			model.addAttribute("msg", "网络繁忙");
-			return "userRegister";
+			jsonMsg.put("status", 0);
+			jsonMsg.put("msg", "网络繁忙");
+			return jsonMsg.toJSONString();
 		}
 	}
-
+	
 	@RequestMapping(value = "/updateRegister", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String updateRegister(@RequestParam(value = "bank", required = true) String bank) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		JSONObject jsonMsg = new JSONObject();
-		int registerId = (Integer) request.getSession().getAttribute("registerId");
+		int registerId = (Integer)request.getSession().getAttribute("registerId");
 		try {
-			queryService.updateRegister(registerId, bank);
+			queryService.updateRegister(registerId,bank);
 			jsonMsg.put("status", 1);
 			return jsonMsg.toJSONString();
 		} catch (Exception e) {
@@ -131,5 +129,5 @@ public class RegisterAction {
 	public void setQueryService(IQueryService queryService) {
 		this.queryService = queryService;
 	}
-
+	
 }
