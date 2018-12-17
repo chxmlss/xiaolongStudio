@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <%
-    List<Map<String, Object>> list = (List<Map<String, Object>>)request.getAttribute("list");
+    List<Map<String, Object>> list = (List<Map<String, Object>>)session.getAttribute("list");
 %>
 	<head>
 		<meta charset="UTF-8">
@@ -252,181 +252,40 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-list flex flex-pack-start flex-warp">
+			<div class="card-list flex flex-pack-start flex-warp" style="clear:both;">
 				<div class="title flex flex-align-center flex-pack-justify">快速办卡
 				<!-- <div class="more">更多</div> -->
 				</div>
 				<%
 				    if(list!=null){
-				    	for(Map<String, Object> map :list){
-				    		Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator();
-				    		while (entries.hasNext()) {
-				    			Map.Entry<String, Object> entry = entries.next(); 
-				    			entry.getKey();
-				    			entry.getValue();
+				    	for(int i=0;i<list.size();i++){
+				    		Map<String, Object> map = list.get(i);
 	    		%>
 	    			<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_20'>
 					<div class="logo">
-						<img src="../bank_ico/cmb.png"/>
+						<img src="<%=map.get("bank_icon")%>"/>
 					</div>
 					<div class="bank-name">
-						招商银行					
+						<%=map.get("bank_name")%>				
 					</div>
 					<!--<p></p> -->
 					<div class="desc">
-						高额					
+						<%=map.get("bank_describe")%>				
 					</div>
-					 <div class="btn btn-info btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
+					 <div class="btn btn-default btn-circle asc" id="<%=map.get("bank_id")%>" style="width:20px;height:20px;padding:1px 0;">
 					     <i class="fa fa-check"></i>
                      </div>
 				</div>
 	    		<%			
-				    		}
 				    	}
 				    }
 				%>
-				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_20'>
-					<div class="logo">
-						<img src="../bank_ico/cmb.png"/>
-					</div>
-					<div class="bank-name">
-						招商银行					
-					</div>
-					<!--<p></p> -->
-					<div class="desc">
-						高额					
-					</div>
-					 <div class="btn btn-info btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
-					     <i class="fa fa-check"></i>
-                     </div>
-				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_3'>
-					<div class="logo">
-						<img src="../bank_ico/ceb.png"/>
-					</div>
-					<div class="bank-name">
-						光大银行					
-					</div>
-					<!--<p>10元洗靓车，嗨购京东，满100减30元</p> -->
-					<div class="desc">
-						秒批					
-					</div>
-					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
-					     <i class="fa fa-check"></i>
-                     </div>
-				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp "  data-src='bank_4'>
-					<div class="logo">
-						<img src="../bank_ico/spdb.png"/>
-					</div>
-					<div class="bank-name">
-						浦发银行					
-					</div>
-					<!--<p>免年费，送4888刷卡金</p> -->
-					<div class="desc">
-						秒批					
-					</div>
-					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
-					     <i class="fa fa-check"></i>
-                     </div>
-				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_5'>
-					<div class="logo">
-						<img src="../bank_ico/bcm.png"/>
-					</div>
-					<div class="bank-name">
-						交通银行					
-					</div>
-					<!--<p>周五加油享5%优惠</p> -->
-					<div class="desc">
-						高额					
-					</div>
-                    <div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
-					     <i class="fa fa-check"></i>
-                     </div>
-				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_9'>
-					<div class="logo">
-						<img src="../bank_ico/cncb.png"/>
-					</div>
-					<div class="bank-name">
-						中信银行					
-					</div>
-					<!--<p></p> -->
-					<div class="desc">
-						秒批					
-					</div>
-					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
-					     <i class="fa fa-check"></i>
-                     </div>
-				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_41'>
-					<div class="logo">
-						<img src="../bank_ico/360.png"/>
-					</div>
-					<div class="bank-name">
-						360借条					
-					</div>
-					<!--<p></p> -->
-					<div class="desc">
-						秒批					
-					</div>
-					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
-					     <i class="fa fa-check"></i>
-                     </div>
-				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_38'>
-					<div class="logo">
-						<img src="../bank_ico/diandian.png"/>
-					</div>
-					<div class="bank-name">
-						点点现金贷					
-					</div>
-					<!--<p></p> -->
-					<div class="desc">
-						高额					
-					</div>
-					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
-					     <i class="fa fa-check"></i>
-                     </div>
-				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_39'>
-					<div class="logo">
-						<img src="../bank_ico/youyidai.png"/>
-					</div>
-					<div class="bank-name">
-						又一贷					
-					</div>
-					<!--<p></p> -->
-					<div class="desc">
-						高额					
-					</div>
-					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
-					     <i class="fa fa-check"></i>
-                     </div>
-				</div>
-				<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_40'>
-					<div class="logo">
-						<img src="../bank_ico/kuaidai.jpg"/>
-					</div>
-					<div class="bank-name">
-						快贷					
-					</div>
-					<!--<p></p> -->
-					<div class="desc">
-						高额					
-					</div>
-					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
-					     <i class="fa fa-check"></i>
-                     </div>
-				</div>
-			</div>
-
-			<div class="xia">
+			<!-- <div>提交</div>	 -->
+			<div class="xia" style="clear:both;">
 				<div class="title flex flex-align-center flex-pack-justify">下卡排行
 				<!-- <div class="more">更多</div> -->
 				</div>
-				<div class="list flex flex-pack-start link" data-src="bank_28">
+				<div class="list flex flex-pack-start" data-src="bank_28">
 					<div class="bank">
 						<img src="<%=request.getContextPath()%>/img/bank/creditcard/f749c0f294704d69ccae0374b26a56c6.png" />
 						<!-- <div class="bank-desc flex flex-align-center flex-pack-start">
@@ -446,7 +305,7 @@
 						<p class="tip">无抵押借款最高30万元,新户刷卡礼送1000积分。快速发卡！</p>
 					</div>
 				</div>
-				<div class="list flex flex-pack-start link" data-src="bank_19">
+				<div class="list flex flex-pack-start" data-src="bank_19">
 					<div class="bank">
 						<img src="<%=request.getContextPath()%>/img/bank/creditcard/51ff0f445ae69ec8547fbf72f7dad390.jpg" />
 						<!-- <div class="bank-desc flex flex-align-center flex-pack-start">
@@ -466,7 +325,7 @@
 						<p class="tip">每周五超市、加油乐享5%优惠,【新手5分购】达标兑缤纷好礼</p>
 					</div>
 				</div>
-				<div class="list flex flex-pack-start link" data-src="bank_16">
+				<div class="list flex flex-pack-start" data-src="bank_16">
 					<div class="bank">
 						<img src="<%=request.getContextPath()%>/img/bank/creditcard/0f34535d916e5ab14c897ab9a1a95e62.png" />
 						<!-- <div class="bank-desc flex flex-align-center flex-pack-start">
@@ -508,6 +367,7 @@
 	
 	  <!-- Initialize Swiper -->
 	  <script>
+	    var bankObj = new Array();
 	    var swiper = new Swiper('#swiper1', {
 	      lazy: true,
 	      //loop:true,
@@ -530,9 +390,23 @@
 	    	if($(event.currentTarget).hasClass("btn-info")){
 	    		$(event.currentTarget).removeClass("btn-info");
 	    		$(event.currentTarget).addClass("btn-default");
+	    		var attrValue = $(event.currentTarget).attr("id");
+	    		if(bankObj.length>0){
+	    			for(var i=0;i<bankObj.length;i++){
+	    				if(bankObj[i]==attrValue){
+	    					var index = bankObj.indexOf(attrValue);
+	    					if(index >-1){
+	    						bankObj.splice(index,1);
+	    					}
+	    				}
+	    					
+	    			}
+	    		}
 	    	}else{
 	    		$(event.currentTarget).removeClass("btn-default");
 	    		$(event.currentTarget).addClass("btn-info");
+	    		var attrValue = $(event.currentTarget).attr("id");
+	    		bankObj.push(attrValue);
 	    	}
 	    });
 	  </script>
