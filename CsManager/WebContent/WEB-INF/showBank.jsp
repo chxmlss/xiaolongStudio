@@ -8,6 +8,11 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bank/public.css" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bank/index-new.css" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bank/swiper.min.css" />
+		<link href="<%=request.getContextPath()%>/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+		<link href="<%=request.getContextPath()%>/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+		<link href="<%=request.getContextPath()%>/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+		
+		
 		<style>
 			.click_daoliu{
 				background: rgba(0,0,0,.85);
@@ -84,7 +89,7 @@
 			<div class="kuaixun flex flex-align-center flex-pack-start">
 				<div class="kuaixun-left">
 				    卡卡快讯
-				    <img src="http://xian.0k2sjm.cn/template//index/images/kuai.png" />
+				    <img src="<%=request.getContextPath()%>/img/bank/img/kuai.png" />
 				</div>
 				<div class="kuai-content flex-1">
 					<div class="swiper-container flex-1" id="swiper-container2" style="height:1.2rem">
@@ -258,6 +263,9 @@
 					<div class="desc">
 						高额					
 					</div>
+					 <div class="btn btn-info btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
+					     <i class="fa fa-check"></i>
+                     </div>
 				</div>
 				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_3'>
 					<div class="logo">
@@ -270,6 +278,9 @@
 					<div class="desc">
 						秒批					
 					</div>
+					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
+					     <i class="fa fa-check"></i>
+                     </div>
 				</div>
 				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_4'>
 					<div class="logo">
@@ -282,6 +293,9 @@
 					<div class="desc">
 						秒批					
 					</div>
+					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
+					     <i class="fa fa-check"></i>
+                     </div>
 				</div>
 				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_5'>
 					<div class="logo">
@@ -294,6 +308,9 @@
 					<div class="desc">
 						高额					
 					</div>
+                    <div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
+					     <i class="fa fa-check"></i>
+                     </div>
 				</div>
 				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_9'>
 					<div class="logo">
@@ -306,6 +323,9 @@
 					<div class="desc">
 						秒批					
 					</div>
+					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
+					     <i class="fa fa-check"></i>
+                     </div>
 				</div>
 				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_41'>
 					<div class="logo">
@@ -318,6 +338,9 @@
 					<div class="desc">
 						秒批					
 					</div>
+					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
+					     <i class="fa fa-check"></i>
+                     </div>
 				</div>
 				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_38'>
 					<div class="logo">
@@ -330,6 +353,9 @@
 					<div class="desc">
 						高额					
 					</div>
+					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
+					     <i class="fa fa-check"></i>
+                     </div>
 				</div>
 				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_39'>
 					<div class="logo">
@@ -342,6 +368,9 @@
 					<div class="desc">
 						高额					
 					</div>
+					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
+					     <i class="fa fa-check"></i>
+                     </div>
 				</div>
 				<div class="card flex flex-align-center flex-pack-center flex-warp link"  data-src='bank_40'>
 					<div class="logo">
@@ -354,6 +383,9 @@
 					<div class="desc">
 						高额					
 					</div>
+					<div class="btn btn-default btn-circle asc" style="width:20px;height:20px;padding:1px 0;">
+					     <i class="fa fa-check"></i>
+                     </div>
 				</div>
 			</div>
 

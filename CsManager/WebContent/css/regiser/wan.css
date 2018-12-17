@@ -73,7 +73,7 @@
 	border-radius: 5px;
 }
 .wan-c .f-box .f-con:last-child input{
-	text-align: left !important;
+	#text-align: left !important;
 	
 }
 
