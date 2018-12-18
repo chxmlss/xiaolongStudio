@@ -355,11 +355,11 @@ public class QueryService implements IQueryService {
 				+ "	t.name as user_name,"
 				+ "  (select count(*) from s_register t1 where t1.user_id=t.id) as register_count,"
 				+ "  (select count(*) from s_register_bank t2,s_register t3 where t2.register_id=t3.register_id and t3.user_id=t.id) as bank_count"
-				+ "FROM"
+				+ " FROM "
 				+ "	s_user t "
-				+ "LEFT JOIN s_group_user a ON t.id = a.user_id"
-				+ "where t.isgroup=1"
-				+ "order by register_count desc";
+				+ " LEFT JOIN s_group_user a ON t.id = a.user_id"
+				+ " where t.isgroup=1 "
+				+ " order by register_count desc";
 		sql += " limit " + begin + "," + limit + "";
 		return jdbcTemplate.queryForList(sql);
 	}
