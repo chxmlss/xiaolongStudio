@@ -273,7 +273,13 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public List<Map<String, Object>> getBank() {
-		String sql = "select * from s_bank where bank_icon is not null order by bank_order limit 9";
+		String sql = "select * from s_bank where bank_icon is not null and bank_effective=1 order by bank_order";
+		return jdbcTemplate.queryForList(sql);
+	}
+	
+	@Override
+	public List<Map<String, Object>> getBankInfo() {
+		String sql = "select * from s_bank order by bank_order";
 		return jdbcTemplate.queryForList(sql);
 	}
 
@@ -377,5 +383,11 @@ public class QueryService implements IQueryService {
 			sql += " and user_id = " + userid + " ";
 		}
 		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+
+	@Override
+	public void updateBankInfo(String bank_id, String bank_describe, String bank_effective) throws Exception {
+		String sql="update s_bank set bank_describe=?,bank_effective=? where bank_id=?";
+		jdbcTemplate.update(sql, new Object[] { bank_describe,bank_effective, bank_id });
 	}
 }

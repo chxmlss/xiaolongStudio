@@ -44,6 +44,8 @@ public interface IQueryService {
 	public String findGroupNameByUsername(String username);
 
 	public List<Map<String, Object>> getBank();
+	
+	public List<Map<String, Object>> getBankInfo();
 
 	public int saveRegister(String name, String idcard, String telephone, String userid) throws Exception;
 	
@@ -60,4 +62,6 @@ public interface IQueryService {
 	public Integer getGroupUserRegisterSum();
 
 	public Integer getRegisterByUserSum(String userid);
+
+	public void updateBankInfo(String bank_id, String bank_describe, String bank_effective) throws Exception;
 }
