@@ -6,6 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 public class QueryService implements IQueryService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -296,9 +299,9 @@ public class QueryService implements IQueryService {
 	@Override
 	public void updateRegister(int registerId, String bank) throws Exception {
 		String sql = "insert into s_register_bank(register_id,bank_id) values (?,?)";
-		String[] banks = bank.split(",");
-		for (int i = 0; i < banks.length; i++) {
-			jdbcTemplate.update(sql, new Object[] { registerId, banks[i] });
+		JSONArray banks=JSONObject.parseArray(bank);
+		for (int i = 0; i < banks.size(); i++) {
+			jdbcTemplate.update(sql, new Object[] { registerId, banks.get(i) });
 		}
 	}
 
