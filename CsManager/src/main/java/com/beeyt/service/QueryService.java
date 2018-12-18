@@ -306,7 +306,8 @@ public class QueryService implements IQueryService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getRegisterByUser(String userid) {
+	public List<Map<String, Object>> getRegisterByUser(String userid,Integer limit, Integer page) {
+		int begin = (page - 1) * limit;
 		String sql = "SELECT" 
 	            + "	t.register_id," 
 				+ "	t.register_name," 
@@ -331,8 +332,8 @@ public class QueryService implements IQueryService {
 		if (userid != null && !"".equals(userid)) {
 			sql += " and user_id = " + userid + " ";
 		}
-
 		sql += " ORDER BY" + "	createDate DESC" + "";
+		sql += " limit " + begin + "," + limit + "";
 
 		return jdbcTemplate.queryForList(sql);
 	}
@@ -341,5 +342,40 @@ public class QueryService implements IQueryService {
 	public List<Map<String, Object>> getRegisterBank() {
 		String sql = "select t.bank_id,(select bank_name from s_bank where bank_id=t.bank_id) as bank_name ,count(1) as bank_count from s_register_bank t GROUP BY t.bank_id order by bank_count desc";
 		return jdbcTemplate.queryForList(sql);
+	}
+
+	@Override
+	public List<Map<String, Object>> getGroupUserRegister(Integer limit, Integer page) {
+		int begin = (page - 1) * limit;
+		String sql=""
+				+ "SELECT"
+				+ "	a.group_name,"
+				+ "  (select name from s_group where group_id=a.group_id) as group_leader,"
+				+ "	t.id AS user_id,"
+				+ "	t.name as user_name,"
+				+ "  (select count(*) from s_register t1 where t1.user_id=t.id) as register_count,"
+				+ "  (select count(*) from s_register_bank t2,s_register t3 where t2.register_id=t3.register_id and t3.user_id=t.id) as bank_count"
+				+ "FROM"
+				+ "	s_user t "
+				+ "LEFT JOIN s_group_user a ON t.id = a.user_id"
+				+ "where t.isgroup=1"
+				+ "order by register_count desc";
+		sql += " limit " + begin + "," + limit + "";
+		return jdbcTemplate.queryForList(sql);
+	}
+
+	@Override
+	public Integer getGroupUserRegisterSum() {
+		String sql="SELECT COUNT(*) FROM s_user t WHERE t.isgroup = 1";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+
+	@Override
+	public Integer getRegisterByUserSum(String userid) {
+		String sql = "SELECT count(*) FROM s_register WHERE 1=1 ";
+		if (userid != null && !"".equals(userid)) {
+			sql += " and user_id = " + userid + " ";
+		}
+		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 }
