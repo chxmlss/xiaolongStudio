@@ -280,7 +280,7 @@
 				    	}
 				    }
 				%>
-			<!-- <div>提交</div>	 -->
+			 <div>提交</div>	
 			<div class="xia" style="clear:both;">
 				<div class="title flex flex-align-center flex-pack-justify">下卡排行
 				<!-- <div class="more">更多</div> -->
