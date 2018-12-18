@@ -313,7 +313,7 @@ public class QueryService implements IQueryService {
 				+ "	t.register_name," 
 	            + "	t.register_idcard,"
 				+ "	t.register_telephone," 
-	            + "	t.createDate,"
+	            + "	date_format(t.createDate, '%Y-%m-%d %H:%I:%S') as createDate,"
 				+ "	(select count(*) from s_register_bank b where b.register_id=t.register_id) as bank_count," + "	("
 				+ "		SELECT" 
 				+ "			GROUP_CONCAT(b.bank_name)" 
