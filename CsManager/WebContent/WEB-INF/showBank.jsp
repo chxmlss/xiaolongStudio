@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bank/public.css" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bank/index-new.css" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bank/swiper.min.css" />
+		<link href="<%=request.getContextPath()%>/css/regiser/wan.css?v=3.4.0" rel="stylesheet">
 		<link href="<%=request.getContextPath()%>/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
 		<link href="<%=request.getContextPath()%>/css/style.min862f.css?v=4.1.0" rel="stylesheet">
 		<link href="<%=request.getContextPath()%>/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
@@ -261,7 +262,7 @@
 				    	for(int i=0;i<list.size();i++){
 				    		Map<String, Object> map = list.get(i);
 	    		%>
-	    			<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_20'>
+	    		<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_20'>
 					<div class="logo">
 						<img src="<%=map.get("bank_icon")%>"/>
 					</div>
@@ -280,7 +281,10 @@
 				    	}
 				    }
 				%>
-			<!-- <div>提交</div>	 -->
+			</div>	
+			<div class="p-btn flex flex-pack-center flex-align-center" style="position:static;">
+				<span>提交</span>
+			</div>
 			<div class="xia" style="clear:both;">
 				<div class="title flex flex-align-center flex-pack-justify">下卡排行
 				<!-- <div class="more">更多</div> -->
@@ -345,25 +349,26 @@
 						<p class="tip">中信首张IC芯片卡,2小时最高1000元航班延误险</p>
 					</div>
 				</div>
-							</div>
+			</div>
 			<div class="bottom-nav flex flex-pack-start" style="display: none;">
-				<div class="bottom-list flex flex-pack-center flex-align-center flex-warp banka on">
-					<i class="bottom-list-icon"></i>
-					<p>我要办卡</p>
-				</div>
-				<div class="bottom-list flex flex-pack-center flex-align-center flex-warp daikuan">
-					<i class="bottom-list-icon"></i>
-					<p>我要贷款</p>
-				</div>
-				<div class="bottom-list flex flex-pack-center flex-align-center flex-warp center">
-					<i class="bottom-list-icon"></i>
-					<p>个人中心</p>
-				</div>
+			<div class="bottom-list flex flex-pack-center flex-align-center flex-warp banka on">
+				<i class="bottom-list-icon"></i>
+				<p>我要办卡</p>
+			</div>
+			<div class="bottom-list flex flex-pack-center flex-align-center flex-warp daikuan">
+				<i class="bottom-list-icon"></i>
+				<p>我要贷款</p>
+			</div>
+			<div class="bottom-list flex flex-pack-center flex-align-center flex-warp center">
+				<i class="bottom-list-icon"></i>
+				<p>个人中心</p>
 			</div>
 		</div>
-	  <script src="http://xian.0k2sjm.cn/template//index/js/jquery.min.js"></script>
-	  <script src="http://xian.0k2sjm.cn/template//index/js/swiper.min.js"></script>
-	  <script src="http://xian.0k2sjm.cn/template//index/js/common.js"></script>
+		</div>
+	  <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
+	  <script src="<%=request.getContextPath()%>/js/bank/swiper.min.js"></script>
+	  <script src="<%=request.getContextPath()%>/js/bank/common.js"></script>
+	  <script src="<%=request.getContextPath()%>/js/plugins/layer/layer.min.js"></script>
 	
 	  <!-- Initialize Swiper -->
 	  <script>
@@ -408,6 +413,25 @@
 	    		var attrValue = $(event.currentTarget).attr("id");
 	    		bankObj.push(attrValue);
 	    	}
+	    });
+	    $('.p-btn').on('click','span',function(){
+	    	var jsonString = JSON.stringify(bankObj);
+	    	$.ajax({
+				url: '../register/updateRegister.do',
+				dataType: 'json',
+				method: 'post',
+				 cache: false,
+				async:false,
+				data: {'bank':jsonString},
+				success: function(data) {
+					if(data.status == 1) {
+						  location.replace("../login/showBank.do");
+					}
+				},
+				error: function(xhr) {
+					layer.msg('网络错误');
+				}
+	    	 });	
 	    });
 	  </script>
 	</body>
