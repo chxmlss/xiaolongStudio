@@ -295,28 +295,34 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public void updateRegister(int registerId, String bank) throws Exception {
-		String sql="insert into s_register_bank(register_id,bank_id) values (?,?)";
-		String[] banks=bank.split(",");
+		String sql = "insert into s_register_bank(register_id,bank_id) values (?,?)";
+		String[] banks = bank.split(",");
 		for (int i = 0; i < banks.length; i++) {
-			jdbcTemplate.update(sql, new Object[] { registerId ,banks[i]});
+			jdbcTemplate.update(sql, new Object[] { registerId, banks[i] });
 		}
 	}
 
 	@Override
 	public List<Map<String, Object>> getRegisterByUser(String userid) {
-		String sql="";
-		if(userid==null||"".equals(userid)) {
-			sql="select * from s_register order by createDate desc";
-		}else {
-			sql = "select * from s_register where user_id = "+userid+" order by createDate desc";
+		String sql = "SELECT" + "	t.register_id," + "	t.register_name," + "	t.register_idcard,"
+				+ "	t.register_telephone," + "	t.createDate,"
+				+ "	(select count(*) from s_register_bank b where b.register_id=t.register_id) as bank_count," + "	("
+				+ "		SELECT" + "			GROUP_CONCAT(b.bank_name)" + "		FROM" + "			s_register_bank a,"
+				+ "			s_bank b" + "		WHERE" + "			a.bank_id = b.bank_id"
+				+ "		AND a.register_id = t.register_id" + "		GROUP BY" + "			a.register_id"
+				+ "	) AS register_bank" + "FROM" + "	s_register t" + "WHERE 1=1 ";
+		if (userid != null && !"".equals(userid)) {
+			sql += " and	user_id = " + userid + " ";
 		}
+
+		sql += " ORDER BY" + "	createDate DESC" + "";
 
 		return jdbcTemplate.queryForList(sql);
 	}
 
 	@Override
 	public List<Map<String, Object>> getRegisterBank() {
-		String sql = "select t.bank_id,(select bank_name from s_bank where bank_id=t.bank_id) as bank_name ,count(1) as bank_count from s_register t group by t.bank_id";
+		String sql = "select t.bank_id,(select bank_name from s_bank where bank_id=t.bank_id) as bank_name ,count(1) as bank_count from s_register_bank t GROUP BY t.bank_id order by bank_count desc";
 		return jdbcTemplate.queryForList(sql);
 	}
 }
