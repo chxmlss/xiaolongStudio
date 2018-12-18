@@ -35,13 +35,99 @@ public class RegisterAction {
 //		return gson.toJson(resMap);
 //	}
 
+	@RequestMapping(value = "/getGroupUserRegister", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getGroupUserRegister(@RequestParam(value = "limit", required = false) Integer limit,
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "start", required = false) Integer start,
+			@RequestParam(value = "end", required = false) Integer end) {
+		int pageSize = 5;
+		int totalPage = 10;
+		int showPagNum = 5;
+		start = start == null ? 1 : start;
+		end = end == null ? showPagNum : end;
+		limit = limit == null ? pageSize : limit;
+		page = page == null ? 1 : page;
+		List<Map<String, Object>> list = queryService.getGroupUserRegister(limit, page);
+		Integer totalRecord = queryService.getGroupUserRegisterSum();
+
+		Map resMap = new HashMap();
+		resMap.put("registerGroupUsers", list);
+
+		Map pageInfo = new HashMap();
+		pageInfo.put("limit", limit);
+		pageInfo.put("page", page);
+
+		if (totalRecord % pageSize == 0) {
+			// 说明整除，正好每页显示pageSize条数据，没有多余一页要显示少于pageSize条数据的
+			totalPage = totalRecord / pageSize;
+		} else {
+			// 不整除，就要在加一页，来显示多余的数据。
+			totalPage = totalRecord / pageSize + 1;
+		}
+		if (totalPage <= end) {
+			end = totalPage;
+		}
+		int[] pageIntalArr = new int[end - start + 1];
+		for (int i = start; i <= end; i++) {
+			pageIntalArr[i - start] = i;
+		}
+		pageInfo.put("pageIntal", pageIntalArr);
+		pageInfo.put("totalPage", totalPage);
+		pageInfo.put("start", start);
+		pageInfo.put("end", end);
+
+		resMap.put("pages", pageInfo);
+		String json = gson.toJson(resMap);
+		return json;
+	}
+
 	@RequestMapping(value = "/getRegister", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String getRegisterByUser(@RequestParam(value = "userid", required = false) String userid) {
-		List<Map<String, Object>> list = queryService.getRegisterByUser(userid);
-		Map<String, Object> resMap = new HashMap<String, Object>();
-		resMap.put("register", list);
-		return gson.toJson(resMap);
+	public String getRegisterByUser(@RequestParam(value = "userid", required = false) String userid,
+			@RequestParam(value = "limit", required = false) Integer limit,
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "start", required = false) Integer start,
+			@RequestParam(value = "end", required = false) Integer end) {
+		int pageSize = 5;
+		int totalPage = 10;
+		int showPagNum = 5;
+		start = start == null ? 1 : start;
+		end = end == null ? showPagNum : end;
+		limit = limit == null ? pageSize : limit;
+		page = page == null ? 1 : page;
+		List<Map<String, Object>> list = queryService.getRegisterByUser(userid,limit,page);
+		Integer totalRecord = queryService.getRegisterByUserSum(userid);
+
+		Map resMap = new HashMap();
+		resMap.put("registers", list);
+
+		Map pageInfo = new HashMap();
+		pageInfo.put("limit", limit);
+		pageInfo.put("page", page);
+
+		if (totalRecord % pageSize == 0) {
+			// 说明整除，正好每页显示pageSize条数据，没有多余一页要显示少于pageSize条数据的
+			totalPage = totalRecord / pageSize;
+		} else {
+			// 不整除，就要在加一页，来显示多余的数据。
+			totalPage = totalRecord / pageSize + 1;
+		}
+		if (totalPage <= end) {
+			end = totalPage;
+		}
+		int[] pageIntalArr = new int[end - start + 1];
+		for (int i = start; i <= end; i++) {
+			pageIntalArr[i - start] = i;
+		}
+		pageInfo.put("pageIntal", pageIntalArr);
+		pageInfo.put("totalPage", totalPage);
+		pageInfo.put("start", start);
+		pageInfo.put("end", end);
+
+		resMap.put("pages", pageInfo);
+		String json = gson.toJson(resMap);
+		return json;
 	}
 
 	@RequestMapping(value = "/getRegisterBank", produces = "text/html;charset=UTF-8")
@@ -142,15 +228,18 @@ public class RegisterAction {
 			return jsonMsg.toJSONString();
 		}
 	}
+
 	@RequestMapping(value = "/successBank", produces = "text/html;charset=UTF-8")
-	public String successBank(){
+	public String successBank() {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
-		String userid = request.getSession().getAttribute("userid")!=null?request.getSession().getAttribute("userid").toString():"";
-		if(!"".equals(userid)){
+		String userid = request.getSession().getAttribute("userid") != null
+				? request.getSession().getAttribute("userid").toString()
+				: "";
+		if (!"".equals(userid)) {
 			return "successBank";
 		}
-		return "userRegister";		
+		return "userRegister";
 	}
 
 	public IQueryService getQueryService() {

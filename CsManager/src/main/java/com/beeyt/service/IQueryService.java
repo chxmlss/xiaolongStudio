@@ -51,7 +51,13 @@ public interface IQueryService {
 
 	public void updateRegister(int registerId, String bank) throws Exception;
 
-	public List<Map<String, Object>> getRegisterByUser(String userid);
+	public List<Map<String, Object>> getRegisterByUser(String userid,Integer limit, Integer page);
 
 	public List<Map<String, Object>> getRegisterBank();
+
+	public List<Map<String, Object>> getGroupUserRegister(Integer limit, Integer page);
+
+	public Integer getGroupUserRegisterSum();
+
+	public Integer getRegisterByUserSum(String userid);
 }
