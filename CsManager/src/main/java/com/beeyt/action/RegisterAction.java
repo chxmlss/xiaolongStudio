@@ -26,14 +26,32 @@ public class RegisterAction {
 	public IQueryService queryService;
 	Gson gson = new GsonBuilder().serializeNulls().create();
 
-//	@RequestMapping(value = "/getBank", produces = "text/html;charset=UTF-8")
-//	@ResponseBody
-//	public String getBank() {
-//		List<Map<String, Object>> list = queryService.getBank();
-//		Map<String, Object> resMap = new HashMap<String, Object>();
-//		resMap.put("bank", list);
-//		return gson.toJson(resMap);
-//	}
+	@RequestMapping(value = "/getBankInfo", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getBankInfo() {
+		List<Map<String, Object>> list = queryService.getBankInfo();
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("banks", list);
+		return gson.toJson(resMap);
+	}
+	
+	@RequestMapping(value = "/updateBankInfo", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String updateBankInfo(@RequestParam(value = "bank_id", required = true) String bank_id,
+			@RequestParam(value = "bank_describe", required = true) String bank_describe,
+//			@RequestParam(value = "bank_order", required = true) String bank_order,
+			@RequestParam(value = "bank_effective", required = true) String bank_effective) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		try {
+			queryService.updateBankInfo(bank_id,bank_describe,bank_effective);
+			resMap.put("status", 1);
+		} catch (Exception e) {
+			resMap.put("status", 0);
+			resMap.put("msg", e.getMessage());
+			e.printStackTrace();
+		}
+		return gson.toJson(resMap);
+	}
 
 	@RequestMapping(value = "/getGroupUserRegister", produces = "text/html;charset=UTF-8")
 	@ResponseBody
