@@ -23,7 +23,7 @@
     <script src="<%=request.getContextPath()%>/js/jquery.min.js?v=2.1.4"></script>
     <script src="<%=request.getContextPath()%>/js/template.js"></script>
     <style>
-        .hidden_grouptouser{
+        .hidden_countcard{
             display:none;
         }
     </style>
@@ -35,52 +35,7 @@
             <div class="col-sm-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>所有组</h5>
-                         <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#addModal" class="btn btn-primary btn-xs">增加分组</a>
-                            <div class="modal inmodal" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
-		                          <div class="modal-dialog">
-		                                <div class="modal-content animated bounceInRight">
-		                                    <div class="modal-header">
-		                                        <div class="ibox float-e-margins">
-								                    <div class="ibox-title">
-								                        <h5>增加分组</h5>
-								                        <div class="ibox-tools">
-								                            <a data-dismiss="modal">
-								                                <i class="fa fa-times fa-2x"></i>
-								                            </a>
-								                        </div>
-								                    </div>
-								                    <div class="ibox-content">
-								                        <form id="addForm" class="form-horizontal m-t" id="signupForm" method="post" action="">
-								                            <input type="hidden" name="remarks" id="remarks"/>
-								                            <div class="form-group">
-								                                <label class="col-sm-3 control-label">组名：</label>
-								                                <div class="col-sm-8">
-								                                    <input name="groupname" class="form-control" type="text"/>
-								                                </div>
-								                            </div>
-								                           
-								                            <div class="form-group">
-								                                <label class="col-sm-3 control-label">组长账户名：</label>
-								                                <div class="col-sm-8">
-								                                   <input  name="name" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error" />
-								                                </div>
-								                            </div>
-								                            <div class="form-group">
-								                                <div class="col-sm-8 col-sm-offset-3">
-								                                    <button class="btn btn-primary" id="addSubmit">提交</button>
-								                                </div>
-								                            </div>
-								                        </form>
-								                    </div>
-								                </div>
-		                                    </div>
-		                                </div>
-		                            </div>
-		
-		                        </div>
-                        </div>
+                        <h5>业务统计</h5>
                     </div>
                     <div class="ibox-content">
                         <div class="row m-b-sm m-t-sm">
@@ -89,236 +44,157 @@
                             </div>
                         </div>
 
-                        <div class="project-list">
-                            <script id="personContent" type="text/html">
+                        <div class="project-list" id="countRegisterAndCard">
+                            <script id="businessContent" type="text/html">
                                 <table class="table table-hover">
                                     <tbody>
                                         <tr>
                                             <th class="project-status" style="text-align:center;">小组名称</th>
                                             <th class="project-title" style="text-align:center;">组长姓名</th>
-                                            <th class="project-title" style="text-align:center;">组长账号</th>
-                                            <th class="project-completion" style="text-align:center;">组员数量</th>
-                                            <th class="project-actions" style="text-align:center;">业务操作</th>
+                                            <th class="project-title" style="text-align:center;">组员姓名</th>
+                                            <th class="project-completion" style="text-align:center;">注册人数</th>
+                                            <th class="project-title" style="text-align:center;">办卡数量</th>
                                         </tr>
-                                        {{each groups as value i}}
-                                               <tr onclick="searchGroupToUser('{{value.group_name}}','{{value.group_id}}');">
+                                        {{each registerGroupUsers as value i}}
+                                               <tr onclick="searchCardNum('{{value.user_id}}');">
                                                    <td class="project-status" style="text-align:center;">
                                                         {{value.group_name}}                                                
                                                    </td>
                                                    <td class="project-title" style="text-align:center;">
-                                                        {{value.name}}                                                   
+                                                        {{value.group_leader}}                                                   
                                                    </td>
                                                    <td class="project-completion" style="text-align:center;">
-                                                        {{value.username}}
+                                                        {{value.user_name}}
                                                    </td>
                                                    <td class="project-completion" style="text-align:center;">
-                                                        {{value.group_num}}
+                                                        {{value.register_count}}
                                                    </td>
-                                                   <td class="project-actions" style="text-align:center;">
-                                                        <a class="btn btn-white btn-sm" onclick="delFunc('{{value.group_id}}')"><i class="fa fa-folder"></i> 删除 </a>
+                                                   <td class="project-title" style="text-align:center;">
+                                                        {{value.bank_count}}
                                                    </td>
                                                </tr>       
                                         {{/each}}
                                     </tbody>  
                                 </table>
-                               
+                                <div class="text-center">
+                                    <div class="btn-group">
+                                        <button class="btn btn-white" type="button" onclick="preLeft();">
+                                            <i class="fa fa-chevron-left"></i>
+                                        </button>
+                                        {{each pages.pageIntal as page i}}
+                                            <button class="btn btn-white pageContent" id="{{page}}" onclick="curPage('{{page}}')">{{page}}</button>
+                                        {{/each}} 
+                                        <button class="btn btn-white" type="button" onclick="preRight('{{pages.totalPage}}');">
+                                            <i class="fa fa-chevron-right" ></i>
+                                         </button>
+                                    </div>
+                                </div> 
                             </script>
                             <script type="text/javascript">
-	                            var personData;
+	                            var businessData;
 	        					$.ajax({
-	        						url:"../business/getGroupsInfo.do",
+	        						url:"../register/getGroupUserRegister.do",
 	        						type:"post",
 	        						dataType:"json",
 	        						async:false,
 	        						success:function(data){
-	        							console.log(data);
-	        							personData = data;
+	        							//console.log(data);
+	        							businessData = data;
 	        						}
 	        					});
-	        					var html = template('personContent', personData);
-	        				    $('.project-list').html(html);
+	        					var html = template('businessContent', businessData);
+	        				    $('#countRegisterAndCard').html(html);
 						     </script> 
-                            </div>
                         </div>
-                        </div>
-                    </div>
+                     </div>
                 </div>
             </div>
-            
-            <div class="row hidden_grouptouser">
+        </div>
+        <div class="row hidden_countcard">
             <div class="col-sm-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>组下属所有员工</h5>
-                         <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#addModal2" class="btn btn-primary btn-xs">增加组成员</a>
-                            <div class="modal inmodal" id="addModal2" tabindex="-1" role="dialog" aria-hidden="true">
-		                          <div class="modal-dialog">
-		                                <div class="modal-content animated bounceInRight">
-		                                    <div class="modal-header">
-		                                        <div class="ibox float-e-margins">
-								                    <div class="ibox-title">
-								                        <h5>增加成员</h5>
-								                        <div class="ibox-tools">
-								                            <a data-dismiss="modal">
-								                                <i class="fa fa-times fa-2x"></i>
-								                            </a>
-								                        </div>
-								                    </div>
-								                    <div class="ibox-content">
-								                         <div class="input-group">
-						                                    <input id="search_user" style="width:45%;margin-right:20px;" type="text" placeholder="请输入要查询人员账号" class="input-sm form-control"/> 
-						                                    <span class="input-group-btn">
-						                                        <button id="search2"  type="button" class="btn btn-sm btn-primary" > 搜索</button> 
-						                                    </span>
-						                                </div>
-								                         <div class="project-list" id="person3">
-						                            <script id="personContent3" type="text/html">
-                                                        <table class="table table-hover">
-                                                            <tbody>
-                                                               <tr>
-                                                                  <th class="project-status" style="text-align:center;">姓名</th>
-                                                                  <th class="project-title" style="text-align:center;">性别</th>
-                                                                  <th class="project-completion" style="text-align:center;">联系方式</th>
-                                                                  <th class="project-completion" style="text-align:center;">账号名称</th>
-                                                               </tr>
-                                                               {{each users as value i}}
-                                                                   <tr onclick="userToGroup('{{value.username}}')">
-                                                                       <td class="project-status" style="text-align:center;">
-                                                                           {{value.name}}                                                
-                                                                       </td>
-                                                                       <td class="project-title" style="text-align:center;">
-                                                                           {{value.sex}}                                                   
-                                                                       </td>
-                                                                       <td class="project-completion" style="text-align:center;">
-                                                                           {{value.tel}}
-                                                                       </td>
-                                                                       <td class="project-completion" style="text-align:center;">
-                                                                           {{value.username}}
-                                                                       </td>
-                                                                  </tr>       
-                                                               {{/each}}
-                                                            </tbody>  
-                                                        </table>
-                                                    </script>
-						                            <script type="text/javascript">
-							                            var personData;
-							        					$.ajax({
-							        						url:"../business/getUsersInfo.do",
-							        						type:"post",
-							        						dataType:"json",
-							        						data:{"forGroup":"queryUserForGroup"},
-							        						async:false,
-							        						success:function(data){
-							        							console.log(data);
-							        							personData = data;
-							        						}
-							        					});
-							        					var html = template('personContent3', personData);
-							        				    $('#person3').html(html);
-												     </script> 
-								                    </div>
-								                </div>
-		                                    </div>
-		                                </div>
-		                            </div>
-		                        </div>
-                        </div>
+                        <h5>注册人办卡数据</h5>
                     </div>
                     <div class="ibox-content">
                         <div class="row m-b-sm m-t-sm">
-                            <div class="col-md-1">
-                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
-                            </div>
+                           <div class="col-md-1">
+                               <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                           </div>
                         </div>
-
-                        <div class="project-list" id="grouptousers">
-                            <script id="personContent2" type="text/html">
+                        <div class="project-list" id="countCard">
+                           <script id="businessContent2" type="text/html">
                                <table class="table table-hover">
                                     <tbody>
                                         <tr>
-                                            <th class="project-status" style="text-align:center;">姓名</th>
-                                            <th class="project-title" style="text-align:center;">性别</th>
-                                            <th class="project-completion" style="text-align:center;">联系方式</th>
-                                            <th class="project-completion" style="text-align:center;">账号名称</th>
-                                            <th class="project-people" style="text-align:center;">账号密码</th>
-                                            <th class="project-people" style="text-align:center;">是否分组</th>
-                                            <th class="project-actions" style="text-align:center;">业务操作</th>
+                                            <th class="project-status" style="text-align:center;">注册人姓名</th>
+                                            <th class="project-title" style="text-align:center;">注册人身份证号</th>
+                                            <th class="project-completion" style="text-align:center;">注册人手机号</th>
+                                            <th class="project-completion" style="text-align:center;">办卡数量</th>
+                                            <th class="project-people" style="text-align:center;">卡种</th>
+                                            <th class="project-people" style="text-align:center;">创建日期</th>
                                         </tr>
-                                        {{each users as value i}}
+                                        {{each registers as value i}}
                                                <tr>
                                                    <td class="project-status" style="text-align:center;">
-                                                        {{value.name}}                                                
+                                                        {{value.register_name}}                                                
                                                    </td>
                                                    <td class="project-title" style="text-align:center;">
-                                                        {{value.sex}}                                                   
+                                                        {{value.register_idcard}}                                                   
                                                    </td>
                                                    <td class="project-completion" style="text-align:center;">
-                                                        {{value.tel}}
+                                                        {{value.register_telephone}}
                                                    </td>
                                                    <td class="project-completion" style="text-align:center;">
-                                                        {{value.username}}
+                                                        {{value.bank_count}}
                                                    </td>
                                                    <td class="project-people" style="text-align:center;">
-                                                        {{value.password}}
+                                                        {{value.register_bank}}
                                                    </td>
-                                                   <td class="project-people" style="text-align:center;">
-                                                        {{if value.isgroup == '0'}}
-                                                                                                                                            否 
-                                                        {{else}}
-                                                                                                                                            是
-                                                         {{/if}}
-                                                   </td>
-                                                   <td class="project-actions" style="text-align:center;">
-                                                        <a class="btn btn-white btn-sm" onclick="delGroupFunc('{{value.username}}','{{value.group_name}}')"><i class="fa fa-folder"></i> 删除 </a>
+                                                   <td class="project-title" style="text-align:center;">
+                                                        {{value.createDate}}
                                                    </td>
                                                </tr>       
                                         {{/each}}
                                     </tbody>  
                                 </table>
                                   <div class="text-center">
-                               <button class="btn btn-white" type="button" onclick="preLeft();">
+                               <button class="btn btn-white" type="button" onclick="preLeft2();">
                                   <i class="fa fa-chevron-left"></i>
                                </button>
                                {{each pages.pageIntal as page i}}
-                                    <button class="btn btn-white pageUserGroup" id="{{page}}" onclick="curPage('{{page}}')">{{page}}</button>
+                                    <button class="btn btn-white pageCountCard" id="page{{page}}" onclick="curPage2('{{page}}')">{{page}}</button>
                                {{/each}} 
-                               <button class="btn btn-white" type="button" onclick="preRight('{{pages.totalPage}}');">
+                               <button class="btn btn-white" type="button" onclick="preRight2('{{pages.totalPage}}');">
                                   <i class="fa fa-chevron-right" ></i>
                                </button>
                             </div> 
-                            </script>
-                            <script type="text/javascript">
-                            var multGroupId;
-                            var gpName;
-                            function searchGroupToUser(groupName,groupId) {
-                            	multGroupId = groupId;	
-                            	gpName = groupName;
-                           	 $('.hidden_grouptouser').show(); 
-                             var personData;
-	        					$.ajax({
-	        						url:"../business/getUsersInfo.do",
-	        						type:"post",
-	        						dataType:"json",
-	        						data:{"group":groupName},
-	        						async:false,
-	        						success:function(data){
-	        							console.log("group="+data);
-	        							personData = data;
-	        						}
-	        					});
-	        					var html = template('personContent2', personData);
-	        				    $('#grouptousers').html(html);
-                           }
-	                          
-						     </script> 
-                            </div>
-                        </div>
-                        </div>
+                           </script>
+                           <script type="text/javascript">
+                           var userid;
+                           function searchCardNum(useridValue){
+                        	 userid = useridValue;
+                        	$('.hidden_countcard').show();   
+                   	    	$.ajax({
+                   				url:"../register/getRegister.do",
+                   				type:"post",
+                   				dataType:"json",
+                   				data:{"userid":userid},
+                   				async:false,
+                   				success:function(data){
+                   					var html = template('businessContent2', data);
+                   				    $('#countCard').html(html);
+                   				}
+                   			});
+                   	    }
+                          
+					  </script> 
+                     </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
     <script src="<%=request.getContextPath()%>/js/bootstrap.min.js?v=3.3.6"></script>
     <script src="<%=request.getContextPath()%>/js/content.min.js?v=1.0.0"></script>
@@ -328,90 +204,28 @@
        $(document).ready(function(){$("#loading-example-btn").click(function(){btn=$(this);simpleLoad(btn,true);simpleLoad(btn,false)})});function simpleLoad(btn,state){if(state){btn.children().addClass("fa-spin");btn.contents().last().replaceWith(" Loading")}else{setTimeout(function(){btn.children().removeClass("fa-spin");btn.contents().last().replaceWith(" Refresh")},2000)}};
     </script>
     <script>
-        function delFunc(groupid){
-        	$.confirm({
-                title: '确认',
-                content: '确认删除该组吗?',
-                type: 'green',
-                icon: 'glyphicon glyphicon-question-sign',
-                buttons: {
-                    ok: {
-                        text: '确认',
-                        btnClass: 'btn-primary',
-                        action: function() {
-                        	$.ajax({
-                				url:"../business/delGroup.do",
-                				type:"post",
-                				dataType:"json",
-                				data:{"groupid":groupid},
-                				async:false,
-                				success:function(data){
-                					var html = template('personContent', data);
-                				    $('.project-list').html(html);
-                				}
-                			});
-                        }
-                    },
-                    cancel: {
-                        text: '取消',
-                        btnClass: 'btn-primary'
-                    }
-                }
-            });
-        }
-        function delGroupFunc(username,groupname){
-        	$.confirm({
-                title: '确认',
-                content: '确认删除该组成员吗?',
-                type: 'green',
-                icon: 'glyphicon glyphicon-question-sign',
-                buttons: {
-                    ok: {
-                        text: '确认',
-                        btnClass: 'btn-primary',
-                        action: function() {
-                        	$.ajax({
-                				url:"../business/userDelGroup.do",
-                				type:"post",
-                				dataType:"json",
-                				data:{"username":username,"groupname":groupname},
-                				async:false,
-                				success:function(data){
-                					var html = template('personContent2', data);
-                				    $('#grouptousers').html(html);
-                				    Load();
-                				}
-                			});
-                        }
-                    },
-                    cancel: {
-                        text: '取消',
-                        btnClass: 'btn-primary'
-                    }
-                }
-            });
-        }
+	    //统计所有注册人和办卡数量
         function curPage(page){
-        	var firstPage = $(".btn.btn-white.pageUserGroup").first().attr("id");
-        	var lastPage = $(".btn.btn-white.pageUserGroup").last().attr("id");
+        	var firstPage = $(".btn.btn-white.pageContent").first().attr("id");
+        	var lastPage = $(".btn.btn-white.pageContent").last().attr("id");
         	var start = Number(firstPage);
         	var end = Number(lastPage);
         	$.ajax({
-				url:"../business/getUsersInfo.do",
+				url:"../register/getGroupUserRegister.do",
 				type:"post",
 				dataType:"json",
-				data:{"page":page,"start":start,"end":end,"group":gpName},
+				data:{"page":page,"start":start,"end":end},
 				async:false,
 				success:function(data){
-					var html = template('personContent2', data);
-				    $('#grouptousers').html(html);
+					var html = template('businessContent', data);
+				    $('#countRegisterAndCard').html(html);
 				    $("#"+page).addClass("active");
 				}
 			});
         }
         function preLeft(){
-        	var firstPage = $(".btn.btn-white.pageUserGroup").first().attr("id");
-        	var lastPage = $(".btn.btn-white.pageUserGroup").last().attr("id");
+        	var firstPage = $(".btn.btn-white.pageContent").first().attr("id");
+        	var lastPage = $(".btn.btn-white.pageContent").last().attr("id");
         	if(firstPage == 1){
         		return false;
         	}
@@ -419,22 +233,22 @@
         	var start = Number(firstPage)-1;
         	var end = Number(lastPage)-1;
         	$.ajax({
-				url:"../business/getUsersInfo.do",
+				url:"../register/getGroupUserRegister.do",
 				type:"post",
 				dataType:"json",
-				data:{"page":page,"start":start,"end":end,"group":gpName},
+				data:{"page":page,"start":start,"end":end},
 				async:false,
 				success:function(data){
-					var html = template('personContent2', data);
-				    $('#grouptousers').html(html);
-				    $(".btn.btn-white.pageUserGroup").first().addClass("active");
+					var html = template('businessContent', data);
+				    $('#countRegisterAndCard').html(html);
+				    $(".btn.btn-white.pageContent").first().addClass("active");
 				}
 			});
         }
         
         function preRight(totalPage){
-        	var firstPage = $(".btn.btn-white.pageUserGroup").first().attr("id");
-        	var lastPage = $(".btn.btn-white.pageUserGroup").last().attr("id");
+        	var firstPage = $(".btn.btn-white.pageContent").first().attr("id");
+        	var lastPage = $(".btn.btn-white.pageContent").last().attr("id");
         	if(lastPage == totalPage){
         		return false;
         	}
@@ -442,48 +256,86 @@
         	var start = Number(firstPage)+1;
         	var end = Number(lastPage)+1;
         	$.ajax({
-				url:"../business/getUsersInfo.do",
+				url:"../register/getGroupUserRegister.do",
 				type:"post",
 				dataType:"json",
-				data:{"page":page,"start":start,"end":end,"group":gpName},
+				data:{"page":page,"start":start,"end":end},
 				async:false,
 				success:function(data){
-					var html = template('personContent2', data);
-				    $('#grouptousers').html(html);
-				    $(".btn.btn-white.pageUserGroup").first().addClass("active");
+					var html = template('businessContent', data);
+				    $("#countRegisterAndCard").html(html);
+				    $(".btn.btn-white.pageContent").first().addClass("active");
 				}
 			});
         }
-        function userToGroup(username){
-        	//alert(multGroupId);
+        //根据员工分别统计注册人办卡数量
+        function curPage2(page){
+        	var firstPage = $(".btn.btn-white.pageCountCard").first().attr("id").substring(4);
+        	var lastPage = $(".btn.btn-white.pageCountCard").last().attr("id").substring(4);
+        	var start = Number(firstPage);
+        	var end = Number(lastPage);
         	$.ajax({
-				url:"../business/userToGroup.do",
+				url:"../register/getRegister.do",
 				type:"post",
 				dataType:"json",
-				data:{"username":username,"groupid":multGroupId},
+				data:{"page":page,"start":start,"end":end,"userid":userid},
 				async:false,
 				success:function(data){
-					alert("分组成功");
-					Load();
+					var html = template('businessContent2', data);
+				    $('#countCard').html(html);
+				    $("#page"+page).addClass("active");
+				}
+			});
+        }
+        
+        function preLeft2(){
+        	var firstPage = $(".btn.btn-white.pageCountCard").first().attr("id").substring(4);
+        	var lastPage = $(".btn.btn-white.pageCountCard").last().attr("id").substring(4);
+        	if(firstPage == 1){
+        		return false;
+        	}
+        	var page = Number(firstPage)-1;
+        	var start = Number(firstPage)-1;
+        	var end = Number(lastPage)-1;
+        	$.ajax({
+				url:"../register/getRegister.do",
+				type:"post",
+				dataType:"json",
+				data:{"page":page,"start":start,"end":end,"userid":userid},
+				async:false,
+				success:function(data){
+					var html = template('businessContent2', data);
+				    $('#countCard').html(html);
+				    $(".btn.btn-white.pageCountCard").first().addClass("active");
+				}
+			});
+        }
+        
+        function preRight2(totalPage){
+        	var firstPage = $(".btn.btn-white.pageCountCard").first().attr("id").substring(4);
+        	var lastPage = $(".btn.btn-white.pageCountCard").last().attr("id").substring(4);
+        	if(lastPage == totalPage){
+        		return false;
+        	}
+        	var page = Number(firstPage)+1;
+        	var start = Number(firstPage)+1;
+        	var end = Number(lastPage)+1;
+        	$.ajax({
+				url:"../register/getRegister.do",
+				type:"post",
+				dataType:"json",
+				data:{"page":page,"start":start,"end":end,"userid":userid},
+				async:false,
+				success:function(data){
+					var html = template('businessContent2', data);
+				    $("#countCard").html(html);
+				    $(".btn.btn-white.pageCountCard").first().addClass("active");
 				}
 			});
         }
     </script>
     <script>
     $(document).ready(function(){
-        $("#addSubmit").click(function(){
-        	$.ajax({
-				url:"../business/addGroup.do",
-				type:"post",
-				dataType:"html",
-				data: $("#addForm").serialize(),
-				async:false,
-				success:function(data){
-					var html = template('personContent', data);
-				    $('.project-list').html(html);
-				}
-			});
-        });	
         $("#search").click(function(){
         	var name = $("#search_user").val();
         	var group = $("#search_group").val();
@@ -496,20 +348,6 @@
 				success:function(data){
 					var html = template('personContent', data);
 				    $('.project-list').html(html);
-				}
-			});
-        });	
-        $("#search2").click(function(){
-        	var name = $("#search_user").val();
-        	$.ajax({
-				url:"../business/getUsersInfo.do",
-				type:"post",
-				dataType:"json",
-				data:{"name":name,"forGroup":"queryUserForGroup"},
-				async:false,
-				success:function(data){
-					var html = template('personContent3', data);
-				    $('#person3').html(html);
 				}
 			});
         });	
