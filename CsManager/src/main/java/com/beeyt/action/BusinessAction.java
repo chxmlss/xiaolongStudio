@@ -344,7 +344,7 @@ public class BusinessAction {
 	@ResponseBody
 	public String initShowImage(@RequestParam(value = "username", required = true) String username) {
 		List<Map<String, Object>> list = queryService.initShowImage(username);
-		Map<String, Object> resMap=new HashMap();
+		Map<String, Object> resMap=new HashMap<String, Object>();
 		resMap.put("idAndPath", list);
 		String json = gson.toJson(resMap);
 		return json;

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.beeyt.service.IQueryService;
 import com.beeyt.util.SendSMS;
@@ -24,24 +26,110 @@ public class RegisterAction {
 	public IQueryService queryService;
 	Gson gson = new GsonBuilder().serializeNulls().create();
 
-	@RequestMapping(value = "/getBank", produces = "text/html;charset=UTF-8")
+//	@RequestMapping(value = "/getBank", produces = "text/html;charset=UTF-8")
+//	@ResponseBody
+//	public String getBank() {
+//		List<Map<String, Object>> list = queryService.getBank();
+//		Map<String, Object> resMap = new HashMap<String, Object>();
+//		resMap.put("bank", list);
+//		return gson.toJson(resMap);
+//	}
+
+	@RequestMapping(value = "/getGroupUserRegister", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String getBank() {
-		List<Map<String, Object>> list = queryService.getBank();
-		Map<String, Object> resMap = new HashMap<String, Object>();
-		resMap.put("bank", list);
-		return gson.toJson(resMap);
+	public String getGroupUserRegister(@RequestParam(value = "limit", required = false) Integer limit,
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "start", required = false) Integer start,
+			@RequestParam(value = "end", required = false) Integer end) {
+		int pageSize = 5;
+		int totalPage = 10;
+		int showPagNum = 5;
+		start = start == null ? 1 : start;
+		end = end == null ? showPagNum : end;
+		limit = limit == null ? pageSize : limit;
+		page = page == null ? 1 : page;
+		List<Map<String, Object>> list = queryService.getGroupUserRegister(limit, page);
+		Integer totalRecord = queryService.getGroupUserRegisterSum();
+
+		Map resMap = new HashMap();
+		resMap.put("registerGroupUsers", list);
+
+		Map pageInfo = new HashMap();
+		pageInfo.put("limit", limit);
+		pageInfo.put("page", page);
+
+		if (totalRecord % pageSize == 0) {
+			// 说明整除，正好每页显示pageSize条数据，没有多余一页要显示少于pageSize条数据的
+			totalPage = totalRecord / pageSize;
+		} else {
+			// 不整除，就要在加一页，来显示多余的数据。
+			totalPage = totalRecord / pageSize + 1;
+		}
+		if (totalPage <= end) {
+			end = totalPage;
+		}
+		int[] pageIntalArr = new int[end - start + 1];
+		for (int i = start; i <= end; i++) {
+			pageIntalArr[i - start] = i;
+		}
+		pageInfo.put("pageIntal", pageIntalArr);
+		pageInfo.put("totalPage", totalPage);
+		pageInfo.put("start", start);
+		pageInfo.put("end", end);
+
+		resMap.put("pages", pageInfo);
+		String json = gson.toJson(resMap);
+		return json;
 	}
-	
+
 	@RequestMapping(value = "/getRegister", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String getRegisterByUser(@RequestParam(value = "userid", required = false) String userid) {
-		List<Map<String, Object>> list = queryService.getRegisterByUser(userid);
-		Map<String, Object> resMap = new HashMap<String, Object>();
-		resMap.put("register", list);
-		return gson.toJson(resMap);
+	public String getRegisterByUser(@RequestParam(value = "userid", required = false) String userid,
+			@RequestParam(value = "limit", required = false) Integer limit,
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "start", required = false) Integer start,
+			@RequestParam(value = "end", required = false) Integer end) {
+		int pageSize = 5;
+		int totalPage = 10;
+		int showPagNum = 5;
+		start = start == null ? 1 : start;
+		end = end == null ? showPagNum : end;
+		limit = limit == null ? pageSize : limit;
+		page = page == null ? 1 : page;
+		List<Map<String, Object>> list = queryService.getRegisterByUser(userid,limit,page);
+		Integer totalRecord = queryService.getRegisterByUserSum(userid);
+
+		Map resMap = new HashMap();
+		resMap.put("registers", list);
+
+		Map pageInfo = new HashMap();
+		pageInfo.put("limit", limit);
+		pageInfo.put("page", page);
+
+		if (totalRecord % pageSize == 0) {
+			// 说明整除，正好每页显示pageSize条数据，没有多余一页要显示少于pageSize条数据的
+			totalPage = totalRecord / pageSize;
+		} else {
+			// 不整除，就要在加一页，来显示多余的数据。
+			totalPage = totalRecord / pageSize + 1;
+		}
+		if (totalPage <= end) {
+			end = totalPage;
+		}
+		int[] pageIntalArr = new int[end - start + 1];
+		for (int i = start; i <= end; i++) {
+			pageIntalArr[i - start] = i;
+		}
+		pageInfo.put("pageIntal", pageIntalArr);
+		pageInfo.put("totalPage", totalPage);
+		pageInfo.put("start", start);
+		pageInfo.put("end", end);
+
+		resMap.put("pages", pageInfo);
+		String json = gson.toJson(resMap);
+		return json;
 	}
-	
+
 	@RequestMapping(value = "/getRegisterBank", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String getRegisterBank() {
@@ -54,24 +142,25 @@ public class RegisterAction {
 	@RequestMapping(value = "/getVerifyCode", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String getVerifyCode(@RequestParam(value = "telephone", required = true) String telephone) {
-		String verifyCode="";
+		String verifyCode = "";
 		JSONObject json = new JSONObject();
-		boolean flag = queryService.checkTelephone(telephone);
+		// TODO:待定 是否屏蔽验证手机号、手机号可以重复使用
+//		boolean flag = queryService.checkTelephone(telephone);
 		try {
-			if(!flag) {
-				verifyCode = SendSMS.SendSms(telephone);
-				json.put("status", 1);
-				HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
-						.getRequest();
-				
-				json.put("mobile", telephone);
-				json.put("verifyCode", verifyCode);
-				json.put("createTime", System.currentTimeMillis());
-				request.getSession().setAttribute("verifyCode", json);
-			}else {
-				json.put("msg", "该手机号存在");
-				json.put("status", 0);
-			}
+//			if(!flag) {
+			verifyCode = SendSMS.SendSms(telephone);
+			json.put("status", 1);
+			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+					.getRequest();
+
+			json.put("mobile", telephone);
+			json.put("verifyCode", verifyCode);
+			json.put("createTime", System.currentTimeMillis());
+			request.getSession().setAttribute("verifyCode", json);
+//			}else {
+//				json.put("msg", "该手机号存在");
+//				json.put("status", 0);
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -79,10 +168,10 @@ public class RegisterAction {
 			json.put("error", e.getMessage());
 			json.put("status", 3);
 		}
-		
+
 		return json.toJSONString();
 	}
-	
+
 	@RequestMapping(value = "/saveRegister", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String saveRegister(@RequestParam(value = "real_name", required = true) String name,
@@ -92,7 +181,7 @@ public class RegisterAction {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 //		JSONObject json = (JSONObject)request.getSession().getAttribute("verifyCode");
-		String userid=(String) request.getSession().getAttribute("userid");
+		String userid = (String) request.getSession().getAttribute("userid");
 		JSONObject jsonMsg = new JSONObject();
 //		if(json == null){
 //			jsonMsg.put("status", 0);
@@ -109,7 +198,7 @@ public class RegisterAction {
 //			return "验证码已过期!";
 //		}
 		try {
-			int registerId=queryService.saveRegister(name,idcard,telephone,userid);
+			int registerId = queryService.saveRegister(name, idcard, telephone, userid);
 			jsonMsg.put("status", 1);
 			request.getSession().setAttribute("registerId", registerId);
 			return jsonMsg.toJSONString();
@@ -120,16 +209,16 @@ public class RegisterAction {
 			return jsonMsg.toJSONString();
 		}
 	}
-	
+
 	@RequestMapping(value = "/updateRegister", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String updateRegister(@RequestParam(value = "bank", required = true) String bank) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		JSONObject jsonMsg = new JSONObject();
-		int registerId = (Integer)request.getSession().getAttribute("registerId");
+		int registerId = (Integer) request.getSession().getAttribute("registerId");
 		try {
-			queryService.updateRegister(registerId,bank);
+			queryService.updateRegister(registerId, bank);
 			jsonMsg.put("status", 1);
 			return jsonMsg.toJSONString();
 		} catch (Exception e) {
@@ -140,6 +229,19 @@ public class RegisterAction {
 		}
 	}
 
+	@RequestMapping(value = "/successBank", produces = "text/html;charset=UTF-8")
+	public String successBank() {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
+		String userid = request.getSession().getAttribute("userid") != null
+				? request.getSession().getAttribute("userid").toString()
+				: "";
+		if (!"".equals(userid)) {
+			return "successBank";
+		}
+		return "userRegister";
+	}
+
 	public IQueryService getQueryService() {
 		return queryService;
 	}
@@ -147,5 +249,5 @@ public class RegisterAction {
 	public void setQueryService(IQueryService queryService) {
 		this.queryService = queryService;
 	}
-	
+
 }

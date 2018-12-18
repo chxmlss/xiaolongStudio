@@ -6,6 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 public class QueryService implements IQueryService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -295,25 +298,84 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public void updateRegister(int registerId, String bank) throws Exception {
-		String sql = "update s_register set bank_id=? where register_id=?";
-		jdbcTemplate.update(sql, new Object[] { bank, registerId });
+		String sql = "insert into s_register_bank(register_id,bank_id) values (?,?)";
+		JSONArray banks=JSONObject.parseArray(bank);
+		for (int i = 0; i < banks.size(); i++) {
+			jdbcTemplate.update(sql, new Object[] { registerId, banks.get(i) });
+		}
 	}
 
 	@Override
-	public List<Map<String, Object>> getRegisterByUser(String userid) {
-		String sql="";
-		if(userid==null||"".equals(userid)) {
-			sql="select * from s_register order by createDate desc";
-		}else {
-			sql = "select * from s_register where user_id = "+userid+" order by createDate desc";
+	public List<Map<String, Object>> getRegisterByUser(String userid,Integer limit, Integer page) {
+		int begin = (page - 1) * limit;
+		String sql = "SELECT" 
+	            + "	t.register_id," 
+				+ "	t.register_name," 
+	            + "	t.register_idcard,"
+				+ "	t.register_telephone," 
+	            + "	date_format(t.createDate, '%Y-%m-%d %H:%I:%S') as createDate,"
+				+ "	(select count(*) from s_register_bank b where b.register_id=t.register_id) as bank_count," + "	("
+				+ "		SELECT" 
+				+ "			GROUP_CONCAT(b.bank_name)" 
+				+ "		FROM" 
+				+ "			s_register_bank a,"
+				+ "			s_bank b" 
+				+ "		WHERE" 
+				+ "			a.bank_id = b.bank_id"
+				+ "		AND a.register_id = t.register_id" 
+				+ "		GROUP BY" 
+				+ "			a.register_id"
+				+ "	) AS register_bank " 
+				+ " FROM " 
+				+ "	s_register t " 
+				+ "WHERE 1=1 ";
+		if (userid != null && !"".equals(userid)) {
+			sql += " and user_id = " + userid + " ";
 		}
+		sql += " ORDER BY" + "	createDate DESC" + "";
+		sql += " limit " + begin + "," + limit + "";
 
 		return jdbcTemplate.queryForList(sql);
 	}
 
 	@Override
 	public List<Map<String, Object>> getRegisterBank() {
-		String sql = "select t.bank_id,(select bank_name from s_bank where bank_id=t.bank_id) as bank_name ,count(1) as bank_count from s_register t group by t.bank_id";
+		String sql = "select t.bank_id,(select bank_name from s_bank where bank_id=t.bank_id) as bank_name ,count(1) as bank_count from s_register_bank t GROUP BY t.bank_id order by bank_count desc";
 		return jdbcTemplate.queryForList(sql);
+	}
+
+	@Override
+	public List<Map<String, Object>> getGroupUserRegister(Integer limit, Integer page) {
+		int begin = (page - 1) * limit;
+		String sql=""
+				+ "SELECT"
+				+ "	a.group_name,"
+				+ "  (select name from s_group where group_id=a.group_id) as group_leader,"
+				+ "	t.id AS user_id,"
+				+ "	t.name as user_name,"
+				+ "  (select count(*) from s_register t1 where t1.user_id=t.id) as register_count,"
+				+ "  (select count(*) from s_register_bank t2,s_register t3 where t2.register_id=t3.register_id and t3.user_id=t.id) as bank_count"
+				+ " FROM "
+				+ "	s_user t "
+				+ " LEFT JOIN s_group_user a ON t.id = a.user_id"
+				+ " where t.isgroup=1 "
+				+ " order by register_count desc";
+		sql += " limit " + begin + "," + limit + "";
+		return jdbcTemplate.queryForList(sql);
+	}
+
+	@Override
+	public Integer getGroupUserRegisterSum() {
+		String sql="SELECT COUNT(*) FROM s_user t WHERE t.isgroup = 1";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+
+	@Override
+	public Integer getRegisterByUserSum(String userid) {
+		String sql = "SELECT count(*) FROM s_register WHERE 1=1 ";
+		if (userid != null && !"".equals(userid)) {
+			sql += " and user_id = " + userid + " ";
+		}
+		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 }
