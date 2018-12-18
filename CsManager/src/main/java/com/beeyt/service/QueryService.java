@@ -325,9 +325,9 @@ public class QueryService implements IQueryService {
 				+ "		AND a.register_id = t.register_id" 
 				+ "		GROUP BY" 
 				+ "			a.register_id"
-				+ "	) AS register_bank" 
-				+ "FROM" 
-				+ "	s_register t" 
+				+ "	) AS register_bank " 
+				+ " FROM " 
+				+ "	s_register t " 
 				+ "WHERE 1=1 ";
 		if (userid != null && !"".equals(userid)) {
 			sql += " and user_id = " + userid + " ";
