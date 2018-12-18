@@ -81,7 +81,7 @@
 	                        <li>
 	                            <a class="J_menuItem" href="<%=request.getContextPath()%>/views/business.jsp">
 		                            <i class="fa fa-table"></i> 
-		                            <span class="nav-label">业务管理</span>
+		                            <span class="nav-label">业务统计</span>
 		                        </a>
 	                        </li>
 	                    </c:when>

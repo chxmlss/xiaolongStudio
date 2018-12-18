@@ -159,17 +159,18 @@
                                     </tbody>  
                                 </table>
                                 <div class="text-center">
-                               <div class="btn-group">
-                               <button class="btn btn-white" type="button" onclick="preLeft();">
-                                  <i class="fa fa-chevron-left"></i>
-                               </button>
-                               {{each pages.pageIntal as page i}}
-                                    <button class="btn btn-white pageContent" id="{{page}}" onclick="curPage('{{page}}')">{{page}}</button>
-                               {{/each}} 
-                               <button class="btn btn-white" type="button" onclick="preRight('{{pages.totalPage}}');">
-                                  <i class="fa fa-chevron-right" ></i>
-                               </button>
-                            </div> 
+                                    <div class="btn-group">
+                                        <button class="btn btn-white" type="button" onclick="preLeft();">
+                                           <i class="fa fa-chevron-left"></i>
+                                        </button>
+                                        {{each pages.pageIntal as page i}}
+                                            <button class="btn btn-white pageContent" id="{{page}}" onclick="curPage('{{page}}')">{{page}}</button>
+                                        {{/each}} 
+                                        <button class="btn btn-white" type="button" onclick="preRight('{{pages.totalPage}}');">
+                                           <i class="fa fa-chevron-right" ></i>
+                                        </button>
+                                    </div> 
+                                </div>
                             </script>
                             <script type="text/javascript">
 	                            var personData;
