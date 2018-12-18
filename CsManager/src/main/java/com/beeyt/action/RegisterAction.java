@@ -142,6 +142,16 @@ public class RegisterAction {
 			return jsonMsg.toJSONString();
 		}
 	}
+	@RequestMapping(value = "/successBank", produces = "text/html;charset=UTF-8")
+	public String successBank(){
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
+		String userid = request.getSession().getAttribute("userid")!=null?request.getSession().getAttribute("userid").toString():"";
+		if(!"".equals(userid)){
+			return "successBank";
+		}
+		return "userRegister";		
+	}
 
 	public IQueryService getQueryService() {
 		return queryService;

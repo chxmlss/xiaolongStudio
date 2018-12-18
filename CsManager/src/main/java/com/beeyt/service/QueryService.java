@@ -307,15 +307,29 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public List<Map<String, Object>> getRegisterByUser(String userid) {
-		String sql = "SELECT" + "	t.register_id," + "	t.register_name," + "	t.register_idcard,"
-				+ "	t.register_telephone," + "	t.createDate,"
+		String sql = "SELECT" 
+	            + "	t.register_id," 
+				+ "	t.register_name," 
+	            + "	t.register_idcard,"
+				+ "	t.register_telephone," 
+	            + "	t.createDate,"
 				+ "	(select count(*) from s_register_bank b where b.register_id=t.register_id) as bank_count," + "	("
-				+ "		SELECT" + "			GROUP_CONCAT(b.bank_name)" + "		FROM" + "			s_register_bank a,"
-				+ "			s_bank b" + "		WHERE" + "			a.bank_id = b.bank_id"
-				+ "		AND a.register_id = t.register_id" + "		GROUP BY" + "			a.register_id"
-				+ "	) AS register_bank" + "FROM" + "	s_register t" + "WHERE 1=1 ";
+				+ "		SELECT" 
+				+ "			GROUP_CONCAT(b.bank_name)" 
+				+ "		FROM" 
+				+ "			s_register_bank a,"
+				+ "			s_bank b" 
+				+ "		WHERE" 
+				+ "			a.bank_id = b.bank_id"
+				+ "		AND a.register_id = t.register_id" 
+				+ "		GROUP BY" 
+				+ "			a.register_id"
+				+ "	) AS register_bank" 
+				+ "FROM" 
+				+ "	s_register t" 
+				+ "WHERE 1=1 ";
 		if (userid != null && !"".equals(userid)) {
-			sql += " and	user_id = " + userid + " ";
+			sql += " and user_id = " + userid + " ";
 		}
 
 		sql += " ORDER BY" + "	createDate DESC" + "";

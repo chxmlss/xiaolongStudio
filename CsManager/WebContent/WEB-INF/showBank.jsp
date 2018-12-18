@@ -425,7 +425,7 @@
 				data: {'bank':jsonString},
 				success: function(data) {
 					if(data.status == 1) {
-						  location.replace("../login/showBank.do");
+						  location.replace("../register/successBank.do");
 					}
 				},
 				error: function(xhr) {
