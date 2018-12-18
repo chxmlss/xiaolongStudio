@@ -2,15 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-
-
 <!-- Mirrored from www.zi-han.net/theme/hplus/projects.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:44 GMT -->
 <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>业务管理</title>
+    <title>业务统计</title>
    	<meta name="keywords" content="CsManager" />
 	<meta name="description" content="晓龙工作室研发产品" />
 	
@@ -333,25 +331,6 @@
 				}
 			});
         }
-    </script>
-    <script>
-    $(document).ready(function(){
-        $("#search").click(function(){
-        	var name = $("#search_user").val();
-        	var group = $("#search_group").val();
-        	$.ajax({
-				url:"../business/getGroupsInfo.do",
-				type:"post",
-				dataType:"json",
-				data:{"name":name,"group":group},
-				async:false,
-				success:function(data){
-					var html = template('personContent', data);
-				    $('.project-list').html(html);
-				}
-			});
-        });	
-    });
     </script>
   </body>
 

@@ -84,6 +84,12 @@
 		                            <span class="nav-label">业务统计</span>
 		                        </a>
 	                        </li>
+	                         <li>
+	                            <a class="J_menuItem" href="<%=request.getContextPath()%>/views/creditcard.jsp">
+		                            <i class="fa fa-magic"></i> 
+		                            <span class="nav-label">信用卡管理</span>
+		                        </a>
+	                        </li>
 	                    </c:when>
 	                    <c:otherwise>
 	                        <li>
