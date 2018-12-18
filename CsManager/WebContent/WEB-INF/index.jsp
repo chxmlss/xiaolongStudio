@@ -66,18 +66,24 @@
                     <c:choose> 
 	                    <c:when test="${username == 'admin'}">
 	                        <li>
-	                        <a href="#">
-	                            <i class="fa fa-desktop"></i> 
-	                            <span class="nav-label">团队管理</span>
-	                            <span class="fa arrow"></span>
-	                        </a>
-	                        <ul class="nav nav-second-level">
-	                            <li><a class="J_menuItem" href="<%=request.getContextPath()%>/views/persons.jsp">人员管理</a>
-	                            </li>
-	                            <li><a class="J_menuItem" href="<%=request.getContextPath()%>/views/groups.jsp">组织管理</a>
-	                            </li>
-	                        </ul>
-	                    </li>
+		                        <a href="#">
+		                            <i class="fa fa-desktop"></i> 
+		                            <span class="nav-label">团队管理</span>
+		                            <span class="fa arrow"></span>
+		                        </a>
+		                        <ul class="nav nav-second-level">
+		                            <li><a class="J_menuItem" href="<%=request.getContextPath()%>/views/persons.jsp">人员管理</a>
+		                            </li>
+		                            <li><a class="J_menuItem" href="<%=request.getContextPath()%>/views/groups.jsp">组织管理</a>
+		                            </li>
+		                        </ul>
+	                        </li>
+	                        <li>
+	                            <a class="J_menuItem" href="<%=request.getContextPath()%>/views/business.jsp">
+		                            <i class="fa fa-table"></i> 
+		                            <span class="nav-label">业务管理</span>
+		                        </a>
+	                        </li>
 	                    </c:when>
 	                    <c:otherwise>
 	                        <li>
