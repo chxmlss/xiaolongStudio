@@ -56,7 +56,7 @@ public class LoginAction {
 	public String showBank() {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
-		String userid = (String) request.getSession().getAttribute("userid");
+		String userid = String.valueOf(request.getSession().getAttribute("userid"));
 		System.out.println(userid);
 		if (userid != null && !"".equals(userid)) {
 			List<Map<String, Object>> list = queryService.getBank();

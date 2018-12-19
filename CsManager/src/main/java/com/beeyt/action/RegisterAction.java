@@ -38,10 +38,13 @@ public class RegisterAction {
 	@RequestMapping(value = "/updateBankInfo", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String updateBankInfo(@RequestParam(value = "bank_id", required = true) String bank_id,
-			@RequestParam(value = "bank_describe", required = true) String bank_describe,
+			@RequestParam(value = "bank_describe", required = false) String bank_describe,
 //			@RequestParam(value = "bank_order", required = true) String bank_order,
-			@RequestParam(value = "bank_effective", required = true) String bank_effective) {
+			@RequestParam(value = "bank_effective", required = false) String bank_effective) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
+		if(!"".equals(bank_describe)){
+			bank_describe = "0".equals(bank_describe)?"高额":"秒批";
+		}
 		try {
 			queryService.updateBankInfo(bank_id,bank_describe,bank_effective);
 			resMap.put("status", 1);

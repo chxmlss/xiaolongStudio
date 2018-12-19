@@ -14,9 +14,9 @@
 	    <link href="<%=request.getContextPath()%>/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
 	    <link href="<%=request.getContextPath()%>/css/animate.min.css" rel="stylesheet"/>
 	    <link href="<%=request.getContextPath()%>/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-		<link href="<%=request.getContextPath()%>/css/plugins/bootstrap-switch/bootstrap-switch.css" rel="stylesheet">
-	    <script src="<%=request.getContextPath()%>/js/jquery.min.js?v=2.1.4"></script>
-	    <script src="<%=request.getContextPath()%>/js/plugins/bootstrap-switch/bootstrap-switch.js"></script>
+        <link href="<%=request.getContextPath()%>/css/plugins/bootstrap-switch/bootstrap-switch.min.css" rel="stylesheet">	    
+        <script src="<%=request.getContextPath()%>/js/jquery.min.js?v=2.1.4"></script>
+	    <script src="<%=request.getContextPath()%>/js/plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
 	    <script src="<%=request.getContextPath()%>/js/template.js"></script>
 	    <style>
 	        .hidden_countcard{
@@ -47,7 +47,7 @@
                                             <th class="project-title" style="text-align:center;">简称</th>
                                             <th class="project-title" style="text-align:center;">描述</th>
                                             <th class="project-title" style="text-align:center;">图标</th>
-                                            <th class="project-action" style="text-align:center;">显示</th>
+                                            <th class="project-action" style="text-align:center;">状态</th>
                                         </tr>
                                         {{each banks as value i}}
                                                <tr>
@@ -58,15 +58,25 @@
                                                         {{value.bank_ab}}                                                   
                                                    </td>
                                                    <td class="project-title" style="text-align:center;">
-                                                        {{value.bank_describe}}
+                                                        <select class="form-control m-b" name="bank_describe" content="{{value.bank_id}} ">
+                                                            {{if value.bank_describe == '高额'}} 
+                                                                <option selected="selected" value="0">高额</option>
+                                                                <option value="1">秒批</option>
+                                                             {{else}}
+                                                                 <option value="0">高额</option>
+                                                                 <option selected="selected" value="1">秒批</option>
+                                                             {{/if}}
+                                                        </select>
                                                    </td>
                                                    <td class="project-title" style="text-align:center;">
                                                         <img src="{{value.bank_icon}}" width="50px" height=""/>
                                                    </td>
                                                    <td class="project-action" style="text-align:center;">
-                                                       <div class="switch">
-                                                           <input type="checkbox" name="my-checkbox" checked/>
-                                                       </div>
+                                                        {{if value.bank_effective == 1}}
+                                                            <input value="{{value.bank_id}}" type="checkbox" name="my-checkbox" checked/>
+                                                        {{else}}
+                                                            <input value="{{value.bank_id}}" type="checkbox" name="my-checkbox"/>
+                                                        {{/if}}
                                                    </td>
                                                </tr>       
                                         {{/each}}
@@ -88,15 +98,7 @@
 	        					var html = template('businessContent', businessData);
 	        				    $('#countRegisterAndCard').html(html);
 						     </script> 
-						     <script>
-							     $(function(){
-							    	 $("[name='my-checkbox']").bootstrapSwitch({
-							                onText:'显示',
-							                offText:'隐藏'
-							         });
-							     });
-						         
-						     </script>
+						     
 	                       </div>
 		                   </div>    
 	    		      </div>
@@ -105,5 +107,67 @@
 	    </div>
 	    <script src="<%=request.getContextPath()%>/js/bootstrap.min.js?v=3.3.6"></script>
 	    <script src="<%=request.getContextPath()%>/js/content.min.js?v=1.0.0"></script>
+	    <script src="<%=request.getContextPath()%>/js/plugins/layer/layer.min.js"></script>
+	    <script>
+		     $(function(){
+		    	 $("[name='my-checkbox']").bootstrapSwitch({
+		                onText:'显示',
+		                offText:'隐藏',
+		                onColor:"success",  
+		    	        offColor:"info", 
+		    	        onSwitchChange:function(event,state){
+		    	        	 var bankid = $(this).val();
+		    	        	 if(state==true){  
+		    	        		 $.ajax({
+	        						url:"../register/updateBankInfo.do",
+	        						type:"get",
+	        						dataType:"json",
+	        						data:{"bank_id":bankid,"bank_effective":"1","bank_describe":""},
+	        						async:false,
+	        						success:function(data){
+	        							layer.msg("显示成功")
+	        						},
+	        						error: function(xhr) {
+	        							layer.msg('网络错误');
+	        						}
+	        					});
+		    	              }else{  
+		    	            	  $.ajax({
+		        						url:"../register/updateBankInfo.do",
+		        						type:"get",
+		        						dataType:"json",
+		        						data:{"bank_id":bankid,"bank_effective":"0","bank_describe":""},
+		        						async:false,
+		        						success:function(data){
+		        							layer.msg("隐藏成功")
+		        						},
+		        						error: function(xhr) {
+		        							layer.msg('网络错误');
+		        						}
+		        					});  
+		    	              } 
+		    	        } 
+		         });
+		    	 
+		    	 $('select').change(function(){  
+		    		 var bankid =   $(this).attr("content");
+	    	　　　　　　var bankdescribe = $(this).children('option:selected').val();
+	    	　　　　　   　$.ajax({
+						url:"../register/updateBankInfo.do",
+						type:"get",
+						dataType:"json",
+						data:{"bank_id":bankid,"bank_describe":bankdescribe,"bank_effective":""},
+						async:false,
+						success:function(data){
+							layer.msg("修改成功");
+						},
+						error: function(xhr) {
+							layer.msg('网络错误');
+						}
+					});  
+		    	　});  
+		     });
+	         
+	     </script>
 	</body>
 </html>

@@ -387,7 +387,14 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public void updateBankInfo(String bank_id, String bank_describe, String bank_effective) throws Exception {
-		String sql="update s_bank set bank_describe=?,bank_effective=? where bank_id=?";
-		jdbcTemplate.update(sql, new Object[] { bank_describe,bank_effective, bank_id });
+		String sql = "";
+		if(!"".equals(bank_describe)){
+			sql += "update s_bank set bank_describe=? where bank_id=?";
+			jdbcTemplate.update(sql, new Object[] { bank_describe, bank_id });
+		}else if(!"".equals(bank_effective)) {
+			sql += "update s_bank set bank_effective=? where bank_id=?";
+			jdbcTemplate.update(sql, new Object[] {bank_effective, bank_id });
+		}
+		
 	}
 }
