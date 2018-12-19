@@ -15,7 +15,6 @@
     <link rel="shortcut icon" href="favicon.ico"> 
     <link href="<%=request.getContextPath()%>/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
-    <link href="<%=request.getContextPath()%>/css/jquery-confirm.css" rel="stylesheet"/>
     <link href="<%=request.getContextPath()%>/css/animate.min.css" rel="stylesheet"/>
     <link href="<%=request.getContextPath()%>/css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <script src="<%=request.getContextPath()%>/js/jquery.min.js?v=2.1.4"></script>
@@ -30,7 +29,7 @@
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInUp">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-6">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>业务统计</h5>
@@ -105,6 +104,41 @@
 						     </script> 
                         </div>
                      </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    
+                    <div class="ibox-title">
+                        <h5>折现图</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="graph_flot.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="graph_flot.html#">选项1</a>
+                                </li>
+                                <li><a href="graph_flot.html#">选项2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+	                     <div class="row m-b-sm m-t-sm">
+	                        <div class="col-md-1">
+	                            <button type="button" id="loading-example-btn2" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+	                        </div>
+	                    </div>
+                        <div class="echarts" id="echarts-line-chart"></div>
+                        <div style="margin:20px 0;"><p>注：显示近7天的数据</p></div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -197,9 +231,12 @@
     <script src="<%=request.getContextPath()%>/js/bootstrap.min.js?v=3.3.6"></script>
     <script src="<%=request.getContextPath()%>/js/content.min.js?v=1.0.0"></script>
     <script src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
-
+    <script src="<%=request.getContextPath()%>/js/plugins/echarts/echarts-all.js"></script>
+    <script src="<%=request.getContextPath()%>/js/bank/charts/charts.js"></script>
     <script>
        $(document).ready(function(){$("#loading-example-btn").click(function(){btn=$(this);simpleLoad(btn,true);simpleLoad(btn,false)})});function simpleLoad(btn,state){if(state){btn.children().addClass("fa-spin");btn.contents().last().replaceWith(" Loading")}else{setTimeout(function(){btn.children().removeClass("fa-spin");btn.contents().last().replaceWith(" Refresh")},2000)}};
+       $(document).ready(function(){$("#loading-example-btn2").click(function(){btn=$(this);simpleLoad(btn,true);simpleLoad(btn,false)})});function simpleLoad(btn,state){if(state){btn.children().addClass("fa-spin");btn.contents().last().replaceWith(" Loading")}else{setTimeout(function(){btn.children().removeClass("fa-spin");btn.contents().last().replaceWith(" Refresh")},2000)}};
+
     </script>
     <script>
 	    //统计所有注册人和办卡数量

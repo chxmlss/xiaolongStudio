@@ -397,4 +397,21 @@ public class QueryService implements IQueryService {
 		}
 		
 	}
+
+	@Override
+	public List<Map<String, Object>> getLineChartsAll() {
+		String sql = "";
+		sql = "SELECT" + 
+				"	date_format(createDate, '%m月%d日') as date," + 
+				"	count(*) as num" + 
+				" FROM" + 
+				"	`s_register`\r\n" + 
+				" WHERE" + 
+				"	date_sub(curdate(), INTERVAL 7 DAY) <= date(`createDate`)" + 
+				" GROUP BY" + 
+				"	date_format(createDate, '%m月%d日')" + 
+				" ORDER BY" + 
+				"	createDate";
+		return jdbcTemplate.queryForList(sql);
+	}
 }

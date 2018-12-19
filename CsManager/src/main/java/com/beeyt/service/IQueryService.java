@@ -64,4 +64,6 @@ public interface IQueryService {
 	public Integer getRegisterByUserSum(String userid);
 
 	public void updateBankInfo(String bank_id, String bank_describe, String bank_effective) throws Exception;
+	
+	public List<Map<String, Object>> getLineChartsAll();
 }
