@@ -11,12 +11,12 @@
     	<link href="<%=request.getContextPath()%>/css/regiser/slider/slider.css" rel="stylesheet">
 	</head>
 	<body>
-		<!-- 
-		<div class="top flex flex-pack-center flex-align-center">
+		 
+		<div>
 			<img src="<%=request.getContextPath()%>/img/gaoding.jpg" style="width:100%; height:100%;">
 		</div> 
-		-->
-		<div class="wrapper">
+		
+		<%-- <div class="wrapper">
 		     <div class="aui-banner-content " data-aui-slider>
                 <div class="aui-banner-wrapper">
                     <div class="aui-banner-wrapper-item">
@@ -32,8 +32,8 @@
                 </div>
                 <div class="aui-banner-pagination"></div>
             </div>
-		    
-		</div>
+		</div> --%>
+		
 		<div class="wan-c">
 			<h3>信息</h3>
 			<form id="f">

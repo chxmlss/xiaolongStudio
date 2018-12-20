@@ -501,7 +501,6 @@
 						'bank' : attrValueID
 					},
 					success : function(data) {
-						alert(data.status);
 						if (data.status == 1) {
 							/* window.location.replace(attrValueURL); */
 							window.location.href = attrValueURL;
