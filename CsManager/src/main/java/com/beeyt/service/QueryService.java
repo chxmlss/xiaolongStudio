@@ -285,10 +285,18 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public int saveRegister(String name, String idcard, String telephone, String userid) throws Exception {
-		String sql = "insert into s_register(register_name,register_idcard,register_telephone,user_id,createDate) values(?,?,?,?,sysdate())";
-		jdbcTemplate.update(sql, new Object[] { name, idcard, telephone, userid });
-		String sql2 = "select register_id from s_register where register_name=? and register_idcard=? and user_id=? order by createDate desc limit 1";
-		int registerId = jdbcTemplate.queryForObject(sql2, Integer.class, new Object[] { name, idcard, userid });
+		int registerId=0;
+		String sql3 = "select * from s_register where register_name=? and register_idcard=? and user_id=?";
+		List<Map<String,Object>> registerList = jdbcTemplate.queryForList(sql3,new Object[] { name, idcard, userid });
+		if(registerList!=null&&registerList.size()>0) {
+			registerId= (int) registerList.get(0).get("register_id");
+		}else {
+			String sql = "insert into s_register(register_name,register_idcard,register_telephone,user_id,createDate) values(?,?,?,?,sysdate())";
+			jdbcTemplate.update(sql, new Object[] { name, idcard, telephone, userid });
+			String sql2 = "select register_id from s_register where register_name=? and register_idcard=? and user_id=? order by createDate desc limit 1";
+			registerId = jdbcTemplate.queryForObject(sql2, Integer.class, new Object[] { name, idcard, userid });
+		}
+		
 		return registerId;
 	}
 
@@ -305,10 +313,10 @@ public class QueryService implements IQueryService {
 	@Override
 	public void updateRegister(int registerId, String bank) throws Exception {
 		String sql = "insert into s_register_bank(register_id,bank_id) values (?,?)";
-		JSONArray banks=JSONObject.parseArray(bank);
-		for (int i = 0; i < banks.size(); i++) {
-			jdbcTemplate.update(sql, new Object[] { registerId, banks.get(i) });
-		}
+//		JSONArray banks=JSONObject.parseArray(bank);
+//		for (int i = 0; i < banks.size(); i++) {
+			jdbcTemplate.update(sql, new Object[] {registerId, bank});
+//		}
 	}
 
 	@Override
