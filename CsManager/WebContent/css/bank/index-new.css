@@ -81,13 +81,13 @@ html {
   text-align: center;
 }
 .card-list .card .logo img {
-  width: 4rem;
+  width: 5.5rem;
 }
 .card-list .card .bank-name {
   width: 100%;
   font-weight: 600;
   color: #333;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: center;
   padding: .5rem 0;
 }
@@ -299,7 +299,7 @@ html {
   width: 94%;
   margin: 0 auto;
   font-weight: 600;
-  padding: .5rem 3% 1rem 3%;
+  padding: 2rem 3% 1rem 3%;
 }
 .title .more {
   font-size: .7rem;

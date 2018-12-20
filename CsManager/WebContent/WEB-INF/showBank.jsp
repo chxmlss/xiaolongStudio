@@ -263,7 +263,7 @@
 				    		Map<String, Object> map = list.get(i);
 	    		%>
 	    		<div class="card flex flex-align-center flex-pack-center flex-warp"  data-src='bank_20'>
-					<div class="logo">
+					<div class="logo" id="<%=map.get("bank_url")%>">
 						<img src="<%=map.get("bank_icon")%>"/>
 					</div>
 					<div class="bank-name">
@@ -273,7 +273,7 @@
 					<div class="desc">
 						<%=map.get("bank_describe")%>				
 					</div>
-					 <div class="btn btn-default btn-circle asc" id="<%=map.get("bank_id")%>" style="width:20px;height:20px;padding:1px 0;">
+					 <div class="btn btn-default btn-circle asc" data-url="<%=map.get("bank_url")%>" id="<%=map.get("bank_id")%>" style="width:20px;height:20px;padding:1px 0;">
 					     <i class="fa fa-check"></i>
                      </div>
 				</div>
