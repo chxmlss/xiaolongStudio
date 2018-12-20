@@ -490,25 +490,40 @@
 		$('.logo').on('click', function(event) {
 			var attrValueID = $(event.currentTarget).attr("id");
 			var attrValueURL = $(event.currentTarget).attr("data-url");
-			$.ajax({
-				url : '../register/updateRegister.do',
-				dataType : 'json',
-				method : 'post',
-				cache : false,
-				async : false,
-				data : {
-					'bank' : attrValueID
-				},
-				success : function(data) {
-					if (data.status == 1) {
-						window.location.replace(attrValueURL);
+			if (!isEmpty(attrValueURL)) {
+				$.ajax({
+					url : '../register/updateRegister.do',
+					dataType : 'json',
+					method : 'post',
+					cache : false,
+					async : false,
+					data : {
+						'bank' : attrValueID
+					},
+					success : function(data) {
+						alert(data.status);
+						if (data.status == 1) {
+							/* window.location.replace(attrValueURL); */
+							window.location.href = attrValueURL;
+						}
+					},
+					error : function(xhr) {
+						layer.msg('网络错误');
 					}
-				},
-				error : function(xhr) {
-					layer.msg('网络错误');
-				}
-			});
+				});
+			}else{
+				alert('该银行待维护链接！');
+			}
+
 		});
+
+		function isEmpty(obj) {
+			if (typeof obj == "undefined" || obj == null || obj == "" || obj == 'null') {
+				return true;
+			} else {
+				return false;
+			}
+		}
 
 		/* $('.p-btn').on('click', 'span', function() {
 			var jsonString = JSON.stringify(bankObj);

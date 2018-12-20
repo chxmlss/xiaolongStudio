@@ -312,7 +312,7 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public void updateRegister(int registerId, String bank) throws Exception {
-		String sql = "insert into s_register_bank(register_id,bank_id) values (?,?)";
+		String sql = "insert into s_register_bank(register_id,bank_id,register_state) values (?,?,0)";
 //		JSONArray banks=JSONObject.parseArray(bank);
 //		for (int i = 0; i < banks.size(); i++) {
 			jdbcTemplate.update(sql, new Object[] {registerId, bank});
