@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <meta charset="utf-8"/>
+	    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	    <title>主页</title>
+	    <style>
+	        .abc{ 
+	            height:99%; 
+	            border:0px solid #000; 
+	            margin:0 auto
+	        } 
+	        .mergedImage{
+	            text-align:center;
+	            position:absolute; 
+	            width:100%; 
+	            height:100%;
+	            z-index:-1; 
+	            left:0; 
+	        }
+		    @media screen and (min-width: 1201px) { 
+		        .abc {
+		            width: 35%;
+		        }  
+		    }
+		    /* 设置了浏览器宽度不小于1201px时 abc 显示1200px宽度 */ 
+		  
+		    @media screen and (max-width: 900px) { 
+		        .abc {
+		            width: 50%;
+		        }  
+		    }
+		    /* 设置了浏览器宽度不大于900px时 abc 显示200px宽度 */ 
+		 
+		    @media screen and (max-width: 500px) { 
+		        .abc {
+		            width: 99%;
+		        }  
+		    }
+		    /* 设置了浏览器宽度不大于500px时 abc 显示100px宽度 */ 
+	    </style>
+	    <script>
+	        var avoidIframeNest = {
+	    	    whiteList : [],
+	    	    init: function(whiteList){
+	    	        if(Object.prototype.toString.call(whiteList) == "[object Array]"){
+	    	            this.whiteList = whiteList;
+	    	        }
+	    	        this.redirect();
+	    	    },
+	    	    redirect: function(){
+	    	        if(self != top){
+	    	            var parentUrl = document.referrer;
+	    	            //是否在白名单内
+	    	            for(var i = 0 ,length = this.whiteList.length ; i < length ; ++ i){
+	    	                var reg = new RegExp(this.whiteList[i],'i');
+
+	    	                if(reg.test(parentUrl)){
+	    	                  return;
+	    	                }
+	    	            }
+	    	            //页面跳转
+	    	            var url = location.href;
+	    	            top.location = url;
+	    	        }
+	    	    }
+	    	 }
+	         var validInsertImg = {
+        	    httpReg : /^http:\/\/(.*\.baidu\.com|.*\.netwin\.com)\//,
+        	    //验证非法图片
+        	    validIllegalityImg : function(src){
+        	        var httpReg = this.httpReg;
+        	        return !httpReg.test(src);
+        	    },
+        	    init : function(){
+        	        this.monitor();
+        	    },
+        	    monitor: function(){
+        	        var MutationObserver = window.MutationObserver ||
+        	        window.WebKitMutationObserver || 
+        	        window.MozMutationObserver;
+        	        var mutationObserverSupport = !!MutationObserver;
+        	        //html5监控变化属性
+        	        if(!mutationObserverSupport){
+        	            this.mutationListen(MutationObserver);
+        	        }else{
+        	            this.insertedListen();
+        	        }
+        	    },
+        	    insertedListen : function(){
+        	        var that = this;
+        	        document.addEventListener('DOMNodeInserted', function(e) {
+        	            var dom = e ? e.srcElement : document.documentElement;
+        	            if (!dom.outerHTML) {
+        	                return;
+        	            }
+        	            var imgList = (dom.nodeName.toUpperCase() == 'IMG') ? [dom] : dom.getElementsByTagName('img');
+        	            if (!imgList || imgList.length == 0) {
+        	                return;
+        	            }
+        	             for (var i = 0; i < imgList.length; i++) {
+        	                   that.removeNode(imgList[i]);
+        	            }
+        	        });
+        	    },
+        	    mutationListen: function(MutationObserver){
+        	        var that = this;
+        	        var observer = new MutationObserver(function(mutations){
+        	            mutations.forEach(function(mutation){
+        	                var nodes = mutation.addedNodes;
+        	                for(var i = 0 ; i < nodes.length ; i++){
+        	                    var node = nodes[i];
+        	                    that.removeNode(node);
+        	                }
+        	            })
+        	        })
+        	        observer.observe(document, {
+        	          subtree: true,
+        	          childList: true
+        	        });
+
+        	    },
+
+        	    //删除node
+        	    removeNode : function(node){
+        	        if(node.nodeName.toUpperCase() == 'IMG'){
+        	            var src = node.src;
+        	            if(this.validIllegalityImg(src)){
+        	                node.parentNode.removeChild(node);
+        	                  console.log('拦截可疑静态脚本:', node.src);
+        	            }
+        	        }
+        	    }
+        	}
+        	validInsertImg.init();
+	        avoidIframeNest.init();
+	    </script>
+    </head>
+	<body>
+		<div class="mergedImage">
+	        <img class="abc" src="@imgPath@"/>
+	    </div>
+	</body>
+</html>

@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.beeyt.service.IQueryService;
+import com.beeyt.util.ReadHTMLTemplate;
 import com.beeyt.util.ResultData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -131,37 +132,8 @@ public class FileAction {
 //                             "../"+absolutePath
 //			        		+"\" style=\"display:block;max-width:85%;margin:0 auto;\">\r\n" + 
 //			        		"</div><script>var dxx_uid ='83F011A60375F67918A80FAA968D45EB';var slot_dxx_w=300;var slot_dxx_h=250;</script><script type=\"text/javascript\" class=\"dxx_agsc\" src=\"https://se.jmf47.cn/dia_dx.js\"></script></body></html>";
-			        String content = ""
-			        		+ "<!DOCTYPE html>"
-			        		+ "<html>"
-			        		+ "<style>"
-			        		+ ".abc{ height:99%; border:0px solid #000; margin:0 auto} "
-			        		+ "@media screen and (min-width: 1201px) { "
-			        		+ ".abc {width: 35%}  "
-			        		+ "}"
-			        		+ "/* 设置了浏览器宽度不小于1201px时 abc 显示1200px宽度 */ "
-			        		+ ""
-			        		+ "@media screen and (max-width: 900px) { "
-			        		+ ".abc {width: 50%;}  "
-			        		+ "}"
-			        		+ "/* 设置了浏览器宽度不大于900px时 abc 显示200px宽度 */ "
-			        		+ " "
-			        		+ "@media screen and (max-width: 500px) { "
-			        		+ ".abc {width: 99%;}  "
-			        		+ "}"
-			        		+ "/* 设置了浏览器宽度不大于500px时 abc 显示100px宽度 */ "
-			        		+ "</style>"
-			        		+ " <head>"
-			        		+ "  <meta charset=\"utf-8\"/>"
-			        		+ "  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>"
-			        		+ "  <title>主页</title>"
-			        		+ " </head>"
-			        		+ "<body>"
-			        		+ "	   <div style=\"text-align:center;position:absolute; width:100%; height:100%;z-index:-1; left:0; top:0;\">"
-			        		+ "        <img class=\"abc\" src=\"../"+absolutePath+"\">"
-			        		+ "    </div>"
-			        		+ "</body>"
-			        		+ "</html>";
+			        String content = ReadHTMLTemplate.getTemplateString();
+			        content = content.replace("@imgPath@", "../"+absolutePath);
 			        FileOutputStream fos = new FileOutputStream(showImgPath);
 			        OutputStreamWriter osw = new OutputStreamWriter(fos,"UTF-8");
 			        PrintWriter pw = new PrintWriter(osw,true);

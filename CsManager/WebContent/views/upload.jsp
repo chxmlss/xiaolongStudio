@@ -85,7 +85,7 @@ padding-top:0 !important;
 			    });
 			$('#code').on('show.bs.modal',
 		        function() {
-		        var str = "http://iusm.jinmuou.com:8080/CsManager/showImg/"+userid+".html";
+		        var str = "http://iusm.jinmuou.com:8080/CsManager/showImg/"+userid+".html?time="+new Date().getTime();
 				//alert("链接地址i："+str)
 				 var qrcode= $('#code-can').qrcode(str).hide(); 
 				 var canvas=qrcode.find('canvas').get(0);
