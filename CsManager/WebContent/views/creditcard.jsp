@@ -187,8 +187,8 @@
         </script>
 	    <!-- 模态框（Modal） -->
 		<div class="modal fade" id="urlModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
+			<div class="modal-dialog" style="width:500px">
+				<div class="modal-content" style=“height:200px”>
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
@@ -197,14 +197,14 @@
 							请设置链接
 						</h4>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" style="padding:10px 20px 10px">
 						<form class="bs-example bs-example-form" role="form" action="../register/updateBankURL.do">
 							<div class="form-group">
 								<input type="hidden" id="bank_id" name="bank_id" class="form-control" value=""/>
-								<textarea id="bank_url" name="bank_url" class="form-control" rows="2" placeholder="请输入URL"></textarea>
+								<textarea id="bank_url" name="bank_url" class="form-control" rows="3" placeholder="请输入URL"></textarea>
 								<!-- <input type="text" id="bank_url" class="form-control"> -->
 							</div>
-							<div class="modal-footer">
+							<div class="modal-footer" style="padding: 1px;padding-top: 11px;">
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 								</button>
 								<button type="submit" class="btn btn-primary">
