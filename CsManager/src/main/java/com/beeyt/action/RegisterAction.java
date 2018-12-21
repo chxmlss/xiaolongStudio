@@ -33,6 +33,20 @@ public class RegisterAction {
 		return gson.toJson(resMap);
 	}
 	
+	@RequestMapping(value = "/updateBankURL", produces = "text/html;charset=UTF-8")
+	public String updateBankURL(@RequestParam(value = "bank_id", required = true) String bank_id,
+			@RequestParam(value = "bank_url", required = true) String bank_url) {
+		try {
+			queryService.updateBankURL(bank_id,bank_url);
+			return "redirect:/views/creditcard.jsp";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return "redirect:/views/creditcard.jsp";
+		}
+	}
+	
+	
 	@RequestMapping(value = "/updateBankInfo", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String updateBankInfo(@RequestParam(value = "bank_id", required = true) String bank_id,

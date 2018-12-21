@@ -48,6 +48,7 @@
                                             <th class="project-title" style="text-align:center;">描述</th>
                                             <th class="project-title" style="text-align:center;">图标</th>
                                             <th class="project-action" style="text-align:center;">状态</th>
+                                            <th class="project-action" style="text-align:center;">链接</th>
                                         </tr>
                                         {{each banks as value i}}
                                                <tr>
@@ -76,6 +77,13 @@
                                                             <input value="{{value.bank_id}}" type="checkbox" name="my-checkbox" checked/>
                                                         {{else}}
                                                             <input value="{{value.bank_id}}" type="checkbox" name="my-checkbox"/>
+                                                        {{/if}}
+                                                   </td>
+												   <td class="project-title" style="text-align:center;">
+                                                        {{if (value.bank_url == null || value.bank_url == '') }}
+															<button type="button" value="{{value.bank_id}}" name="{{value.bank_url}}" class="btn btn-primary" data-toggle="modal" data-target="#urlModal" onclick="Values(this.value,this.name)">设置链接</button>
+                                                        {{else}}
+															<button type="button" value="{{value.bank_id}}" name="{{value.bank_url}}" class="btn btn-warning" data-toggle="modal" data-target="#urlModal" onclick="Values(this.value,this.name)">修改链接</button>
                                                         {{/if}}
                                                    </td>
                                                </tr>       
@@ -150,9 +158,9 @@
 		         });
 		    	 
 		    	 $('select').change(function(){  
-		    		 var bankid =   $(this).attr("content");
-	    	　　　　　　var bankdescribe = $(this).children('option:selected').val();
-	    	　　　　　   　$.ajax({
+		    		var bankid =   $(this).attr("content");
+					var bankdescribe = $(this).children('option:selected').val();
+					$.ajax({
 						url:"../register/updateBankInfo.do",
 						type:"get",
 						dataType:"json",
@@ -165,9 +173,48 @@
 							layer.msg('网络错误');
 						}
 					});  
-		    	　});  
+		    	 });  
 		     });
-	         
-	     </script>
+	    </script>
+	    <script type="text/javascript">
+            $(function(){
+                $('.urlModal').modal("hide");
+            });
+		     function Values(ID,URL){
+             	$('#bank_id').val(ID);
+              	$('#bank_url').val(URL);
+		     }
+        </script>
+	    <!-- 模态框（Modal） -->
+		<div class="modal fade" id="urlModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							请设置链接
+						</h4>
+					</div>
+					<div class="modal-body">
+						<form class="bs-example bs-example-form" role="form" action="../register/updateBankURL.do">
+							<div class="form-group">
+								<input type="hidden" id="bank_id" name="bank_id" class="form-control" value=""/>
+								<textarea id="bank_url" name="bank_url" class="form-control" rows="2" placeholder="请输入URL"></textarea>
+								<!-- <input type="text" id="bank_url" class="form-control"> -->
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+								</button>
+								<button type="submit" class="btn btn-primary">
+									提交
+								</button>
+							</div>
+						</form>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal -->
+		</div>
 	</body>
 </html>

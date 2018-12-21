@@ -109,9 +109,9 @@
 			</div>
 			<div class="kuai-content flex-1">
 				<div class="swiper-container flex-1" id="swiper-container2"
-					style="height: 1.2rem">
-					<div class="swiper-wrapper" onclick="jump(this)"
-						data-src='/index/show/wenzhang.html'>
+					style="height: 1.5rem">
+					<div class="swiper-wrapper">
+						<!--onclick="jump(this)" data-src='/index/show/wenzhang.html' -->
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
 							<span>任*博申请了中信银行信用卡 ！额度9.8万</span>

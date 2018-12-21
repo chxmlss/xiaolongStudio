@@ -422,4 +422,10 @@ public class QueryService implements IQueryService {
 				"	createDate";
 		return jdbcTemplate.queryForList(sql);
 	}
+
+	@Override
+	public void updateBankURL(String bank_id, String bank_url) throws Exception {
+		String sql="update s_bank set bank_url=? where bank_id=?";
+		jdbcTemplate.update(sql,new Object[] {bank_url,bank_id});
+	}
 }

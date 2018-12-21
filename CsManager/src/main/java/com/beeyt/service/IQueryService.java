@@ -66,4 +66,6 @@ public interface IQueryService {
 	public void updateBankInfo(String bank_id, String bank_describe, String bank_effective) throws Exception;
 	
 	public List<Map<String, Object>> getLineChartsAll();
+
+	public void updateBankURL(String bank_id, String bank_url) throws Exception;
 }
