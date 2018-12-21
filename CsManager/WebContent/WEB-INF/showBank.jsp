@@ -105,7 +105,7 @@
 
 		<div class="kuaixun flex flex-align-center flex-pack-start">
 			<div class="kuaixun-left">
-				绿色通道快讯 <img src="<%=request.getContextPath()%>/img/bank/img/kuai.png" />
+				绿色通道快讯<img src="<%=request.getContextPath()%>/img/bank/img/kuai.png" />
 			</div>
 			<div class="kuai-content flex-1">
 				<div class="swiper-container flex-1" id="swiper-container2"
@@ -114,203 +114,203 @@
 						<!--onclick="jump(this)" data-src='/index/show/wenzhang.html' -->
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>任*博申请了中信银行信用卡 ！额度9.8万</span>
+							<span>任*博申请了中信银行信用卡!额度9.8万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>任*博申请了交通银行信用卡 ！额度5.9万</span>
+							<span>任*博申请了交通银行信用卡!额度5.9万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>任*博申请了招商银行信用卡 ！额度7.8万</span>
+							<span>任*博申请了招商银行信用卡!额度7.8万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>何*波申请了浦发银行信用卡 ！额度3.3万</span>
+							<span>何*波申请了浦发银行信用卡!额度3.3万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>刘*轩申请了中信银行信用卡 ！额度3.3万</span>
+							<span>刘*轩申请了中信银行信用卡!额度3.3万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>卢*祥申请了浦发银行信用卡 ！额度10万</span>
+							<span>卢*祥申请了浦发银行信用卡!额度10万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>周*伟申请了招商银行信用卡 ！额度5.6万</span>
+							<span>周*伟申请了招商银行信用卡!额度5.6万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>周*英申请了浦发银行信用卡 ！额度4.5万</span>
+							<span>周*英申请了浦发银行信用卡!额度4.5万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>孙*萌申请了交通银行信用卡 ！额度3.9万</span>
+							<span>孙*萌申请了交通银行信用卡!额度3.9万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>宁*芬申请了光大银行信用卡 ！额度8.5万</span>
+							<span>宁*芬申请了光大银行信用卡!额度8.5万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>宁*芬申请了点点现金贷信用卡 ！额度5.4万</span>
+							<span>宁*芬申请了点点现金贷信用卡!额度5.4万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>师*的申请了招商银行信用卡 ！额度5.4万</span>
+							<span>师*的申请了招商银行信用卡!额度5.4万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>师*的申请了浦发银行信用卡 ！额度9.8万</span>
+							<span>师*的申请了浦发银行信用卡!额度9.8万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>张*力申请了浦发银行信用卡 ！额度5.7万</span>
+							<span>张*力申请了浦发银行信用卡!额度5.7万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>张*金申请了光大银行信用卡 ！额度5.6万</span>
+							<span>张*金申请了光大银行信用卡!额度5.6万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>张*金申请了招商银行信用卡 ！额度3.5万</span>
+							<span>张*金申请了招商银行信用卡!额度3.5万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>慕*刚申请了招商银行信用卡 ！额度8.1万</span>
+							<span>慕*刚申请了招商银行信用卡!额度8.1万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>易*兰申请了浦发银行信用卡 ！额度1.1万</span>
+							<span>易*兰申请了浦发银行信用卡!额度1.1万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>曹*尧申请了招商银行信用卡 ！额度6.3万</span>
+							<span>曹*尧申请了招商银行信用卡!额度6.3万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>曹*本申请了招行标准信用卡信用卡 ！额度8.9万</span>
+							<span>曹*本申请了招行标准信用卡信用卡!额度8.9万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>曹*飞申请了招行标准信用卡信用卡 ！额度10万</span>
+							<span>曹*飞申请了招行标准信用卡信用卡!额度10万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>李*云申请了招商银行信用卡 ！额度4.6万</span>
+							<span>李*云申请了招商银行信用卡!额度4.6万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>李*刚申请了招商银行信用卡 ！额度8.2万</span>
+							<span>李*刚申请了招商银行信用卡!额度8.2万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>林*泉申请了光大银行信用卡 ！额度3.1万</span>
+							<span>林*泉申请了光大银行信用卡!额度3.1万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>梁*申请了招商银行信用卡 ！额度9.2万</span>
+							<span>梁*申请了招商银行信用卡!额度9.2万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>熊*红申请了招商银行信用卡 ！额度6.3万</span>
+							<span>熊*红申请了招商银行信用卡!额度6.3万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>牟*庆申请了招商银行信用卡 ！额度9.3万</span>
+							<span>牟*庆申请了招商银行信用卡!额度9.3万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>王*武申请了招商银行信用卡 ！额度9.4万</span>
+							<span>王*武申请了招商银行信用卡!额度9.4万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>秦*蓉申请了光大银行信用卡 ！额度7.9万</span>
+							<span>秦*蓉申请了光大银行信用卡!额度7.9万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>索*杰申请了招商银行信用卡 ！额度6.3万</span>
+							<span>索*杰申请了招商银行信用卡!额度6.3万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>蒋*艺申请了招商银行信用卡 ！额度3.4万</span>
+							<span>蒋*艺申请了招商银行信用卡!额度3.4万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>袁*敏申请了光大银行信用卡 ！额度4.3万</span>
+							<span>袁*敏申请了光大银行信用卡!额度4.3万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>裴*宇申请了浦发银行信用卡 ！额度4.3万</span>
+							<span>裴*宇申请了浦发银行信用卡!额度4.3万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>裴*花申请了浦发银行信用卡 ！额度5.4万</span>
+							<span>裴*花申请了浦发银行信用卡!额度5.4万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>许*迎申请了光大银行信用卡 ！额度9.5万</span>
+							<span>许*迎申请了光大银行信用卡!额度9.5万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>许*迎申请了浦发银行信用卡 ！额度6.3万</span>
+							<span>许*迎申请了浦发银行信用卡!额度6.3万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>谢*群申请了交通银行信用卡 ！额度1.2万</span>
+							<span>谢*群申请了交通银行信用卡!额度1.2万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>赵*申请了光大银行信用卡 ！额度2.3万</span>
+							<span>赵*申请了光大银行信用卡!额度2.3万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>赵*申请了浦发银行信用卡 ！额度2.6万</span>
+							<span>赵*申请了浦发银行信用卡!额度2.6万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>赵*龙申请了交通银行信用卡 ！额度5.1万</span>
+							<span>赵*龙申请了交通银行信用卡!额度5.1万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>郎*申请了中信银行银联标准IC信用卡（金卡）信用卡 ！额度8.6万</span>
+							<span>郎*申请了中信银行银联标准IC信用卡（金卡）信用卡!额度8.6万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>郎*申请了招行标准信用卡信用卡 ！额度1.6万</span>
+							<span>郎*申请了招行标准信用卡信用卡!额度1.6万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>郭*虎申请了中信银行信用卡 ！额度7.7万</span>
+							<span>郭*虎申请了中信银行信用卡!额度7.7万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>郭*虎申请了交通银行信用卡 ！额度8.5万</span>
+							<span>郭*虎申请了交通银行信用卡!额度8.5万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>隋*生申请了中信银行信用卡 ！额度7.8万</span>
+							<span>隋*生申请了中信银行信用卡!额度7.8万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>韦*文申请了交通银行信用卡 ！额度6.8万</span>
+							<span>韦*文申请了交通银行信用卡!额度6.8万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>高*全申请了光大银行信用卡 ！额度3.7万</span>
+							<span>高*全申请了光大银行信用卡!额度3.7万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>高*申请了交通银行信用卡 ！额度1.3万</span>
+							<span>高*申请了交通银行信用卡!额度1.3万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>黄*柳申请了中信银行信用卡 ！额度5.7万</span>
+							<span>黄*柳申请了中信银行信用卡!额度5.7万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>龙*容申请了中信银行信用卡 ！额度2.6万</span>
+							<span>龙*容申请了中信银行信用卡!额度2.6万</span>
 						</div>
 					</div>
 				</div>
