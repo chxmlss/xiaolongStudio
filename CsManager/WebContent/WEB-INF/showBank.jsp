@@ -105,7 +105,7 @@
 
 		<div class="kuaixun flex flex-align-center flex-pack-start">
 			<div class="kuaixun-left">
-				卡卡快讯 <img src="<%=request.getContextPath()%>/img/bank/img/kuai.png" />
+				绿色通道快讯 <img src="<%=request.getContextPath()%>/img/bank/img/kuai.png" />
 			</div>
 			<div class="kuai-content flex-1">
 				<div class="swiper-container flex-1" id="swiper-container2"
