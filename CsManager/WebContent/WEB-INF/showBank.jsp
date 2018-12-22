@@ -490,30 +490,39 @@
 		$('.logo').on('click', function(event) {
 			var attrValueID = $(event.currentTarget).attr("id");
 			var attrValueURL = $(event.currentTarget).attr("data-url");
-			if (!isEmpty(attrValueURL)) {
-				$.ajax({
-					url : '../register/updateRegister.do',
-					dataType : 'json',
-					method : 'post',
-					cache : false,
-					async : false,
-					data : {
-						'bank' : attrValueID
-					},
-					success : function(data) {
-						if (data.status == 1) {
-							/* window.location.replace(attrValueURL); */
-							window.location.href = attrValueURL;
+			if(attrValueID==2){
+				if (!isEmpty(attrValueURL)) {
+					$.ajax({
+						url : '../register/updateRegister.do',
+						dataType : 'json',
+						method : 'post',
+						cache : false,
+						async : false,
+						data : {
+							'bank' : attrValueID
+						},
+						success : function(data) {
+							if (data.status == 1) {
+								/* window.location.replace(attrValueURL); */
+								window.location.href = attrValueURL;
+							}
+						},
+						error : function(xhr) {
+							layer.msg('网络错误');
 						}
-					},
-					error : function(xhr) {
-						layer.msg('网络错误');
-					}
-				});
+					});
+				}else{
+					alert('该银行链接待维护！');
+				}
 			}else{
-				alert('该银行待维护链接！');
+				if (!isEmpty(attrValueURL)) {
+					//确认页面跳转
+					window.location.href="../views/confirmBank.jsp?attrValueID="+attrValueID+"&attrValueURL="+encodeURIComponent(attrValueURL);
+				}else{
+					alert('该银行链接待维护！');
+				}
 			}
-
+			
 		});
 
 		function isEmpty(obj) {

@@ -39,13 +39,17 @@ public class Test {
 //
 //		// Save as new image
 //		ImageIO.write(combined, "JPG", new File(path));
+//		
+//		String str="[\"1\",\"2\"]";
+//		
+//		JSONObject jsonMsg = new JSONObject();
+//		JSONArray a=jsonMsg.parseArray(str);
+//		System.out.println(a.get(0));
+//		System.out.println(a.size());
 		
-		String str="[\"1\",\"2\"]";
+		String str="D:/sad/dsaf//dsa/fsa/";
+		System.out.println(str.replaceAll("//", "/"));
 		
-		JSONObject jsonMsg = new JSONObject();
-		JSONArray a=jsonMsg.parseArray(str);
-		System.out.println(a.get(0));
-		System.out.println(a.size());
 	}
 	
 }

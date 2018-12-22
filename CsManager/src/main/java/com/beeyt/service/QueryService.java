@@ -89,14 +89,17 @@ public class QueryService implements IQueryService {
 		return "redirect:/business/getUsersInfo.do";
 	}
 
-	public void delUser(String username) {
+	public void delUser(String username,String path) {
 		String sql = "SELECT a.*,b.group_id FROM s_user a LEFT JOIN s_group b ON a.username = b.username WHERE a.username = '"
 				+ username + "'";
 		Map<String, Object> map = jdbcTemplate.queryForMap(sql);
 		String oldPath = (String) map.get("filepath");
-		if (oldPath != null && !"".equals(oldPath)) {
+		
+		String realPath=path+oldPath;
+		
+		if (realPath != null && !"".equals(realPath)) {
 			// 删除文件
-			File file = new File(oldPath);
+			File file = new File(realPath);
 			// 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
 			if (file.exists() && file.isFile()) {
 				file.delete();

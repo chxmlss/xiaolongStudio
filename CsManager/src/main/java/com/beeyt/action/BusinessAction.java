@@ -160,8 +160,12 @@ public class BusinessAction {
 	 */
 	@RequestMapping(value = "/delUser", produces = "text/html;charset=UTF-8")
 	public String delUser(@RequestParam(value = "username", required = false) String username) {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
+		String path = request.getServletContext().getRealPath("/");
+		path = path.replaceAll("\\\\", "/");
 		try {
-			queryService.delUser(username);
+			queryService.delUser(username,path);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "failed";

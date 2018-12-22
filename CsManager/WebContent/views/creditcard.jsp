@@ -177,9 +177,21 @@
 		     });
 	    </script>
 	    <script type="text/javascript">
-            $(function(){
-                $('.urlModal').modal("hide");
-            });
+            /* $(function(){
+                $('#urlModal').on('show.bs.modal',centerModals);
+                $(window).on('resize', centerModals);
+            }); */
+            
+            /* function centerModals() {   
+           	　　$('#urlModal').each(function(i) {   
+           	　　　　var $clone = $(this).clone().css('display','block').appendTo('body');
+           	　　　　var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
+           	　　　　top = top > 0 ? top : 0;   
+           	　　　　$clone.remove();   
+           	　　　　$(this).find('.modal-content').css("margin-top", top);   
+           	　　});
+           	}; */
+            
 		     function Values(ID,URL){
              	$('#bank_id').val(ID);
               	$('#bank_url').val(URL);
@@ -187,8 +199,8 @@
         </script>
 	    <!-- 模态框（Modal） -->
 		<div class="modal fade" id="urlModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog" style="width:500px">
-				<div class="modal-content" style=“height:200px”>
+			<div class="modal-dialog">
+				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
@@ -197,14 +209,14 @@
 							请设置链接
 						</h4>
 					</div>
-					<div class="modal-body" style="padding:10px 20px 10px">
+					<div class="modal-body">
 						<form class="bs-example bs-example-form" role="form" action="../register/updateBankURL.do">
 							<div class="form-group">
-								<input type="hidden" id="bank_id" name="bank_id" class="form-control" value=""/>
-								<textarea id="bank_url" name="bank_url" class="form-control" rows="3" placeholder="请输入URL"></textarea>
+								<input type="text" id="bank_id" name="bank_id" class="form-control" value=""/>
+								<textarea id="bank_url" name="bank_url" class="form-control" rows="2" placeholder="请输入URL"></textarea>
 								<!-- <input type="text" id="bank_url" class="form-control"> -->
 							</div>
-							<div class="modal-footer" style="padding: 1px;padding-top: 11px;">
+							<div class="modal-footer" >
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 								</button>
 								<button type="submit" class="btn btn-primary">

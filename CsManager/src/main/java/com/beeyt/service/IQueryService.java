@@ -13,7 +13,7 @@ public interface IQueryService {
 	
 	public String addUser(String name,String sex,String tel,String username,String password,String remarks);
 
-	public void delUser(String username);
+	public void delUser(String username,String path);
 
 	public void addGroup(String groupname, String username) throws Exception; 
 
