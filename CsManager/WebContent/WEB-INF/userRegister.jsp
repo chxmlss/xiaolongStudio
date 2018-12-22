@@ -13,7 +13,7 @@
 	<body>
 		 
 		<div class="top flex flex-pack-center flex-align-center">
-			<img src="<%=request.getContextPath()%>/img/gaoding.jpg" style="width:100%; height:100%;">
+			<img src="<%=request.getContextPath()%>/img/gaoding_new.jpg" style="width:100%; height:100%;">
 		</div> 
 		
 		<%-- <div class="wrapper">
