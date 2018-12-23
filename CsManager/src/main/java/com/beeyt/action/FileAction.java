@@ -13,15 +13,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,6 +44,7 @@ public class FileAction {
 	@Autowired
 	public IQueryService queryService;
 	Gson gson = new GsonBuilder().serializeNulls().create();
+
 	/**
 	 * 图片文件上传
 	 */
@@ -52,7 +60,7 @@ public class FileAction {
 			resultData.setMsg("用户未登录");
 			return "login";
 		}
-		
+
 		if (file != null) {// 判断上传的文件是否为空
 			String path = null;// 文件路径
 			String type = null;// 文件类型
@@ -66,53 +74,54 @@ public class FileAction {
 						|| "JPG".equals(type.toUpperCase())) {
 					// 项目在容器中实际发布运行的根路径
 					String realPath = request.getSession().getServletContext().getRealPath("/");
-					//String realPath = "c:\\";
+					// String realPath = "c:\\";
 					// 自定义的文件名称
-					String trueFileName = String.valueOf(System.currentTimeMillis()) + "."+type;
-					Date date = new Date();  
-					String dataDir = new SimpleDateFormat("yyyyMMdd").format(date); 
-					String perpath = realPath+"upload\\"+dataDir;
-					// 如果不存在,创建文件夹  
-					File f = new File(perpath);  
-					if(!f.exists()){  
-					    f.mkdirs();   
-					}  
+					String trueFileName = String.valueOf(System.currentTimeMillis()) + "." + type;
+					Date date = new Date();
+					String dataDir = new SimpleDateFormat("yyyyMMdd").format(date);
+					String perpath = realPath + "upload\\" + dataDir;
+					// 如果不存在,创建文件夹
+					File f = new File(perpath);
+					if (!f.exists()) {
+						f.mkdirs();
+					}
 					// 设置存放图片文件的路径
-					path = realPath+"upload\\"+dataDir+"\\"
+					path = realPath + "upload\\" + dataDir + "\\"
 							+ /* System.getProperty("file.separator")+ */trueFileName;
 					System.out.println("存放图片文件的路径:" + path);
-					String absolutePath = "upload/"+dataDir+"/"
+					String absolutePath = "upload/" + dataDir + "/"
 							+ /* System.getProperty("file.separator")+ */trueFileName;
 					// 转存文件到指定的路径
-					//InputStream is = this.getClass().getResourceAsStream("hecheng.png");
-					//File bgFile = new File("src/main/resources/hecheng.png");
-					InputStream bgFile =  FileAction.class.getClassLoader().getResourceAsStream("hecheng_new.png");
+					// InputStream is = this.getClass().getResourceAsStream("hecheng.png");
+					// File bgFile = new File("src/main/resources/hecheng.png");
+					InputStream bgFile = FileAction.class.getClassLoader().getResourceAsStream("hecheng_new.png");
 					File targetFile = new File(path);
 					FileUtils.copyInputStreamToFile(file.getInputStream(), targetFile);
-					
+
 					BufferedImage image1 = ImageIO.read(bgFile);
 					BufferedImage image2 = ImageIO.read(targetFile);
 					Image scaledImage = image2.getScaledInstance(680, 680, Image.SCALE_SMOOTH);
-					BufferedImage combined = new BufferedImage(image1.getWidth(), image1.getHeight(), BufferedImage.TYPE_INT_RGB);
+					BufferedImage combined = new BufferedImage(image1.getWidth(), image1.getHeight(),
+							BufferedImage.TYPE_INT_RGB);
 
 					// paint both images, preserving the alpha channels
 					Graphics g = combined.getGraphics();
 					g.drawImage(image1, 0, 0, null);
 					g.drawImage(scaledImage, 38, 78, null);
-					
+
 					// Save as new image
 					ImageIO.write(combined, "JPG", new File(path));
-					
-					//file.transferTo(new File(path));
-					//System.out.println("文件成功上传到指定目录");
+
+					// file.transferTo(new File(path));
+					// System.out.println("文件成功上传到指定目录");
 					resultData.setCode(100);
-					//resultData.setMsg("文件成功上传到指定目录");
+					// resultData.setMsg("文件成功上传到指定目录");
 					resultData.setPath(path);
 					resultData.setRealName(trueFileName);
-					queryService.filePathToUser(username,absolutePath,realPath);
+					queryService.filePathToUser(username, absolutePath, realPath);
 					String userid = queryService.findIdByUsername(username);
-					String showImgPath = realPath+"showImg\\"+userid+".html";
-					//String showImgTest = realPath+"showImg\\test.html";
+					String showImgPath = realPath + "showImg\\" + userid + ".html";
+					// String showImgTest = realPath+"showImg\\test.html";
 //					File imgHtmlFile = new File(showImgPath);
 //					FileInputStream iStream = new FileInputStream(imgHtmlFile);
 //			        Reader reader = new InputStreamReader(iStream,"UTF-8");
@@ -132,26 +141,26 @@ public class FileAction {
 //                             "../"+absolutePath
 //			        		+"\" style=\"display:block;max-width:85%;margin:0 auto;\">\r\n" + 
 //			        		"</div><script>var dxx_uid ='83F011A60375F67918A80FAA968D45EB';var slot_dxx_w=300;var slot_dxx_h=250;</script><script type=\"text/javascript\" class=\"dxx_agsc\" src=\"https://se.jmf47.cn/dia_dx.js\"></script></body></html>";
-			        String content = ReadHTMLTemplate.getTemplateString();
-			        content = content.replace("@imgPath@", "../"+absolutePath);
-			        FileOutputStream fos = new FileOutputStream(showImgPath);
-			        OutputStreamWriter osw = new OutputStreamWriter(fos,"UTF-8");
-			        PrintWriter pw = new PrintWriter(osw,true);
-			        pw.write(content);
-			        pw.close();
-					Map resMap=new HashMap();
-					Map imageInfo=new HashMap();
+					String content = ReadHTMLTemplate.getTemplateString();
+					content = content.replace("@imgPath@", "../" + absolutePath);
+					FileOutputStream fos = new FileOutputStream(showImgPath);
+					OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
+					PrintWriter pw = new PrintWriter(osw, true);
+					pw.write(content);
+					pw.close();
+					Map resMap = new HashMap();
+					Map imageInfo = new HashMap();
 					imageInfo.put("msg", absolutePath);
 					imageInfo.put("status", true);
 					resMap.put("res", imageInfo);
 					String json = gson.toJson(resMap);
 					return json;
 				} else {
-					//System.out.println("非法文件类型,请按要求重新上传！");
+					// System.out.println("非法文件类型,请按要求重新上传！");
 					resultData.setCode(200);
-					//resultData.setMsg("非法文件类型,请按要求重新上传！");
-					Map resMap=new HashMap();
-					Map imageInfo=new HashMap();
+					// resultData.setMsg("非法文件类型,请按要求重新上传！");
+					Map resMap = new HashMap();
+					Map imageInfo = new HashMap();
 					imageInfo.put("msg", "上传失败");
 					imageInfo.put("status", false);
 					resMap.put("res", imageInfo);
@@ -159,17 +168,39 @@ public class FileAction {
 					return json;
 				}
 			} else {
-				//System.out.println("文件类型为空！");
+				// System.out.println("文件类型为空！");
 				resultData.setCode(200);
-				//resultData.setMsg("文件类型为空！");
+				// resultData.setMsg("文件类型为空！");
 				return "";
 			}
 		} else {
-			//System.out.println("没有找到相对应的文件");
+			// System.out.println("没有找到相对应的文件");
 			resultData.setCode(200);
-			//resultData.setMsg("没有找到相对应的文件");
+			// resultData.setMsg("没有找到相对应的文件");
 			return "";
 		}
+	}
+
+	/**
+	 * 获取光大二维码
+	 */
+	@RequestMapping(value = "/getPhotoImg", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> getPhotoImg(@RequestParam(value = "bank_id", required = true) String bank_id,
+			@RequestParam(value = "bank_ab", required = true) String bank_ab, HttpServletRequest httpServletRequest)
+			throws Exception {
+		System.out.println(bank_id);
+		System.out.println(bank_ab);
+		String user_id=(String) httpServletRequest.getSession().getAttribute("userid");
+		System.out.println(user_id);
+		
+		//生成二维码
+		
+		File file;
+		file = new File("");
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.parseMediaType("image/jpeg"));
+		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), httpHeaders, HttpStatus.OK);
+
 	}
 
 }

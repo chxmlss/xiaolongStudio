@@ -46,6 +46,25 @@ public class RegisterAction {
 		}
 	}
 	
+	//银行二维码跳转程序
+	//使用链接生成二维码
+	//http://iusm.jinmuou.com:8080/CsManager/register/inBankC.do?bank_id=&bank_ab=&user_id=
+	@RequestMapping(value = "/inBankC", produces = "text/html;charset=UTF-8")
+	public String inBankC(@RequestParam(value = "bank_id", required = true) String bank_id,
+			@RequestParam(value = "bank_ab", required = true) String bank_ab,
+			@RequestParam(value = "user_id", required = true) String user_id) {
+		String URL="";
+		try {
+			URL=queryService.inBankC(bank_id,bank_ab,user_id);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return "redirect:"+URL;
+	}
+	
+	
+	
 	
 	@RequestMapping(value = "/updateBankInfo", produces = "text/html;charset=UTF-8")
 	@ResponseBody

@@ -104,6 +104,12 @@
 		                            <span class="nav-label">二维码下载</span>
 		                        </a>
 	                        </li>
+	                        <li>
+		                        <a class="J_menuItem" href="<%=request.getContextPath()%>/views/geturl_gd.jsp">
+		                            <i class="fa fa-train"></i> 
+		                            <span class="nav-label">光大信用卡二维码</span>
+		                        </a>
+	                        </li>
 	                    </c:otherwise>
                     </c:choose>
                     

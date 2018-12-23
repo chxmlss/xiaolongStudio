@@ -68,4 +68,6 @@ public interface IQueryService {
 	public List<Map<String, Object>> getLineChartsAll();
 
 	public void updateBankURL(String bank_id, String bank_url) throws Exception;
+
+	public String inBankC(String bank_id,String bank_ab, String user_id) throws Exception;
 }
