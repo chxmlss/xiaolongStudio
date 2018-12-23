@@ -35,6 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.beeyt.service.IQueryService;
 import com.beeyt.util.ReadHTMLTemplate;
 import com.beeyt.util.ResultData;
+import com.beeyt.util.ZXingBackGroundUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -182,25 +183,17 @@ public class FileAction {
 	}
 
 	/**
-	 * 获取光大二维码
+	 * 获取银行二维码
 	 */
 	@RequestMapping(value = "/getPhotoImg", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getPhotoImg(@RequestParam(value = "bank_id", required = true) String bank_id,
-			@RequestParam(value = "bank_ab", required = true) String bank_ab, HttpServletRequest httpServletRequest)
-			throws Exception {
-		System.out.println(bank_id);
-		System.out.println(bank_ab);
-		String user_id=(String) httpServletRequest.getSession().getAttribute("userid");
-		System.out.println(user_id);
-		
-		//生成二维码
-		
-		File file;
-		file = new File("");
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.setContentType(MediaType.parseMediaType("image/jpeg"));
-		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), httpHeaders, HttpStatus.OK);
-
+	public void getPhotoImg(@RequestParam(value = "bank_id", required = true) String bank_id,
+			@RequestParam(value = "bank_ab", required = true) String bank_ab, HttpServletRequest httpServletRequest,
+			HttpServletResponse response) throws Exception {
+		String user_id = (String) httpServletRequest.getSession().getAttribute("userid");
+		String text = "http://iusm.jinmuou.com:8080/CsManager/inBankC.do?bank_id=" + bank_id + "&bank_ab=" + "&user_id="
+				+ user_id;
+		// 生成二维码
+		ZXingBackGroundUtils.drawLogoQRCode(response.getOutputStream(),text);
 	}
 
 }
