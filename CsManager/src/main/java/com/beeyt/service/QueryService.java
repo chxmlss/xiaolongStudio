@@ -445,7 +445,7 @@ public class QueryService implements IQueryService {
 			registerId = jdbcTemplate.queryForObject(sql1, Integer.class, new Object[] { bank_ab,user_id });
 		}
 		String sql3 = "insert into s_register_bank(register_id,bank_id,register_state) values (?,?,0)";
-		jdbcTemplate.update(sql3, new Object[] { registerId,bank_id,0 });
+		jdbcTemplate.update(sql3, new Object[] { registerId,bank_id });
 		String sql4 = "select bank_url from s_bank where bank_id=? and bank_ab=?";
 		
 		return jdbcTemplate.queryForObject(sql4, String.class, new Object[] {bank_id,bank_ab});

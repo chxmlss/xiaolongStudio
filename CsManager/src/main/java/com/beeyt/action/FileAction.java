@@ -189,8 +189,8 @@ public class FileAction {
 	public void getPhotoImg(@RequestParam(value = "bank_id", required = true) String bank_id,
 			@RequestParam(value = "bank_ab", required = true) String bank_ab, HttpServletRequest httpServletRequest,
 			HttpServletResponse response) throws Exception {
-		String user_id = (String) httpServletRequest.getSession().getAttribute("userid");
-		String text = "http://iusm.jinmuou.com:8080/CsManager/inBankC.do?bank_id=" + bank_id + "&bank_ab=" + "&user_id="
+		String user_id = String.valueOf(httpServletRequest.getSession().getAttribute("userid"));
+		String text = "http://iusm.jinmuou.com:8080/CsManager/register/inBankC.do?bank_id=" + bank_id + "&bank_ab="+bank_ab + "&user_id="
 				+ user_id;
 		// 生成二维码
 		ZXingBackGroundUtils.drawLogoQRCode(response.getOutputStream(),text);
