@@ -74,7 +74,13 @@ public class RegisterAction {
 			@RequestParam(value = "bank_effective", required = false) String bank_effective) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		if(!"".equals(bank_describe)){
-			bank_describe = "0".equals(bank_describe)?"高额":"秒批";
+			if("0".equals(bank_describe)) {
+				bank_describe="高额";
+			}else if("1".equals(bank_describe)) {
+				bank_describe="秒批";
+			}else {
+				bank_describe="暂时关闭";
+			}
 		}
 		try {
 			queryService.updateBankInfo(bank_id,bank_describe,bank_effective);

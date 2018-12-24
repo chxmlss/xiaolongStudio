@@ -63,9 +63,15 @@
                                                             {{if value.bank_describe == '高额'}} 
                                                                 <option selected="selected" value="0">高额</option>
                                                                 <option value="1">秒批</option>
-                                                             {{else}}
+                                                                <option value="2">暂时关闭</option>
+                                                             {{else if value.bank_describe == '秒批'}}
                                                                  <option value="0">高额</option>
                                                                  <option selected="selected" value="1">秒批</option>
+																 <option value="2">暂时关闭</option>
+															 {{else}}
+                                                                 <option value="0">高额</option>
+                                                                 <option value="1">秒批</option>
+																 <option selected="selected" value="2">暂时关闭</option>
                                                              {{/if}}
                                                         </select>
                                                    </td>
