@@ -442,7 +442,8 @@ public class QueryService implements IQueryService {
 		}else {
 			String sql2 = "insert into s_register(register_name,register_idcard,register_telephone,user_id,createDate) values(?,'-','-',?,sysdate())";
 			jdbcTemplate.update(sql2, new Object[] { bank_ab,user_id });
-			registerId = jdbcTemplate.queryForObject(sql1, Integer.class, new Object[] { bank_ab,user_id });
+			String sql0 = "select register_id from s_register where register_name=? and register_idcard='-' and user_id=?";
+			registerId = jdbcTemplate.queryForObject(sql0, Integer.class, new Object[] { bank_ab,user_id });
 		}
 		String sql3 = "insert into s_register_bank(register_id,bank_id,register_state) values (?,?,0)";
 		jdbcTemplate.update(sql3, new Object[] { registerId,bank_id });
