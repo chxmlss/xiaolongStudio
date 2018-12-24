@@ -358,7 +358,7 @@
 				下卡排行
 				<!-- <div class="more">更多</div> -->
 			</div>
-			<div class="list flex flex-pack-start toLink" data-src="bank_28" >
+			<div class="list flex flex-pack-start toLink1" data-src="bank_28" >
 				<div class="bank">
 					<img
 						src="<%=request.getContextPath()%>/img/bank/creditcard/f749c0f294704d69ccae0374b26a56c6.png" />
@@ -377,7 +377,7 @@
 					<p class="tip">无抵押借款最高30万元,新户刷卡礼送1000积分。快速发卡！</p>
 				</div>
 			</div>
-			<div class="list flex flex-pack-start" data-src="bank_19">
+			<div class="list flex flex-pack-start toLink2" data-src="bank_19">
 				<div class="bank">
 					<img
 						src="<%=request.getContextPath()%>/img/bank/creditcard/51ff0f445ae69ec8547fbf72f7dad390.jpg" />
@@ -396,7 +396,7 @@
 					<p class="tip">每周五超市、加油乐享5%优惠,【新手5分购】达标兑缤纷好礼</p>
 				</div>
 			</div>
-			<div class="list flex flex-pack-start" data-src="bank_16">
+			<div class="list flex flex-pack-start toLink3" data-src="bank_16">
 				<div class="bank">
 					<img
 						src="<%=request.getContextPath()%>/img/bank/creditcard/0f34535d916e5ab14c897ab9a1a95e62.png" />
@@ -490,6 +490,29 @@
 		$('.logo').on('click', function(event) {
 			var attrValueID = $(event.currentTarget).attr("id");
 			var attrValueURL = $(event.currentTarget).attr("data-url");
+			toService(attrValueID,attrValueURL);
+		});
+		
+        $(".toLink1").on('click',function(){
+        	var attrValueID =1;
+        	var attrValueURL=$('.logo[id=1]').attr("data-url");
+        	/* layer.msg(attrValueURL);*/
+        	toService(attrValueID,attrValueURL);
+	    });
+        $(".toLink2").on('click',function(){
+        	var attrValueID =1;
+        	var attrValueURL=$('.logo[id=4]').attr("data-url");
+        	/* layer.msg(attrValueURL);*/
+        	toService(attrValueID,attrValueURL);
+	    });
+        $(".toLink3").on('click',function(){
+        	var attrValueID =1;
+        	var attrValueURL=$('.logo[id=5]').attr("data-url");
+        	/* layer.msg(attrValueURL);*/
+        	toService(attrValueID,attrValueURL);
+	    });
+        
+        function toService(attrValueID,attrValueURL){
 			if(attrValueID==2){
 				if (!isEmpty(attrValueURL)) {
 					$.ajax({
@@ -522,14 +545,8 @@
 					alert('该银行链接待维护！');
 				}
 			}
-			
-		});
-        $(".toLink").on('click',function(){
-	    	
-	    	var url1 = $(this).attr('data-src');
-	    	alert('成功');
-	    	layer.msg('成功');
-	    });
+		}
+        
 		function isEmpty(obj) {
 			if (typeof obj == "undefined" || obj == null || obj == "" || obj == 'null') {
 				return true;
