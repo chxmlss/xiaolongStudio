@@ -35,7 +35,6 @@
 	<script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
 	<script>
 		$('.p-btn').on('click', 'span', function() {
-			alert(1);
 			var attrValueID = "<%=request.getParameter("attrValueID")%>";
 			var attrValueURL = "<%=request.getParameter("attrValueURL")%>";
 			if (!isEmpty(attrValueURL)) {
