@@ -358,7 +358,7 @@
 				下卡排行
 				<!-- <div class="more">更多</div> -->
 			</div>
-			<div class="list flex flex-pack-start" data-src="bank_28">
+			<div class="list flex flex-pack-start toLink" data-src="bank_28" >
 				<div class="bank">
 					<img
 						src="<%=request.getContextPath()%>/img/bank/creditcard/f749c0f294704d69ccae0374b26a56c6.png" />
@@ -524,7 +524,11 @@
 			}
 			
 		});
-
+        $(".toLink").on('click',function(){
+	    	
+	    	var url1 = $(this).attr('data-src');
+	    	console.log(url1);
+	    });
 		function isEmpty(obj) {
 			if (typeof obj == "undefined" || obj == null || obj == "" || obj == 'null') {
 				return true;
