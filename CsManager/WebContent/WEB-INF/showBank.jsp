@@ -527,7 +527,8 @@
         $(".toLink").on('click',function(){
 	    	
 	    	var url1 = $(this).attr('data-src');
-	    	console.log(url1);
+	    	alert('成功');
+	    	layer.msg('成功');
 	    });
 		function isEmpty(obj) {
 			if (typeof obj == "undefined" || obj == null || obj == "" || obj == 'null') {
