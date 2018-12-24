@@ -154,7 +154,7 @@
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>宁*芬申请了点点现金贷信用卡!额度5.4万</span>
+							<span>宁*申请了点点现金贷信用卡!额度5.4万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
@@ -190,11 +190,11 @@
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>曹*本申请了招行标准信用卡信用卡!额度8.9万</span>
+							<span>曹*申请了招行信用卡信用卡!额度8.9万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>曹*飞申请了招行标准信用卡信用卡!额度10万</span>
+							<span>曹*飞申请了招行信用卡信用卡!额度10万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
@@ -274,11 +274,7 @@
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>郎*申请了中信银行银联标准IC信用卡（金卡）信用卡!额度8.6万</span>
-						</div>
-						<div
-							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">
-							<span>郎*申请了招行标准信用卡信用卡!额度1.6万</span>
+							<span>郎*申请了招行信用卡信用卡!额度1.6万</span>
 						</div>
 						<div
 							class="swiper-slide swiper-no-swiping flex flex-pack-start flex-align-center">

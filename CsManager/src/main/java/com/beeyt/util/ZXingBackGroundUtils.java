@@ -17,8 +17,8 @@ public class ZXingBackGroundUtils {
 	private static final int QRCOLOR = 0xFF000000; // 默认是黑色
 	private static final int BGWHITE = 0xFFFFFFFF; // 背景颜色
 
-	private static final int WIDTH = 250; // 二维码宽
-	private static final int HEIGHT = 250; // 二维码高
+	private static final int WIDTH = 260; // 二维码宽
+	private static final int HEIGHT = 260; // 二维码高
 	// 用于设置QR二维码参数
 	private static Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>() {
 		private static final long serialVersionUID = 1L;
@@ -56,7 +56,7 @@ public class ZXingBackGroundUtils {
 			
 			Graphics2D g = ground.createGraphics();
 			String xx="500";
-			String yy="128";
+			String yy="135";
 			float fx = Float.parseFloat(xx);
 			float fy = Float.parseFloat(yy);
 			int x_i = (int) fx;
