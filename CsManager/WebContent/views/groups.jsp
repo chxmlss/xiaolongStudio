@@ -52,7 +52,7 @@
 								                        </div>
 								                    </div>
 								                    <div class="ibox-content">
-								                        <form id="addForm" class="form-horizontal m-t" id="signupForm" method="post" action="">
+								                        <form id="addForm" class="form-horizontal m-t"  method="post" action="">
 								                            <input type="hidden" name="remarks" id="remarks"/>
 								                            <div class="form-group">
 								                                <label class="col-sm-3 control-label">组名：</label>
@@ -64,7 +64,7 @@
 								                            <div class="form-group">
 								                                <label class="col-sm-3 control-label">组长账户名：</label>
 								                                <div class="col-sm-8">
-								                                   <input  name="name" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error" />
+								                                   <input  name="username" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error" />
 								                                </div>
 								                            </div>
 								                            <div class="form-group">
@@ -477,7 +477,6 @@
 				type:"post",
 				dataType:"html",
 				data: $("#addForm").serialize(),
-				async:false,
 				success:function(data){
 					var html = template('personContent', data);
 				    $('.project-list').html(html);
