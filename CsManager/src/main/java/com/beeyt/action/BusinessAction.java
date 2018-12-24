@@ -180,8 +180,8 @@ public class BusinessAction {
 	 * @return
 	 */
 	@RequestMapping(value = "/addGroup", produces = "text/html;charset=UTF-8")
-	public String addGroup(@RequestParam(value = "groupname", required = false) String groupname,
-			@RequestParam(value = "username", required = false) String username) {
+	public String addGroup(@RequestParam(value = "groupname", required = true) String groupname,
+			@RequestParam(value = "username", required = true) String username) {
 		try {
 			queryService.addGroup(groupname, username);
 		} catch (Exception e) {
