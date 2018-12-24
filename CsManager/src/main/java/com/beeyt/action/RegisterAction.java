@@ -46,6 +46,19 @@ public class RegisterAction {
 		}
 	}
 	
+	@RequestMapping(value = "/updateBankOrder", produces = "text/html;charset=UTF-8")
+	public String updateBankOrder(@RequestParam(value = "bank_id", required = true) String bank_id,
+			@RequestParam(value = "bank_order", required = true) String bank_order) {
+		try {
+			queryService.updateBankOrder(bank_id,bank_order);
+			return "redirect:/views/creditcard.jsp";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return "redirect:/views/creditcard.jsp";
+		}
+	}
+	
 	//银行二维码跳转程序
 	//使用链接生成二维码
 	//http://iusm.jinmuou.com:8080/CsManager/register/inBankC.do?bank_id=&bank_ab=&user_id=

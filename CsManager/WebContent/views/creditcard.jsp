@@ -45,8 +45,10 @@
                                         <tr>
                                             <th class="project-status" style="text-align:center;">名称</th>
                                             <th class="project-title" style="text-align:center;">简称</th>
-                                            <th class="project-title" style="text-align:center;">描述</th>
                                             <th class="project-title" style="text-align:center;">图标</th>
+                                            <th class="project-title" style="text-align:center;">排序值</th>
+                                            <th class="project-action" style="text-align:center;">设置排序</th>
+                                            <th class="project-title" style="text-align:center;">描述</th>
                                             <th class="project-action" style="text-align:center;">状态</th>
                                             <th class="project-action" style="text-align:center;">链接</th>
                                         </tr>
@@ -57,6 +59,15 @@
                                                    </td>
                                                    <td class="project-title" style="text-align:center;">
                                                         {{value.bank_ab}}                                                   
+                                                   </td>
+                                                   <td class="project-title" style="text-align:center;">
+                                                        <img src="{{value.bank_icon}}" width="50px" height=""/>
+                                                   </td>
+                                                   <td class="project-title" style="text-align:center;">
+                                                        {{value.bank_order}}                                                   
+                                                   </td>
+ 												   <td class="project-action" style="text-align:center;">
+														<button type="button" value="{{value.bank_id}}" name="{{value.bank_order}}" class="btn btn-info" data-toggle="modal" data-target="#orderModal" onclick="sToVa(this.value,this.name)">设置排序</button>
                                                    </td>
                                                    <td class="project-title" style="text-align:center;">
                                                         <select class="form-control m-b" name="bank_describe" content="{{value.bank_id}} ">
@@ -75,9 +86,6 @@
                                                              {{/if}}
                                                         </select>
                                                    </td>
-                                                   <td class="project-title" style="text-align:center;">
-                                                        <img src="{{value.bank_icon}}" width="50px" height=""/>
-                                                   </td>
                                                    <td class="project-action" style="text-align:center;">
                                                         {{if value.bank_effective == 1}}
                                                             <input value="{{value.bank_id}}" type="checkbox" name="my-checkbox" checked/>
@@ -85,7 +93,7 @@
                                                             <input value="{{value.bank_id}}" type="checkbox" name="my-checkbox"/>
                                                         {{/if}}
                                                    </td>
-												   <td class="project-title" style="text-align:center;">
+												   <td class="project-action" style="text-align:center;">
                                                         {{if (value.bank_url == null || value.bank_url == '') }}
 															<button type="button" value="{{value.bank_id}}" name="{{value.bank_url}}" class="btn btn-primary" data-toggle="modal" data-target="#urlModal" onclick="Values(this.value,this.name)">设置链接</button>
                                                         {{else}}
@@ -202,6 +210,10 @@
              	$('#bank_id').val(ID);
               	$('#bank_url').val(URL);
 		     }
+        	 function sToVa(ID,ORDER){
+        		 $('#bank_id_order').val(ID);
+        		 $('#bank_order').val(ORDER);
+        	 }
         </script>
 	    <!-- 模态框（Modal） -->
 		<div class="modal fade" id="urlModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -218,9 +230,39 @@
 					<div class="modal-body">
 						<form class="bs-example bs-example-form" role="form" action="../register/updateBankURL.do">
 							<div class="form-group">
-								<input type="text" id="bank_id" name="bank_id" class="form-control" value=""/>
+								<input type="hidden" id="bank_id" name="bank_id" class="form-control" value=""/>
 								<textarea id="bank_url" name="bank_url" class="form-control" rows="2" placeholder="请输入URL"></textarea>
 								<!-- <input type="text" id="bank_url" class="form-control"> -->
+							</div>
+							<div class="modal-footer" >
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+								</button>
+								<button type="submit" class="btn btn-primary">
+									提交
+								</button>
+							</div>
+						</form>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal -->
+		</div>
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							请设置排序值
+						</h4>
+					</div>
+					<div class="modal-body">
+						<form class="bs-example bs-example-form" role="form" action="../register/updateBankOrder.do">
+							<div class="form-group">
+								<input type="hidden" id="bank_id_order" name="bank_id" class="form-control" value=""/>
+								<input id="bank_order" name="bank_order" class="form-control"/>
 							</div>
 							<div class="modal-footer" >
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭

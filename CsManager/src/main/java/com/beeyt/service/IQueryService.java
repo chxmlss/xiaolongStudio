@@ -70,4 +70,6 @@ public interface IQueryService {
 	public void updateBankURL(String bank_id, String bank_url) throws Exception;
 
 	public String inBankC(String bank_id,String bank_ab, String user_id) throws Exception;
+
+	public void updateBankOrder(String bank_id, String bank_order) throws Exception;
 }
