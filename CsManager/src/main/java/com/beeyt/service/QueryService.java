@@ -125,15 +125,24 @@ public class QueryService implements IQueryService {
 			String name = (String) list.get(0).get("name");
 			String sql1 = "insert into s_group(group_name,username,name) values('" + groupname + "','" + username
 					+ "','" + name + "')";
-			jdbcTemplate.update(sql1);
+			String sql2 = "update s_user set isgroup=1 where username='"+username+"'";
+			jdbcTemplate.batchUpdate(sql1,sql2);
 		} else {
 			throw new Exception("无此用户！");
 		}
 	}
 
 	public void delGroup(String groupid) {
-		String sql = "update s_user set isgroup=0 where id in (select user_id from s_group_user where group_id='"
-				+ groupid + "')";
+		String sql = "update s_user set isgroup=0 where id in (SELECT user_id" + 
+				" FROM s_group_user" + 
+				" WHERE group_id = '"+groupid+"'" + 
+				" UNION" + 
+				" SELECT id" + 
+				" FROM s_user" + 
+				" WHERE username = (" + 
+				"	SELECT username" + 
+				"	FROM s_group" + 
+				"	WHERE group_id = '"+groupid+"'))";
 		String sql1 = "delete from s_group_user where group_id='" + groupid + "'";
 		String sql2 = "delete from s_group where group_id='" + groupid + "'";
 
