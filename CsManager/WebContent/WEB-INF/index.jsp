@@ -91,6 +91,14 @@
 		                        </a>
 	                        </li>
 	                    </c:when>
+	                    <c:when test="${username == 'checkdata'}">
+	                        <li>
+	                            <a class="J_menuItem" href="<%=request.getContextPath()%>/views/business.jsp">
+		                            <i class="fa fa-table"></i> 
+		                            <span class="nav-label">业务统计</span>
+		                        </a>
+	                        </li>
+	                    </c:when>
 	                    <c:otherwise>
 	                        <li>
 		                        <a class="J_menuItem" href="<%=request.getContextPath()%>/views/upload.jsp">
@@ -138,6 +146,9 @@
 	                    <c:when test="${username == 'admin'}">
 	                        <a href="javascript:;" class="active J_menuTab" data-id="persons.jsp">首页</a>
 			             </c:when>
+			             <c:when test="${username == 'checkdata'}">
+	                        <a href="javascript:;" class="active J_menuTab" data-id="business.jsp">首页</a>
+			             </c:when>
 		                <c:otherwise>
 		                     <a href="javascript:;" class="active J_menuTab" data-id="upload.jsp">首页</a>
 		                </c:otherwise>
@@ -165,6 +176,9 @@
                 <c:choose>
 	                <c:when test="${username == 'admin'}">
 	                   <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="<%=request.getContextPath()%>/views/persons.jsp" frameborder="0" data-id="persons.jsp" seamless></iframe>
+	                </c:when>
+	                 <c:when test="${username == 'checkdata'}">
+	                   <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="<%=request.getContextPath()%>/views/business.jsp" frameborder="0" data-id="business.jsp" seamless></iframe>
 	                </c:when>
 	                <c:otherwise>
 	                     <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="<%=request.getContextPath()%>/views/upload.jsp" frameborder="0" data-id="upload.jsp" seamless></iframe>
