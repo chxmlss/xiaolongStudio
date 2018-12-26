@@ -252,8 +252,12 @@ public class RegisterAction {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 //		JSONObject json = (JSONObject)request.getSession().getAttribute("verifyCode");
-		String userid = (String) request.getSession().getAttribute("userid");
 		JSONObject jsonMsg = new JSONObject();
+		try {
+			String userid = request.getSession().getAttribute("userid").toString();
+			if("".equals(userid)||"null".equals(userid)){
+				throw new Exception("Session未获取到UserID");
+			}
 //		if(json == null){
 //			jsonMsg.put("status", 0);
 //			jsonMsg.put("msg", "验证码错误!");
@@ -268,7 +272,7 @@ public class RegisterAction {
 //		if((System.currentTimeMillis() - json.getLong("createTime")) > 1000 * 60 * 5){//5分钟
 //			return "验证码已过期!";
 //		}
-		try {
+		
 			int registerId = queryService.saveRegister(name, idcard, telephone, userid);
 			jsonMsg.put("status", 1);
 			request.getSession().setAttribute("registerId", registerId);
