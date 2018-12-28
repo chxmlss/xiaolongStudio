@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.beeyt.service.IQueryService;
 import com.beeyt.util.SendSMS;
@@ -35,6 +33,52 @@ public class RegisterAction {
 		return gson.toJson(resMap);
 	}
 	
+	@RequestMapping(value = "/updateBankURL", produces = "text/html;charset=UTF-8")
+	public String updateBankURL(@RequestParam(value = "bank_id", required = true) String bank_id,
+			@RequestParam(value = "bank_url", required = true) String bank_url) {
+		try {
+			queryService.updateBankURL(bank_id,bank_url);
+			return "redirect:/views/creditcard.jsp";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return "redirect:/views/creditcard.jsp";
+		}
+	}
+	
+	@RequestMapping(value = "/updateBankOrder", produces = "text/html;charset=UTF-8")
+	public String updateBankOrder(@RequestParam(value = "bank_id", required = true) String bank_id,
+			@RequestParam(value = "bank_order", required = true) String bank_order) {
+		try {
+			queryService.updateBankOrder(bank_id,bank_order);
+			return "redirect:/views/creditcard.jsp";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return "redirect:/views/creditcard.jsp";
+		}
+	}
+	
+	//银行二维码跳转程序
+	//使用链接生成二维码
+	//http://iusm.jinmuou.com:8080/CsManager/register/inBankC.do?bank_id=&bank_ab=&user_id=
+	@RequestMapping(value = "/inBankC", produces = "text/html;charset=UTF-8")
+	public String inBankC(@RequestParam(value = "bank_id", required = true) String bank_id,
+			@RequestParam(value = "bank_ab", required = true) String bank_ab,
+			@RequestParam(value = "user_id", required = true) String user_id) {
+		String URL="";
+		try {
+			URL=queryService.inBankC(bank_id,bank_ab,user_id);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return "redirect:"+URL;
+	}
+	
+	
+	
+	
 	@RequestMapping(value = "/updateBankInfo", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String updateBankInfo(@RequestParam(value = "bank_id", required = true) String bank_id,
@@ -43,7 +87,13 @@ public class RegisterAction {
 			@RequestParam(value = "bank_effective", required = false) String bank_effective) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		if(!"".equals(bank_describe)){
-			bank_describe = "0".equals(bank_describe)?"高额":"秒批";
+			if("0".equals(bank_describe)) {
+				bank_describe="高额";
+			}else if("1".equals(bank_describe)) {
+				bank_describe="秒批";
+			}else {
+				bank_describe="暂时关闭";
+			}
 		}
 		try {
 			queryService.updateBankInfo(bank_id,bank_describe,bank_effective);
@@ -202,8 +252,12 @@ public class RegisterAction {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 //		JSONObject json = (JSONObject)request.getSession().getAttribute("verifyCode");
-		String userid = (String) request.getSession().getAttribute("userid");
 		JSONObject jsonMsg = new JSONObject();
+		try {
+			String userid = request.getSession().getAttribute("userid").toString();
+			if("".equals(userid)||"null".equals(userid)){
+				throw new Exception("Session未获取到UserID");
+			}
 //		if(json == null){
 //			jsonMsg.put("status", 0);
 //			jsonMsg.put("msg", "验证码错误!");
@@ -218,7 +272,7 @@ public class RegisterAction {
 //		if((System.currentTimeMillis() - json.getLong("createTime")) > 1000 * 60 * 5){//5分钟
 //			return "验证码已过期!";
 //		}
-		try {
+		
 			int registerId = queryService.saveRegister(name, idcard, telephone, userid);
 			jsonMsg.put("status", 1);
 			request.getSession().setAttribute("registerId", registerId);

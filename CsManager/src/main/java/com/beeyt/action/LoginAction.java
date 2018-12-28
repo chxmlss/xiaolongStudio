@@ -48,6 +48,10 @@ public class LoginAction {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		HttpSession session = request.getSession();
+		if(session.getAttribute("registerId")!=null&&!"".equals(session.getAttribute("registerId")))
+		{
+			return "redirect:/login/showBank.do";
+		}
 		session.setAttribute("userid", userid);
 		return "userRegister";
 	}
@@ -57,8 +61,7 @@ public class LoginAction {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		String userid = String.valueOf(request.getSession().getAttribute("userid"));
-		System.out.println(userid);
-		if (userid != null && !"".equals(userid)) {
+		if (userid != null && !"".equals(userid)&&!"null".equals(userid)) {
 			List<Map<String, Object>> list = queryService.getBank();
 			request.getSession().setAttribute("list", list);
 			return "showBank";

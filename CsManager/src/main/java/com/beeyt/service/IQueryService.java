@@ -13,7 +13,7 @@ public interface IQueryService {
 	
 	public String addUser(String name,String sex,String tel,String username,String password,String remarks);
 
-	public void delUser(String username);
+	public void delUser(String username,String path);
 
 	public void addGroup(String groupname, String username) throws Exception; 
 
@@ -66,4 +66,10 @@ public interface IQueryService {
 	public void updateBankInfo(String bank_id, String bank_describe, String bank_effective) throws Exception;
 	
 	public List<Map<String, Object>> getLineChartsAll();
+
+	public void updateBankURL(String bank_id, String bank_url) throws Exception;
+
+	public String inBankC(String bank_id,String bank_ab, String user_id) throws Exception;
+
+	public void updateBankOrder(String bank_id, String bank_order) throws Exception;
 }

@@ -8,11 +8,32 @@
 		<title>完善信息</title>
     	<link href="<%=request.getContextPath()%>/css/regiser/public.css?v=3.4.0" rel="stylesheet">
     	<link href="<%=request.getContextPath()%>/css/regiser/wan.css?v=3.4.0" rel="stylesheet">
+    	<link href="<%=request.getContextPath()%>/css/regiser/slider/slider.css" rel="stylesheet">
 	</head>
 	<body>
+		 
 		<div class="top flex flex-pack-center flex-align-center">
-			<img src="<%=request.getContextPath()%>/img/gaoding.jpg" style="width:100%; height:100%;">
-		</div>
+			<img src="<%=request.getContextPath()%>/img/gaoding_new.jpg" style="width:100%; height:100%;">
+		</div> 
+		
+		<%-- <div class="wrapper">
+		     <div class="aui-banner-content " data-aui-slider>
+                <div class="aui-banner-wrapper">
+                    <div class="aui-banner-wrapper-item">
+                        <a href="#">
+                            <img src="<%=request.getContextPath()%>/img/bank/lunbo.png">
+                        </a>
+                    </div>
+                    <div class="aui-banner-wrapper-item">
+                        <a href="#">
+                            <img src="<%=request.getContextPath()%>/img/gaoding.jpg">
+                        </a>
+                    </div>
+                </div>
+                <div class="aui-banner-pagination"></div>
+            </div>
+		</div> --%>
+		
 		<div class="wan-c">
 			<h3>信息</h3>
 			<form id="f">
@@ -70,94 +91,38 @@
 			<div class="box" style="padding:.5rem">
 			<div style="font-family: " microsoft="" yahei";="" text-indent:="" 2em;="" font-size:="" 12px;="" text-align:="" justify;="" margin:="" 5px="" auto="" 0px;="" width:="" 576px;="" color:="" rgb(123,="" 123,="" 123);="" line-height:="" 25px;"=""><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px; text-indent: 0pt; color: inherit;">《用户服务协议》（以下称“本协议”）系北京远山保科技有限公司（以下简称“我公司”）与用户之间关于使用我公司的产品及服务所订立的协议。</span><br></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">我公司在此特别提醒，请您认真、仔细阅读本协议。一旦您选择接受远山保提供的服务或注册成为远山保用户，则视为您理解并接受本协议的所有条款。若您不理解、不接受本协议，请立即离开。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">1.定义</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">1.1远山保：指远山保网站、保险手机软件、以及远山保代理的运营商中的一个或多个。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">1.2用户：指使用远山保服务的自然人，该自然人应当为中华人民共和国大陆地区公民，且具有完全民事行为能力；不具备完全民事行为能力的人，需在监护人的监护下使用远山保服务；若不具备上述资格或条件，请勿使用远山保服务。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">1.3个人信息：指用户在使用远山保服务时向远山保或相关第三方提交的包括但不限于电话号码、年龄、住址、性别等信息；或用户在使用远山保服务时所产生的包括但不限于订单信息、配送信息中所包含的涉及用户隐私的信息。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">2.服务规则</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">2.1远山保向用户提供的包括但不限于保险测算、保险推荐等服务，均基于用户所提交的信息以及保险产品市场的情况；由于信息的有限性、时效性以及保险市场等限制条件，该等服务仅能视为远山保根据当时已知的情况所提供的建议，并不构成远山保或第三方对用户进行交易的要约；用户有义务根据自己的实际情况判断该等建议，并对自己的决策负责。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">2.2用户可通过远山保获得（包括免费领取与付费购买等）保险公司、保险经纪公司等第三方提供的保险产品及服务，用户通过远山保提出获得该等产品或服务的申请时，即视为用户授权远山保向相关第三方发送获得该等服务所需要的用户信息，该申请即视为用户通过远山保向第三方发出的要约。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">2.3用户在接受远山保服务期间，远山保可能会自行或与第三方合作为用户提供保险增值服务；除非用户声明排除某种增值服务以外，用户接受远山保及远山保的合作方所提供的增值服务，且同时视为用户授权远山保向提供增值服务的第三方发送获得该等服务所需要的用户信息。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">2.4远山保向用户提供服务的方式包括但不限于通过网站、手机软件、电子邮件、短信、电话等，除远山保提供选择并经用户同意排除某种服务方式以外，用户接受远山保通过任何合法方式提供服务。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">2.5远山保有权在向用户提供服务的过程中，以各种服务方式向用户投放远山保或第三方的营销信息，除远山保提供选择并经用户同意排除以某种服务方式提供营销信息外，用户同意接收远山保通过任何合法方式投放营销信息。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">2.6用户使用远山保服务所需要的购买设备、获得电信业务等费用由用户自行承担。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">2.7用户使用远山保服务，仅限于为用户本人使用；若为第三人使用的，应取得合法的代理权限且满足相关服务的法律法规，用户应自行承担为第三人使用服务所导致效力瑕疵的后果。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">2.8用户通过任何第三方使用远山保服务，同样视为用户接受远山保的服务，应当遵守本协议的约定。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">3.物流配送</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">3.1远山保本身不向用户提供物流配送服务，若存在需要寄送的物品，远山保将委托第三方物流进行配送。远山保在任何时候所做出的对于物流配送时限的承诺，其时限均为远山保将配送物品交付第三方物流的时限，而非用户收到物品的时限。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">3.2用户提供的与配送相关的信息应当真实、明确，否则视为用户放弃对所配送物品的权利。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">3.3远山保委托第三方物流进行配送的费用承担方式，按如下顺序决定：</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （1）按照远山保与用户之间关于该次交易的单独约定；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （2）按照远山保在物流配送前关于该次交易物流费用的公示或通知；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （3）按照与该次交易相关的交易习惯；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （4）由远山保与用户协商确定。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">4.用户信息</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">4.1用户在使用远山保服务时，向远山保提供的信息应当是真实、准确的；若用户的现实情况有变更，用户应当及时操作更新该等信息，用户无法通过操作直接完成的更新，应当及时书面通知远山保进行更新；用户因信息不真实、不准确或者未更新导致的责任由用户承担。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">4.2用户有义务保护自己的信息，不得将其账号密码及其他个人信息转让或出借；用户遗忘账号密码信息的，应当及时通知远山保找回。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">4.3用户一旦发现其账号密码及其他个人信息被他人非法使用，应当立即采取有效方式通知远山保；远山保收到用户通知后，有权对发送通知的用户进行验证，用户应当配合验证；远山保经确认第三人非法使用用户的账号密码及其他个人信息的，有权暂停或终止相关服务，并对相关账号采取锁定、关停直至删除等行为。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">4.4远山保有在权判断用户的账号密码及其他个人信息被转让、被出借、被他人非法使用时，暂停或终止相关服务，并对相关账号采取锁定、关停直至删除等行为。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">4.5用户的账号密码及其他个人信息被转让、被出借、被他人非法使用导致用户或第三方损失的，远山保不承担赔偿责任。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">5.隐私保护</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">5.1远山保保护用户的个人隐私，用户在使用远山保服务时所提交或形成的个人信息，均在远山保的保护范围内。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">5.2远山保将严格按照行业标准保护用户的个人信息，对用户的个人信息进行妥善的保存、使用，除按照法律法规或本协议的其他约定，以及行政司法部门的要求外，不向任何第三方泄露用户的个人信息。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">5.3为了提升服务水平，远山保有权在不泄露用户个人信息的前提下，对包含用户的个人信息的数据库进行分析和商业上的利用，用户接受该等分析和利用。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">5.4下列情况下，远山保有权向有关第三方透露用户的个人信息：</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （1）用户授权远山保向第三方透露；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （2）用户通过远山保向第三方申请获得产品或服务，而获得该等产品或服务需要用户的个人信息；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （3）根据相关法律法规的规定；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （4）根据行政主管部门或司法部门的合法要求；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （5）因用户违反本协议，远山保为维护自身或有关的第三方的合法权益。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">5.5用户了解，即使远山保努力采取防范措施，也无法完全避免因为黑客攻击、计算机病毒、木马程序、个人账户密码泄露等原因导致的用户个人信息泄露；远山保在出现该等情况时，将会积极帮助用户维护自己的合法权益，但不对因用户或第三方的过错导致的用户个人信息泄露承担责任。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">6.知识产权</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">6.1用户保证向远山保所提交的内容不构成对他人知识产权的侵犯，否则远山保有权删除该等内容；远山保因此承担了赔偿责任的，有权向用户进行追偿。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">6.2用户在使用远山保服务时所提交的内容，一旦形成用户的知识产权，则对于其中可转让的部分，用户独家且不可撤销地转让给远山保所有；用户不再以任何形式在其他地方发布或授权其他主体使用该等内容。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">6.3远山保对向用户提供服务过程中所产生的内容享有完全的知识产权；除用于接受远山保提供的服务外，用户不得在其他任何地方使用或授权他人使用该等内容。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">6.4用户不得以任何方式侵犯远山保的知识产权，否则远山保有权暂停或终止该用户在远山保的服务，并要求该用户赔偿损失（包括预期利益损失）。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">7.使用限制</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">用户使用远山保服务时，应当遵守下列内容：</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （1）不得违反本协议的约定；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （2）不得侵犯远山保以及第三人的合法权益；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （3）不得违反中国大陆的法律法规；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （4）不得违反有关行政主管机关及司法机关的合法要求；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （5）不得损害公共利益。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">用户违反上述内容的，远山保有权采取包括但不限于删除相关内容、暂停服务、锁定账号等行动；用户因违反上述内容给远山保造成损失，或者导致远山保承担对第三人的责任的，远山保有权要求用户承担相应的损失或责任。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">8.违约责任</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">由于用户违反本协议约定，导致远山保受到损失的，远山保有权要求用户承担赔礼道歉、赔偿损失等责任；损失的范围包括但不限于：</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （1）远山保受到的直接经济损害；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （2）远山保的预期利益减少；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （3）远山保的商誉、商业秘密、知识产权等被侵犯而受到的损失；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （4）远山保因用户过错而向第三方承担的责任；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （5）远山保为要求用户承担责任而支出的律师费、诉讼费等费用；</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">   （6）其他因用户过错导致远山保所受到的损失。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">9.免责声明</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">9.1用户了解，用户通过远山保提交申请，并最终获得的第三方所提供的产品或服务，其提供方并非远山保，若用户对该等产品或服务有争议，需与有关第三方解决该争议，远山保不对该等产品或服务承担任何责任。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">9.2用户了解，远山保无法保证也没有义务保证任何第三方提供的信息的真实性和有效性，用户应当对从远山保获得的第三方信息（包括但不限于网页、营销邮件、外部链接等中的信息）进行谨慎地审核，并自行承担与第三方交易所产生的后果，远山保不对用户与第三方的交易承担任何责任。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">9.3用户了解，尽管远山保不断提高服务水平，优化软件硬件设备，完善防控制度，但是仍然无法完全避免因为网络中断、黑客攻击、计算机病毒、第三方程序问题以及其他技术原因导致的服务问题；由此所造成的用户损失，由用户或其他有过错的责任人承担，远山保不承担任何责任。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">9.4对于地震、台风、水灾、海啸、雷电、火灾、瘟疫、流行病、战争、恐怖主义、敌对行为、暴动、罢工、停止供应主要服务、电力中断、政府管制或其它类似事件以及不可抗力，致使远山保不能按约履行本协议，因此给用户造成损失的，远山保不承担任何责任。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">10.协议更新</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">10.1远山保有权根据法律法规、相关政策、实际业务等的变化变更本协议；变更后的协议在远山保上进行公示，新的协议一经公示即代替原来的协议。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">10.2用户有义务不时地注意本协议的变更。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">10.3新协议公示后，用户有权选择是否接受变更后的协议，若用户在协议变更后继续使用远山保服务的，视为用户已经完全理解并接受变更后的协议；若用户对变更后的协议有任何的不理解、不接受，则应当立即停止使用远山保服务。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">11.协议终止</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">11.1用户在不影响远山保及第三方利益的情况下，可以通过注销账号并停止使用远山保服务的方式终止本协议。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">11.2根据相关法律法规的规定，或者因用户严重违反本协议约定，导致远山保删除用户账号的，本协议终止。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">11.3本协议终止的，并不影响用户在协议终止之前，或者根据相关法律法规而应当承担的法律责任。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">12.除远山保主动采用其他方式通知以外，远山保对用户的通知均采用在远山保上公示的方式做出，用户有义务不时的关注该等公示。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;"><br></span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">13.争议解决</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">13.1用户使用远山保服务所导致的与远山保之间的争议均适用中华人民共和国法律。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">13.2用户与远山保之间的争议，双方应当友好协商解决，协商不成的，任何一方可向远山保运营商所在地法院起诉。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">14.协议效力</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">14.1若本协议中部分条款无效或无法继续履行的，本协议中其他条款的效力不受影响。</span></p><p class="MsoNormal" style="margin-left: 0pt; text-indent: 0pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family: Helvetica; font-size: 12.6667px;">14.2用户与第三方所订立的协议，与本协议的内容有冲突的，用户与远山保之间的权利义务关系，按本协议的约定为准。</span></p></div>		</div>
 		</div>
- <script src="<%=request.getContextPath()%>/js/jquery.min.js?v=2.1.4"></script>
-  	<script src="<%=request.getContextPath()%>/js/plugins/layer/layer.min.js"></script>
-  	<script>
-  		$("#openT").on('click',function(){
-  			layer.open({
-  			  title:'请认真阅读条款',
-			  type: 1,
-			  closeBtn: 1,
-			  anim: 3,
-			  area: ['96%', '90%'], //宽高
-			  shadeClose: true, //开启遮罩关闭
-			  content: $("#xy").html()
-			});
-  		});
-		$("#openTT").on('click',function(){
-  			layer.open({
-  			  title:'请认真阅读条款',
-			  type: 1,
-			  closeBtn: 1,
-			  anim: 3,
-			  area: ['96%', '90%'], //宽高
-			  shadeClose: true, //开启遮罩关闭
-			  content: $("#xyy").html()
-			});
-  		});
-  		$('.p-btn').on('click','span',function(){
-  			//if (!$("#check").is(':checked')){
-  				//layer.msg('请认真阅读并同意条款');
-  				//return;
-  			//}
-  			var mobile = $('#phone').val();
-			var name = $('#name').val();
-			var idcard = $('#idNo').val();
-			var pattern = /^1\d{10}$/;
-			if(!pattern.test(mobile)) {
-				layer.msg('请输入手机号码');
-				return;
-			}
-			if (name.length <2){
-				layer.msg('请正确输入姓名');
-				return false;
-			}
-			if (idcard.length <14){
-				layer.msg('请正确输入身份证号');
-				return false;
-			}
-				
-  			$.ajax({
-	          type: "POST",
-	          dataType: "json",
-	          url: '../register/saveRegister.do',
-	          data: $('#f').serialize(),
-	          success: function (res) {
-		          if(res.status == 1){
-		        	  location.replace("../login/showBank.do");
-		          }   
-	          },
-	          error: function(data) {
-		        console.log("userRegister:error");
-	            layer.msg("网络错误");
-	           }
- 
-        });
-  		})
-  		
-  		// 短信验证码倒计时的秒数
-			var countdown = 60;
-			// 触发短信验证码倒计时
-			var sendCode = $("#sendCode");
-
-			function sendMsgTime() {
-				if(countdown == 0) {
-					sendCode.attr("disabled", false);
-					sendCode.attr("send", 0);
-					sendCode.text("获取验证码");
-					
-					countdown = 60;
-					return;
-				}
-
-				sendCode.text("已发送(" + countdown + ")");
-				countdown--;
-
-				setTimeout(sendMsgTime, 1000);
-			}
-
-			function send() {
-				var mobile = $('#phone').val();
+	    <script src="<%=request.getContextPath()%>/js/jquery.min.js?v=2.1.4"></script>
+	  	<script src="<%=request.getContextPath()%>/js/plugins/layer/layer.min.js"></script>
+	  	<script src="<%=request.getContextPath()%>/js/slider/h5-slider.js"></script>
+	  	<script>
+	  		$("#openT").on('click',function(){
+	  			layer.open({
+	  			  title:'请认真阅读条款',
+				  type: 1,
+				  closeBtn: 1,
+				  anim: 3,
+				  area: ['96%', '90%'], //宽高
+				  shadeClose: true, //开启遮罩关闭
+				  content: $("#xy").html()
+				});
+	  		});
+			$("#openTT").on('click',function(){
+	  			layer.open({
+	  			  title:'请认真阅读条款',
+				  type: 1,
+				  closeBtn: 1,
+				  anim: 3,
+				  area: ['96%', '90%'], //宽高
+				  shadeClose: true, //开启遮罩关闭
+				  content: $("#xyy").html()
+				});
+	  		});
+	  		$('.p-btn').on('click','span',function(){
+	  			//if (!$("#check").is(':checked')){
+	  				//layer.msg('请认真阅读并同意条款');
+	  				//return;
+	  			//}
+	  			var mobile = $('#phone').val();
 				var name = $('#name').val();
 				var idcard = $('#idNo').val();
 				var pattern = /^1\d{10}$/;
@@ -173,49 +138,106 @@
 					layer.msg('请正确输入身份证号');
 					return false;
 				}
-				if(sendCode.attr("send") == 1){
-				return false;
-				}
-				sendCode.attr("send", 1);
-
-				sendCode.attr("disabled", true);
-				sendCode.text("正在发送...");
-				$.ajax({
-					url: '../register/getVerifyCode.do',
-					dataType: 'json',
-					method: 'post',
-					async:false,
-					data: {'telephone': mobile},
-					success: function(data) {
-						if(data.status == 1) {
-							sendMsgTime();
-							$("#name").attr('readonly','readonly');
-							$("#idNo").attr('readonly','readonly');
-							$("#phone").attr('readonly','readonly');
-							return;
-						}
+					
+	  			$.ajax({
+		          type: "POST",
+		          dataType: "json",
+		          url: '../register/saveRegister.do',
+		          data: $('#f').serialize(),
+		          success: function (res) {
+			          if(res.status == 1){
+			        	  location.replace("../login/showBank.do");
+			          }   
+		          },
+		          error: function(data) {
+			        console.log("userRegister:error");
+		            layer.msg("网络错误");
+		           }
+	 
+	        });
+	  		})
+	  		
+	  		// 短信验证码倒计时的秒数
+				var countdown = 60;
+				// 触发短信验证码倒计时
+				var sendCode = $("#sendCode");
+	
+				function sendMsgTime() {
+					if(countdown == 0) {
+						sendCode.attr("disabled", false);
+						sendCode.attr("send", 0);
+						sendCode.text("获取验证码");
 						
-						if(data.status != 1) {
-							if (datas.msg == '该手机号存在'){
-								layer.msg(data.msg);
-							} else {
-								layer.msg(data.msg);
-								sendCode.attr("onclick", 'send()');
-								$("#sendCode").text("获取验证码");
+						countdown = 60;
+						return;
+					}
+	
+					sendCode.text("已发送(" + countdown + ")");
+					countdown--;
+	
+					setTimeout(sendMsgTime, 1000);
+				}
+	
+				function send() {
+					var mobile = $('#phone').val();
+					var name = $('#name').val();
+					var idcard = $('#idNo').val();
+					var pattern = /^1\d{10}$/;
+					if(!pattern.test(mobile)) {
+						layer.msg('请输入手机号码');
+						return;
+					}
+					if (name.length <2){
+						layer.msg('请正确输入姓名');
+						return false;
+					}
+					if (idcard.length <14){
+						layer.msg('请正确输入身份证号');
+						return false;
+					}
+					if(sendCode.attr("send") == 1){
+					return false;
+					}
+					sendCode.attr("send", 1);
+	
+					sendCode.attr("disabled", true);
+					sendCode.text("正在发送...");
+					$.ajax({
+						url: '../register/getVerifyCode.do',
+						dataType: 'json',
+						method: 'post',
+						async:false,
+						data: {'telephone': mobile},
+						success: function(data) {
+							if(data.status == 1) {
+								sendMsgTime();
+								$("#name").attr('readonly','readonly');
+								$("#idNo").attr('readonly','readonly');
+								$("#phone").attr('readonly','readonly');
+								return;
 							}
 							
+							if(data.status != 1) {
+								if (datas.msg == '该手机号存在'){
+									layer.msg(data.msg);
+								} else {
+									layer.msg(data.msg);
+									sendCode.attr("onclick", 'send()');
+									$("#sendCode").text("获取验证码");
+								}
+								
+							}
+						},
+						error: function(xhr) {
+							layer.msg('网络错误');
+							sendCode.attr("disabled", false);
+							sendCode.text("获取验证码");
 						}
-					},
-					error: function(xhr) {
-						layer.msg('网络错误');
-						sendCode.attr("disabled", false);
-						sendCode.text("获取验证码");
-					}
-				});
-
-			}
-  		
-  	</script>
+					});
+	
+				}
+	  		
+	  	</script>
       <!-- <script src="https://s19.cnzz.com/z_stat.php?id=1275129819&web_id=1275129819" language="JavaScript"></script> -->
 	</body>
 </html>

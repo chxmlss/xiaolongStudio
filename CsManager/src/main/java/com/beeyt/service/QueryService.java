@@ -3,11 +3,9 @@ package com.beeyt.service;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 
 public class QueryService implements IQueryService {
 	@Autowired
@@ -89,14 +87,17 @@ public class QueryService implements IQueryService {
 		return "redirect:/business/getUsersInfo.do";
 	}
 
-	public void delUser(String username) {
+	public void delUser(String username, String path) {
 		String sql = "SELECT a.*,b.group_id FROM s_user a LEFT JOIN s_group b ON a.username = b.username WHERE a.username = '"
 				+ username + "'";
 		Map<String, Object> map = jdbcTemplate.queryForMap(sql);
 		String oldPath = (String) map.get("filepath");
-		if (oldPath != null && !"".equals(oldPath)) {
+
+		String realPath = path + oldPath;
+
+		if (realPath != null && !"".equals(realPath)) {
 			// 删除文件
-			File file = new File(oldPath);
+			File file = new File(realPath);
 			// 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
 			if (file.exists() && file.isFile()) {
 				file.delete();
@@ -125,14 +126,22 @@ public class QueryService implements IQueryService {
 			String sql1 = "insert into s_group(group_name,username,name) values('" + groupname + "','" + username
 					+ "','" + name + "')";
 			jdbcTemplate.update(sql1);
+			String sql2 = "update s_user set isgroup=1 where username='"+username+"'";
+			String sql3 = "INSERT INTO s_group_user (group_id,group_name,user_id,user_name)" + 
+					" VALUES(" + 
+					"(SELECT group_id FROM s_group WHERE group_name = '"+groupname+"' AND username = '"+username+"')," + 
+					"'"+groupname+"'," + 
+					"(SELECT id FROM s_user WHERE username = '"+username+"')," + 
+					"'"+username+"')";
+			jdbcTemplate.batchUpdate(sql2,sql3);
 		} else {
 			throw new Exception("无此用户！");
 		}
 	}
 
 	public void delGroup(String groupid) {
-		String sql = "update s_user set isgroup=0 where id in (select user_id from s_group_user where group_id='"
-				+ groupid + "')";
+		String sql = "update s_user set isgroup=0 where id in (SELECT user_id" + 
+				" FROM s_group_user WHERE group_id = '"+groupid+"')";
 		String sql1 = "delete from s_group_user where group_id='" + groupid + "'";
 		String sql2 = "delete from s_group where group_id='" + groupid + "'";
 
@@ -276,7 +285,7 @@ public class QueryService implements IQueryService {
 		String sql = "select * from s_bank where bank_icon is not null and bank_effective=1 order by bank_order";
 		return jdbcTemplate.queryForList(sql);
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> getBankInfo() {
 		String sql = "select * from s_bank order by bank_order";
@@ -285,10 +294,20 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public int saveRegister(String name, String idcard, String telephone, String userid) throws Exception {
-		String sql = "insert into s_register(register_name,register_idcard,register_telephone,user_id,createDate) values(?,?,?,?,sysdate())";
-		jdbcTemplate.update(sql, new Object[] { name, idcard, telephone, userid });
-		String sql2 = "select register_id from s_register where register_name=? and register_idcard=? and user_id=? order by createDate desc limit 1";
-		int registerId = jdbcTemplate.queryForObject(sql2, Integer.class, new Object[] { name, idcard, userid });
+		int registerId = 0;
+		String sql3 = "select * from s_register where register_name=? and register_idcard=? and user_id=?";
+		List<Map<String, Object>> registerList = jdbcTemplate.queryForList(sql3, new Object[] { name, idcard, userid });
+		if (registerList != null && registerList.size() > 0) {
+			registerId = (int) registerList.get(0).get("register_id");
+			String sql4="update s_register set createDate=sysdate() where register_id=?";
+			jdbcTemplate.update(sql4,new Object[] {registerId});
+		} else {
+			String sql = "insert into s_register(register_name,register_idcard,register_telephone,user_id,createDate) values(?,?,?,?,sysdate())";
+			jdbcTemplate.update(sql, new Object[] { name, idcard, telephone, userid });
+			String sql2 = "select register_id from s_register where register_name=? and register_idcard=? and user_id=? order by createDate desc limit 1";
+			registerId = jdbcTemplate.queryForObject(sql2, Integer.class, new Object[] { name, idcard, userid });
+		}
+
 		return registerId;
 	}
 
@@ -304,37 +323,23 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public void updateRegister(int registerId, String bank) throws Exception {
-		String sql = "insert into s_register_bank(register_id,bank_id) values (?,?)";
-		JSONArray banks=JSONObject.parseArray(bank);
-		for (int i = 0; i < banks.size(); i++) {
-			jdbcTemplate.update(sql, new Object[] { registerId, banks.get(i) });
-		}
+		String sql = "insert into s_register_bank(register_id,bank_id,register_state) values (?,?,0)";
+//		JSONArray banks=JSONObject.parseArray(bank);
+//		for (int i = 0; i < banks.size(); i++) {
+		jdbcTemplate.update(sql, new Object[] { registerId, bank });
+//		}
 	}
 
 	@Override
-	public List<Map<String, Object>> getRegisterByUser(String userid,Integer limit, Integer page) {
+	public List<Map<String, Object>> getRegisterByUser(String userid, Integer limit, Integer page) {
 		int begin = (page - 1) * limit;
-		String sql = "SELECT" 
-	            + "	t.register_id," 
-				+ "	t.register_name," 
-	            + "	t.register_idcard,"
-				+ "	t.register_telephone," 
-	            + "	date_format(t.createDate, '%Y-%m-%d %H:%I:%S') as createDate,"
+		String sql = "SELECT" + "	t.register_id," + "	t.register_name," + "	t.register_idcard,"
+				+ "	t.register_telephone," + "	date_format(t.createDate, '%Y-%m-%d %H:%I:%S') as createDate,"
 				+ "	(select count(*) from s_register_bank b where b.register_id=t.register_id) as bank_count," + "	("
-				+ "		SELECT" 
-				+ "			GROUP_CONCAT(b.bank_name)" 
-				+ "		FROM" 
-				+ "			s_register_bank a,"
-				+ "			s_bank b" 
-				+ "		WHERE" 
-				+ "			a.bank_id = b.bank_id"
-				+ "		AND a.register_id = t.register_id" 
-				+ "		GROUP BY" 
-				+ "			a.register_id"
-				+ "	) AS register_bank " 
-				+ " FROM " 
-				+ "	s_register t " 
-				+ "WHERE 1=1 ";
+				+ "		SELECT" + "			GROUP_CONCAT(b.bank_name)" + "		FROM" + "			s_register_bank a,"
+				+ "			s_bank b" + "		WHERE" + "			a.bank_id = b.bank_id"
+				+ "		AND a.register_id = t.register_id" + "		GROUP BY" + "			a.register_id"
+				+ "	) AS register_bank " + " FROM " + "	s_register t " + "WHERE 1=1 ";
 		if (userid != null && !"".equals(userid)) {
 			sql += " and user_id = " + userid + " ";
 		}
@@ -353,18 +358,12 @@ public class QueryService implements IQueryService {
 	@Override
 	public List<Map<String, Object>> getGroupUserRegister(Integer limit, Integer page) {
 		int begin = (page - 1) * limit;
-		String sql=""
-				+ "SELECT"
-				+ "	a.group_name,"
-				+ "  (select name from s_group where group_id=a.group_id) as group_leader,"
-				+ "	t.id AS user_id,"
+		String sql = "" + "SELECT" + "	a.group_name,"
+				+ "  (select name from s_group where group_id=a.group_id) as group_leader," + "	t.id AS user_id,"
 				+ "	t.name as user_name,"
 				+ "  (select count(*) from s_register t1 where t1.user_id=t.id) as register_count,"
 				+ "  (select count(*) from s_register_bank t2,s_register t3 where t2.register_id=t3.register_id and t3.user_id=t.id) as bank_count"
-				+ " FROM "
-				+ "	s_user t "
-				+ " LEFT JOIN s_group_user a ON t.id = a.user_id"
-				+ " where t.isgroup=1 "
+				+ " FROM " + "	s_user t " + " LEFT JOIN s_group_user a ON t.id = a.user_id" + " where t.isgroup=1 "
 				+ " order by register_count desc";
 		sql += " limit " + begin + "," + limit + "";
 		return jdbcTemplate.queryForList(sql);
@@ -372,7 +371,7 @@ public class QueryService implements IQueryService {
 
 	@Override
 	public Integer getGroupUserRegisterSum() {
-		String sql="SELECT COUNT(*) FROM s_user t WHERE t.isgroup = 1";
+		String sql = "SELECT COUNT(*) FROM s_user t WHERE t.isgroup = 1";
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 
@@ -388,30 +387,54 @@ public class QueryService implements IQueryService {
 	@Override
 	public void updateBankInfo(String bank_id, String bank_describe, String bank_effective) throws Exception {
 		String sql = "";
-		if(!"".equals(bank_describe)){
+		if (!"".equals(bank_describe)) {
 			sql += "update s_bank set bank_describe=? where bank_id=?";
 			jdbcTemplate.update(sql, new Object[] { bank_describe, bank_id });
-		}else if(!"".equals(bank_effective)) {
+		} else if (!"".equals(bank_effective)) {
 			sql += "update s_bank set bank_effective=? where bank_id=?";
-			jdbcTemplate.update(sql, new Object[] {bank_effective, bank_id });
+			jdbcTemplate.update(sql, new Object[] { bank_effective, bank_id });
 		}
-		
+
 	}
 
 	@Override
 	public List<Map<String, Object>> getLineChartsAll() {
 		String sql = "";
-		sql = "SELECT" + 
-				"	date_format(createDate, '%m月%d日') as date," + 
-				"	count(*) as num" + 
-				" FROM" + 
-				"	`s_register`\r\n" + 
-				" WHERE" + 
-				"	date_sub(curdate(), INTERVAL 7 DAY) <= date(`createDate`)" + 
-				" GROUP BY" + 
-				"	date_format(createDate, '%m月%d日')" + 
-				" ORDER BY" + 
-				"	createDate";
+		sql = "SELECT" + "	date_format(createDate, '%m月%d日') as date," + "	count(*) as num" + " FROM"
+				+ "	`s_register`\r\n" + " WHERE" + "	date_sub(curdate(), INTERVAL 7 DAY) <= date(`createDate`)"
+				+ " GROUP BY" + "	date_format(createDate, '%m月%d日')" + " ORDER BY" + "	createDate";
 		return jdbcTemplate.queryForList(sql);
+	}
+
+	@Override
+	public void updateBankURL(String bank_id, String bank_url) throws Exception {
+		String sql = "update s_bank set bank_url=? where bank_id=?";
+		jdbcTemplate.update(sql, new Object[] { bank_url, bank_id });
+	}
+
+	@Override
+	public String inBankC(String bank_id, String bank_ab, String user_id) throws Exception {
+		int registerId = 0;
+		String sql1 = "select * from s_register where register_name=? and register_idcard='-' and user_id=?";
+		List<Map<String, Object>> registerList = jdbcTemplate.queryForList(sql1, new Object[] { bank_ab, user_id });
+		if (registerList != null && registerList.size() > 0) {
+			registerId = (int) registerList.get(0).get("register_id");
+		} else {
+			String sql2 = "insert into s_register(register_name,register_idcard,register_telephone,user_id,createDate) values(?,'-','-',?,sysdate())";
+			jdbcTemplate.update(sql2, new Object[] { bank_ab, user_id });
+			String sql0 = "select register_id from s_register where register_name=? and register_idcard='-' and user_id=?";
+			registerId = jdbcTemplate.queryForObject(sql0, Integer.class, new Object[] { bank_ab, user_id });
+		}
+		String sql3 = "insert into s_register_bank(register_id,bank_id,register_state) values (?,?,0)";
+		jdbcTemplate.update(sql3, new Object[] { registerId, bank_id });
+		String sql4 = "select bank_url from s_bank where bank_id=? and bank_ab=?";
+
+		return jdbcTemplate.queryForObject(sql4, String.class, new Object[] { bank_id, bank_ab });
+	}
+
+	@Override
+	public void updateBankOrder(String bank_id, String bank_order) throws Exception {
+		String sql = "update s_bank set bank_order=? where bank_id=?";
+		jdbcTemplate.update(sql, new Object[] { bank_order, bank_id });
 	}
 }

@@ -37,7 +37,7 @@ public class BusinessAction {
 		String userid=session.getAttribute("userid").toString();
 		//request.setAttribute("url", "http://iusm.jinmuou.com:8080/CsManager/login/userRegiser.do?userid="+userid);
 		Map resMap=new HashMap();
-		resMap.put("url", "http:// iusm.jinmuou.com:8080/CsManager/login/userRegister.do?userid="+userid);
+		resMap.put("url", "http://iusm.jinmuou.com:8080/CsManager/login/userRegister.do?userid="+userid);
 		String json = gson.toJson(resMap);
 		return json;
 	}
@@ -160,8 +160,12 @@ public class BusinessAction {
 	 */
 	@RequestMapping(value = "/delUser", produces = "text/html;charset=UTF-8")
 	public String delUser(@RequestParam(value = "username", required = false) String username) {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
+		String path = request.getServletContext().getRealPath("/");
+		path = path.replaceAll("\\\\", "/");
 		try {
-			queryService.delUser(username);
+			queryService.delUser(username,path);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "failed";
