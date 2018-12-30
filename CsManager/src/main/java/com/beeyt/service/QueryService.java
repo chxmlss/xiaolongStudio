@@ -334,7 +334,7 @@ public class QueryService implements IQueryService {
 	public List<Map<String, Object>> getRegisterByUser(String userid, Integer limit, Integer page) {
 		int begin = (page - 1) * limit;
 		String sql = "SELECT" + "	t.register_id," + "	t.register_name," + "	t.register_idcard,"
-				+ "	t.register_telephone," + "	date_format(t.createDate, '%Y-%m-%d %H:%I:%S') as createDate,"
+				+ "	t.register_telephone," + "	date_format(t.createDate, '%Y-%m-%d %H:%i:%s') as createDate,"
 				+ "	(select count(*) from s_register_bank b where b.register_id=t.register_id) as bank_count," + "	("
 				+ "		SELECT" + "			GROUP_CONCAT(b.bank_name)" + "		FROM" + "			s_register_bank a,"
 				+ "			s_bank b" + "		WHERE" + "			a.bank_id = b.bank_id"
