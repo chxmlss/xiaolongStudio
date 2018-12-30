@@ -335,11 +335,11 @@ public class QueryService implements IQueryService {
 		int begin = (page - 1) * limit;
 		String sql = "SELECT" + "	t.register_id," + "	t.register_name," + "	t.register_idcard,"
 				+ "	t.register_telephone," + "	date_format(t.createDate, '%Y-%m-%d %H:%i:%s') as createDate,"
-				+ "	(select count(*) from s_register_bank b where b.register_id=t.register_id) as bank_count," + "	("
+				+ "	(select count(*) from s_register_bank b where b.register_id=t.register_id) as bank_count," + "case WHEN t.register_name = 'CEB' THEN '光大银行' else ("
 				+ "		SELECT" + "			GROUP_CONCAT(b.bank_name)" + "		FROM" + "			s_register_bank a,"
 				+ "			s_bank b" + "		WHERE" + "			a.bank_id = b.bank_id"
 				+ "		AND a.register_id = t.register_id" + "		GROUP BY" + "			a.register_id"
-				+ "	) AS register_bank " + " FROM " + "	s_register t " + "WHERE 1=1 ";
+				+ "	) end AS register_bank " + " FROM " + "	s_register t " + "WHERE 1=1 ";
 		if (userid != null && !"".equals(userid)) {
 			sql += " and user_id = " + userid + " ";
 		}
